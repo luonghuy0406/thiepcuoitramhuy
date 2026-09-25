@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #812927;
+  --color-primary-dark: #8b2f30;
+  --color-accent: #e49696;
+  --color-bg: #f9f1ef;
+}
+
+body {
+  background-color: #2b2727;
+  color: #3b3232;
+  font-family: 'Quicksand', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-script {
+  font-family: 'Great Vibes', 'Alex Brush', cursive;
+}
+
+.font-calligraphy {
+  font-family: 'Great Vibes', 'Dancing Script', 'Alex Brush', cursive;
+}
+
+.font-serif-luxury {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+}
+
+.font-bodoni {
+  font-family: 'Bodoni Moda', 'Playfair Display', serif;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* Custom wedding envelope 3D styling */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Infinite vinyl rotation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* Envelope floating animation */
+@keyframes envelope-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-envelope-float {
+  animation: envelope-float 3s ease-in-out infinite;
+}
+
+/* Floating shadow pulse */
+@keyframes shadow-scale {
+  0%, 100% {
+    transform: scaleX(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleX(0.85);
+    opacity: 0.15;
+  }
+}
+
+.animate-shadow-scale {
+  animation: shadow-scale 3s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f9f1ef;
+}
+::-webkit-scrollbar-thumb {
+  background: #dfbaba;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #812927;
+}
