@@ -114,9 +114,9 @@ export const weddingData: WeddingData = {
     qrCode: "/assets/87716a41-53d0-42e1-a0ba-8469b4dac41b.png",
   },
   event: {
-    title: "Tiệc Mừng Lễ Thành Hôn",
+    title: "Tiệc Mừng Lễ Vu Quy",
     subtitle: "WEDDING INVITATION",
-    ceremonyType: "LỄ THÀNH HÔN",
+    ceremonyType: "LỄ VU QUY",
     dateISO: "2026-12-15T10:30:00+07:00",
     dateDisplay: "15 Tháng 12 Năm 2026",
     dayOfWeek: "Thứ Năm",
@@ -159,7 +159,7 @@ export const weddingData: WeddingData = {
   gallery: [
     {
       src: "/assets/9881034c-0645-4b24-9855-f600d9426515.jpg",
-      alt: "Khoảnh khắc hạnh phúc của Lương Huy & Ngọc Trâm",
+      alt: "Khoảnh khắc hạnh phúc của Ngọc Trâm & Lương Huy",
     },
     {
       src: "/assets/1d098419-b484-480d-b04b-7474a34aebf0.png",
@@ -320,7 +320,7 @@ export const weddingData: WeddingData = {
     subtitle: "THANK YOU FOR BEING WITH US",
     message:
       "Tình yêu không chỉ là tìm thấy một người để cùng đi qua năm tháng, mà là cùng nhau sẻ chia niềm hạnh phúc với những người thân thương nhất. Cảm ơn sự hiện diện và những lời chúc phúc ngọt ngào của bạn đã làm cho ngày cưới của chúng mình trở nên trọn vẹn và đáng nhớ hơn bao giờ hết!",
-    groomSignature: "Lương Huy",
     brideSignature: "Ngọc Trâm",
+    groomSignature: "Lương Huy",
   },
 };

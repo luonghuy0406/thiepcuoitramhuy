@@ -89,7 +89,7 @@ export default function LoveStorySection() {
           Our Love Story
         </h3>
         <p className="text-xs text-[#777] font-light max-w-xs mx-auto">
-          Từng dấu mốc đưa Lương Huy và Ngọc Trâm đến bến bờ hạnh phúc
+          Từng dấu mốc đưa Ngọc Trâm và Lương Huy đến bến bờ hạnh phúc
         </p>
 
         {/* Decorative divider */}

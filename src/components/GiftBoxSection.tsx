@@ -197,7 +197,7 @@ export default function GiftBoxSection() {
           <div className="w-12 h-[1px] bg-[#dfbaba] my-4" />
 
           <p className="text-[10px] tracking-widest uppercase text-[#999]">
-            Nguyễn Lương Huy ❤️ Bùi Huỳnh Ngọc Trâm • 2026
+            Bùi Huỳnh Ngọc Trâm ❤️ Nguyễn Lương Huy • 2026
           </p>
         </div>
       </div>

@@ -86,7 +86,7 @@ export default function HeroSection() {
           {weddingData.event.subtitle}
         </p>
         <h3 className="text-base text-[#666] font-medium font-serif-luxury tracking-wider">
-          Thiệp mời cưới
+          Lễ Vu Quy
         </h3>
       </div>
 
@@ -94,11 +94,11 @@ export default function HeroSection() {
       <div ref={namesRef} className="my-4">
         <div className="flex flex-col items-center">
           <h1 className="text-4xl sm:text-5xl font-script text-[#812927] tracking-wide py-1 drop-shadow-sm">
-            {weddingData.groom.shortName}
+            {weddingData.bride.shortName}
           </h1>
           <span className="text-2xl font-serif text-[#a33f3d] my-[-6px]">&amp;</span>
           <h1 className="text-4xl sm:text-5xl font-script text-[#812927] tracking-wide py-1 drop-shadow-sm">
-            {weddingData.bride.shortName}
+            {weddingData.groom.shortName}
           </h1>
         </div>
 
@@ -120,7 +120,7 @@ export default function HeroSection() {
         <div ref={photoImageRef} className="relative w-full h-[115%] -top-[7%]">
           <Image
             src="/assets/f9a1916a-869c-4bc2-b2c1-f01b95c3729a.png"
-            alt="Lương Huy & Ngọc Trâm"
+            alt="Ngọc Trâm & Lương Huy"
             fill
             priority
             className="object-cover"

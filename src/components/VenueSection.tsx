@@ -37,9 +37,9 @@ export default function VenueSection() {
   )}`;
 
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-    `Lễ Thành Hôn: ${weddingData.groom.shortName} & ${weddingData.bride.shortName}`
+    `Lễ Vu Quy: ${weddingData.bride.shortName} & ${weddingData.groom.shortName}`
   )}&dates=20261215T033000Z/20261215T060000Z&details=${encodeURIComponent(
-    `Trân trọng kính mời quý khách tham dự Tiệc mừng Lễ Thành Hôn tại ${weddingData.event.venueName}`
+    `Trân trọng kính mời quý khách tham dự Tiệc mừng Lễ Vu Quy tại ${weddingData.event.venueName}`
   )}&location=${encodeURIComponent(weddingData.event.venueAddress)}`;
 
   return (

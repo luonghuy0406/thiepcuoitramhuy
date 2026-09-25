@@ -58,9 +58,9 @@ export default function InvitationSection() {
   )}`;
 
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-    `Lễ Thành Hôn: ${weddingData.groom.shortName} & ${weddingData.bride.shortName}`
+    `Lễ Vu Quy: ${weddingData.bride.shortName} & ${weddingData.groom.shortName}`
   )}&dates=20261215T033000Z/20261215T060000Z&details=${encodeURIComponent(
-    `Trân trọng kính mời quý khách tham dự Tiệc mừng Lễ Thành Hôn tại ${weddingData.event.venueName}`
+    `Trân trọng kính mời quý khách tham dự Tiệc mừng Lễ Vu Quy tại ${weddingData.event.venueName}`
   )}&location=${encodeURIComponent(weddingData.event.venueAddress)}`;
 
   return (
@@ -84,7 +84,7 @@ export default function InvitationSection() {
             <span className="h-[1px] w-8 sm:w-14 bg-gradient-to-l from-transparent via-[#812927]/40 to-[#812927]" />
           </div>
           <p className="text-[10px] sm:text-[11px] font-cormorant tracking-[0.2em] text-[#777] uppercase">
-            Thiệp Mời Cưới
+            Lễ Vu Quy
           </p>
         </div>
 
@@ -102,7 +102,7 @@ export default function InvitationSection() {
             Trân Trọng Kính Mời
           </span>
           <span className="font-script text-2xl sm:text-3xl text-[#812927] leading-none pt-1">
-            Huy &amp; Trâm
+            Trâm &amp; Huy
           </span>
         </div>
       </div>
@@ -115,9 +115,9 @@ export default function InvitationSection() {
         {/* Delicate inner hairline frame */}
         <div className="absolute inset-2 sm:inset-3 border border-[#dfbaba]/45 rounded-2xl pointer-events-none" />
 
-        {/* TOP HEADER: Vertical "Lễ Thành Hôn" on left & Diagonally Staggered Names on right */}
+        {/* TOP HEADER: Vertical "Lễ Vu Quy" on left & Diagonally Staggered Names on right */}
         <div className="relative z-10 flex items-start justify-between mb-2">
-          {/* Left Column: Vertical Burgundy Line + Stacked Calligraphy "Lễ Thành Hôn" */}
+          {/* Left Column: Vertical Burgundy Line + Stacked Calligraphy "Lễ Vu Quy" */}
           <div className="flex flex-col items-center select-none pt-1">
             <div className="w-[2px] h-8 sm:h-9 bg-[#8b2f30] mb-2 rounded-full shadow-xs" />
             <div className="flex flex-col items-center space-y-1">
@@ -125,19 +125,19 @@ export default function InvitationSection() {
                 Lễ
               </span>
               <span className="font-calligraphy text-2xl sm:text-3xl font-bold text-[#2b2727] leading-tight">
-                Thành
+                Vu
               </span>
               <span className="font-calligraphy text-2xl sm:text-3xl font-bold text-[#2b2727] leading-tight">
-                Hôn
+                Quy
               </span>
             </div>
           </div>
 
           {/* Right Area: Diagonally Staggered Cursive Names */}
           <div className="flex-1 flex flex-col justify-between pl-3 sm:pl-5 text-right">
-            {/* Groom Name (Top right) */}
+            {/* Bride Name (Top right) */}
             <h2 className="font-calligraphy text-3xl sm:text-4xl text-[#8b2f30] font-bold tracking-wide drop-shadow-xs">
-              {weddingData.groom.fullName}
+              {weddingData.bride.fullName}
             </h2>
 
             {/* Ampersand in Cursive Script (Centered relative to names) */}
@@ -145,34 +145,18 @@ export default function InvitationSection() {
               &amp;
             </div>
 
-            {/* Bride Name (Bottom right) */}
+            {/* Groom Name (Bottom right) */}
             <h2 className="font-calligraphy text-3xl sm:text-4xl text-[#8b2f30] font-bold tracking-wide drop-shadow-xs">
-              {weddingData.bride.fullName}
+              {weddingData.groom.fullName}
             </h2>
           </div>
         </div>
 
-        {/* MID ACCENT: Vertical stroke above Nhà Trai */}
+        {/* MID ACCENT: Vertical stroke above Nhà Gái */}
         <div className="relative z-10 w-[2px] h-9 sm:h-10 bg-[#8b2f30] ml-3 sm:ml-4 my-4 sm:my-5 rounded-full shadow-xs" />
 
-        {/* FAMILY INFORMATION: Two-column layout (Nhà Trai & Nhà Gái) */}
+        {/* FAMILY INFORMATION: Two-column layout (Nhà Gái & Nhà Trai) */}
         <div className="relative z-10 grid grid-cols-2 gap-4 sm:gap-6 text-center mb-6">
-          {/* Nhà Trai */}
-          <div className="space-y-1">
-            <h4 className="font-serif-luxury font-bold text-lg sm:text-xl text-[#2b2727] mb-2 tracking-wide">
-              Nhà Trai
-            </h4>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#3b3232] leading-snug">
-              {weddingData.groom.fatherName}
-            </p>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#3b3232] leading-snug">
-              {weddingData.groom.motherName}
-            </p>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#666] pt-1 tracking-wide">
-              TP. {weddingData.groom.location}
-            </p>
-          </div>
-
           {/* Nhà Gái */}
           <div className="space-y-1">
             <h4 className="font-serif-luxury font-bold text-lg sm:text-xl text-[#2b2727] mb-2 tracking-wide">
@@ -186,6 +170,22 @@ export default function InvitationSection() {
             </p>
             <p className="font-sans font-medium text-xs sm:text-sm text-[#666] pt-1 tracking-wide">
               TP. {weddingData.bride.location}
+            </p>
+          </div>
+
+          {/* Nhà Trai */}
+          <div className="space-y-1">
+            <h4 className="font-serif-luxury font-bold text-lg sm:text-xl text-[#2b2727] mb-2 tracking-wide">
+              Nhà Trai
+            </h4>
+            <p className="font-sans font-medium text-xs sm:text-sm text-[#3b3232] leading-snug">
+              {weddingData.groom.fatherName}
+            </p>
+            <p className="font-sans font-medium text-xs sm:text-sm text-[#3b3232] leading-snug">
+              {weddingData.groom.motherName}
+            </p>
+            <p className="font-sans font-medium text-xs sm:text-sm text-[#666] pt-1 tracking-wide">
+              TP. {weddingData.groom.location}
             </p>
           </div>
         </div>

@@ -194,19 +194,19 @@ export default function EnvelopeModal({ onStart, onOpened }: EnvelopeModalProps)
         <div className="flex items-center justify-center gap-3 mb-1.5">
           <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent via-[#f3cb7c] to-[#e4ad57]" />
           <p className="text-xs uppercase tracking-[0.35em] font-cinzel font-semibold text-[#f5d082] drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
-            Wedding Invitation
+            Lễ Vu Quy
           </p>
           <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent via-[#f3cb7c] to-[#e4ad57]" />
         </div>
         <h2 className="text-2xl sm:text-3xl font-serif-luxury font-medium tracking-wide text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.95)] mt-1 flex items-center justify-center gap-2">
           <span className="bg-gradient-to-r from-[#ffffff] via-[#fff3db] to-[#fde5bd] bg-clip-text text-transparent">
-            Lương Huy
+            Ngọc Trâm
           </span>
           <span className="text-[#f5d082] font-script text-2xl sm:text-3xl font-normal drop-shadow">
             &amp;
           </span>
           <span className="bg-gradient-to-r from-[#fde5bd] via-[#fff3db] to-[#ffffff] bg-clip-text text-transparent">
-            Ngọc Trâm
+            Lương Huy
           </span>
         </h2>
         <div className="flex items-center justify-center gap-2 mt-1.5 opacity-90">
@@ -257,7 +257,7 @@ export default function EnvelopeModal({ onStart, onOpened }: EnvelopeModalProps)
             >
               <Image
                 src="/assets/wax_seal.png"
-                alt="Wax Seal H & T"
+                alt="Wax Seal T & H"
                 fill
                 sizes="(max-width: 640px) 76px, 88px"
                 className="object-contain select-none pointer-events-none drop-shadow-md"
@@ -276,7 +276,7 @@ export default function EnvelopeModal({ onStart, onOpened }: EnvelopeModalProps)
             <div className="relative w-full h-[148px] sm:h-[165px] rounded-xl overflow-hidden shadow-inner bg-[#f5e6e6]">
               <Image
                 src="/assets/c4d45265-947c-414c-b53f-f291586faeea.jpg"
-                alt="Lương Huy & Ngọc Trâm"
+                alt="Ngọc Trâm & Lương Huy"
                 fill
                 sizes="(max-width: 640px) 340px, 380px"
                 className="object-cover object-center"
@@ -305,7 +305,7 @@ export default function EnvelopeModal({ onStart, onOpened }: EnvelopeModalProps)
                 <span className="h-[1px] w-6 bg-[#dfbaba]" />
               </div>
               <h3 className="text-xl sm:text-2xl font-script text-[#812927] mt-0.5 leading-tight">
-                Lương Huy &amp; Ngọc Trâm
+                Ngọc Trâm &amp; Lương Huy
               </h3>
             </div>
           </div>

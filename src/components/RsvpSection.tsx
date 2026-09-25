@@ -131,7 +131,7 @@ export default function RsvpSection() {
                 Cảm Ơn Bạn Rất Nhiều!
               </h4>
               <p className="text-xs text-[#555] leading-relaxed">
-                Lời xác nhận và lời chúc của bạn đã được gửi tới Lương Huy & Ngọc Trâm.
+                Lời xác nhận và lời chúc của bạn đã được gửi tới Ngọc Trâm & Lương Huy.
               </p>
               <button
                 type="button"

@@ -197,10 +197,10 @@ export default function ProgramSection() {
           <div className="pt-4 border-t border-dashed border-[#dfbaba]/60 flex items-center justify-center gap-6">
             <div className="text-center">
               <span className="text-[10px] uppercase tracking-wider text-[#888] block font-sans">
-                Chú rể
+                Cô dâu
               </span>
               <p className="text-2xl font-script text-[#812927]">
-                {weddingData.thankYou.groomSignature}
+                {weddingData.thankYou.brideSignature}
               </p>
             </div>
 
@@ -208,10 +208,10 @@ export default function ProgramSection() {
 
             <div className="text-center">
               <span className="text-[10px] uppercase tracking-wider text-[#888] block font-sans">
-                Cô dâu
+                Chú rể
               </span>
               <p className="text-2xl font-script text-[#812927]">
-                {weddingData.thankYou.brideSignature}
+                {weddingData.thankYou.groomSignature}
               </p>
             </div>
           </div>

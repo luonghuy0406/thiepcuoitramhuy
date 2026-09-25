@@ -317,7 +317,7 @@ export default function GallerySection() {
 
           <div className="absolute bottom-4 inset-x-4 flex items-center justify-between text-white pointer-events-none">
             <span className="text-[11px] font-serif-luxury tracking-widest uppercase text-white/95 drop-shadow">
-              Lương Huy &amp; Ngọc Trâm
+              Ngọc Trâm &amp; Lương Huy
             </span>
             <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
               <ZoomIn className="w-4 h-4" />
