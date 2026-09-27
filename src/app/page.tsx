@@ -14,7 +14,6 @@ import GallerySection from "@/components/GallerySection";
 import RsvpSection from "@/components/RsvpSection";
 import GiftBoxSection from "@/components/GiftBoxSection";
 import FloatingToolbar from "@/components/FloatingToolbar";
-import { Film } from "lucide-react";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
@@ -211,11 +210,10 @@ export default function Home() {
       {isAutoScrolling && (
         <div
           onClick={stopAutoScroll}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 bg-black/80 hover:bg-black/95 backdrop-blur-md text-white/95 px-4 py-2 rounded-full border border-white/25 shadow-2xl flex items-center gap-2 text-xs font-serif-luxury cursor-pointer transition-all duration-300 hover:scale-105"
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 bg-[#2b2727]/90 hover:bg-[#2b2727] backdrop-blur-md text-white/90 px-5 py-2 rounded-full border border-[#dfbaba]/40 shadow-2xl flex items-center gap-2.5 text-xs font-serif-luxury cursor-pointer transition-all duration-300 hover:scale-105"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <Film className="w-3.5 h-3.5 text-yellow-200" />
-          <span>Đang tự động cuộn thiệp • Chạm để dừng</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#dfbaba]" />
+          <span className="tracking-wide">Đang cuộn tự động • Chạm để dừng</span>
         </div>
       )}
 

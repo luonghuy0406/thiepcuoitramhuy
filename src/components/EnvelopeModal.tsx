@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
-import { Heart, Sparkles } from "lucide-react";
+import { Heart } from "lucide-react";
 
 interface EnvelopeModalProps {
   onStart?: () => void;
@@ -386,24 +386,23 @@ export default function EnvelopeModal({ onStart, onOpened }: EnvelopeModalProps)
         <div
           ref={textHintRef}
           onClick={handleOpen}
-          className="mt-8 flex flex-col items-center cursor-pointer animate-bounce"
+          className="mt-8 flex flex-col items-center cursor-pointer"
         >
-          <span className="text-sm font-medium tracking-wider text-white bg-[#812927]/85 hover:bg-[#812927] px-6 py-2.5 rounded-full border border-white/20 shadow-xl transition-all flex items-center gap-2">
-            <span>✉️</span> Chạm để mở thiệp
+          <span className="text-xs uppercase tracking-[0.25em] font-cinzel font-medium text-white/95 bg-[#812927]/90 hover:bg-[#812927] px-7 py-3 rounded-full border border-white/25 shadow-xl transition-all hover:scale-105 active:scale-95">
+            Chạm để mở thiệp
           </span>
         </div>
       )}
 
-      {/* Showcase Indicator During the 3-5s Image Display */}
+      {/* Showcase Indicator During the Image Display */}
       {isOpen && (
         <div
           ref={showcaseHintRef}
           onClick={handleShowcaseTap}
-          className="mt-8 flex flex-col items-center cursor-pointer transition-opacity duration-500 animate-pulse"
+          className="mt-8 flex flex-col items-center cursor-pointer transition-opacity duration-500"
         >
-          <span className="text-xs font-serif-luxury tracking-widest text-yellow-100/90 bg-black/40 backdrop-blur-sm px-4 py-1.5 rounded-full border border-yellow-200/30 flex items-center gap-1.5 shadow-lg">
-            <Sparkles className="w-3.5 h-3.5 text-yellow-200 animate-spin-slow" />
-            <span>Đang mở thiệp cưới... Chạm để xem ngay</span>
+          <span className="text-[11px] font-serif-luxury tracking-widest text-white/80 bg-black/40 backdrop-blur-sm px-5 py-2 rounded-full border border-white/20 shadow-lg">
+            Chạm bất kỳ đâu để vào thiệp
           </span>
         </div>
       )}

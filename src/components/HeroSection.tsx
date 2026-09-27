@@ -70,69 +70,61 @@ export default function HeroSection() {
       id="hero-section"
       className="relative pt-10 pb-0 px-4 flex flex-col items-center text-center overflow-visible z-10"
     >
-      {/* Decorative top happiness graphic with gentle rotation and frosted glass disk */}
+      {/* Traditional Song Hỷ Emblem */}
       <div className="relative mb-3 flex items-center justify-center">
-        {/* Soft ambient glow */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#dfbaba]/50 via-[#f8edea]/60 to-[#e49696]/40 rounded-full blur-md -z-10" />
-        <div className="relative w-15 h-15 rounded-full bg-white/80 backdrop-blur-md border border-white/95 shadow-[0_4px_16px_rgba(129,41,39,0.08),inset_0_1px_1px_rgba(255,255,255,0.9)] flex items-center justify-center p-3 transition-transform duration-500 hover:rotate-6 hover:scale-105 cursor-pointer">
+        <div className="w-13 h-13 relative transition-transform duration-500 hover:scale-105 cursor-pointer">
           <Image
             src="/assets/1egmxjgt9lqs1ro04evek.png"
             alt="Song Hỷ"
-            width={40}
-            height={40}
-            className="object-contain drop-shadow-2xs"
+            width={48}
+            height={48}
+            className="object-contain"
+            priority
           />
         </div>
       </div>
 
       {/* Header title */}
-      <div ref={titleRef} className="space-y-1.5 flex flex-col items-center">
-        <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/70 backdrop-blur-md border border-white/90 shadow-2xs">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#812927]/70 animate-pulse" />
-          <span className="text-[10px] tracking-[0.3em] uppercase text-[#812927] font-semibold font-cinzel">
-            {weddingData.event.subtitle}
-          </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#812927]/70 animate-pulse" />
-        </span>
-        <h3 className="text-base sm:text-lg text-[#554b4b] font-medium font-serif-luxury tracking-widest uppercase">
+      <div ref={titleRef} className="space-y-1 flex flex-col items-center">
+        <p className="text-[11px] tracking-[0.35em] uppercase text-[#812927]/90 font-cinzel font-semibold">
+          {weddingData.event.subtitle}
+        </p>
+        <h2 className="text-xs sm:text-sm text-[#777] font-serif-luxury tracking-[0.25em] uppercase font-medium">
           Lễ Vu Quy
-        </h3>
+        </h2>
       </div>
 
       {/* Couple Names & Date */}
-      <div ref={namesRef} className="my-3.5">
+      <div ref={namesRef} className="my-3">
         <div className="flex flex-col items-center">
-          <h1 className="text-4xl sm:text-5xl font-script bg-gradient-to-r from-[#812927] via-[#a33f3d] to-[#812927] bg-clip-text text-transparent tracking-wide py-1 drop-shadow-2xs select-none">
+          <h1 className="text-5xl sm:text-6xl font-script text-[#812927] tracking-wide py-1 drop-shadow-xs select-none">
             {weddingData.bride.shortName}
           </h1>
           <div className="flex items-center justify-center gap-3 my-[-6px]">
-            <div className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent via-[#dfbaba] to-[#812927]/50" />
+            <span className="h-[1px] w-10 sm:w-14 bg-[#dfbaba]" />
             <span className="text-2xl font-serif text-[#a33f3d] select-none font-light">&amp;</span>
-            <div className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent via-[#dfbaba] to-[#812927]/50" />
+            <span className="h-[1px] w-10 sm:w-14 bg-[#dfbaba]" />
           </div>
-          <h1 className="text-4xl sm:text-5xl font-script bg-gradient-to-r from-[#812927] via-[#a33f3d] to-[#812927] bg-clip-text text-transparent tracking-wide py-1 drop-shadow-2xs select-none">
+          <h1 className="text-5xl sm:text-6xl font-script text-[#812927] tracking-wide py-1 drop-shadow-xs select-none">
             {weddingData.groom.shortName}
           </h1>
         </div>
 
-        {/* Date Display Pill (Frosted Glass Pill) */}
-        <div className="flex items-center justify-center mt-3">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/95 shadow-[0_2px_10px_rgba(129,41,39,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)]">
-            <span className="text-[11px] sm:text-xs font-serif-luxury tracking-[0.25em] text-[#812927] uppercase font-bold">
-              {weddingData.event.dateDisplay}
-            </span>
-          </div>
+        {/* Date Display */}
+        <div className="flex items-center justify-center gap-3 mt-3">
+          <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#812927]/35" />
+          <span className="text-xs font-serif-luxury tracking-[0.25em] text-[#812927] uppercase font-semibold">
+            {weddingData.event.dateDisplay}
+          </span>
+          <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#812927]/35" />
         </div>
       </div>
 
       {/* Hero Wedding Portrait with Parallax - 100% Unobstructed & Clean */}
       <div className="relative w-full max-w-[420px] mx-auto mt-2">
-        {/* Ambient Backlight Glow under portrait */}
-        <div className="absolute -inset-1.5 rounded-t-[144px] rounded-b-[2.2rem] bg-gradient-to-b from-[#dfbaba]/50 via-white/40 to-[#e49696]/30 blur-lg -z-10" />
-
         <div
           ref={photoContainerRef}
-          className="relative w-full aspect-[4/5] rounded-t-[140px] rounded-b-[2rem] overflow-hidden shadow-[0_25px_60px_-12px_rgba(129,41,39,0.2)] border-4 border-white/95 bg-white"
+          className="relative w-full aspect-[4/5] rounded-t-[140px] rounded-b-3xl overflow-hidden shadow-2xl border-4 border-white bg-white"
         >
           <div ref={photoImageRef} className="relative w-full h-[115%] -top-[7%]">
             <Image
@@ -144,8 +136,8 @@ export default function HeroSection() {
             />
           </div>
 
-          {/* Ultra-subtle bottom vignette gradient to blend seamlessly into liquid glass overlap */}
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+          {/* Gentle bottom shade to ground the photo */}
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none" />
         </div>
       </div>
     </section>

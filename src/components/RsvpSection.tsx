@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import confetti from "canvas-confetti";
-import { Send, CheckCircle2, Heart, MessageSquare } from "lucide-react";
+import { Send, CheckCircle2 } from "lucide-react";
 
 interface Wish {
   name: string;
@@ -19,22 +19,22 @@ export default function RsvpSection() {
 
   const [name, setName] = useState("");
   const [attending, setAttending] = useState("yes");
-  const [guestSide, setGuestSide] = useState("both");
+  const [guestSide, setGuestSide] = useState("bride");
   const [guestCount, setGuestCount] = useState("1");
   const [message, setMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [wishesList, setWishesList] = useState<Wish[]>([
     {
-      name: "Trần Minh Quân",
-      side: "Bạn Chú Rể",
-      wishes: "Chúc hai bạn trăm năm hạnh phúc, sớm đón thiên thần nhỏ nhé!",
-      date: "Vừa xong",
-    },
-    {
       name: "Hoàng Thu Thảo",
       side: "Bạn Cô Dâu",
       wishes: "Ngọc Trâm ơi xinh đẹp tuyệt vời, chúc hai bạn một đời an yên bên nhau!",
+      date: "Vừa xong",
+    },
+    {
+      name: "Trần Minh Quân",
+      side: "Bạn Chú Rể",
+      wishes: "Chúc hai bạn trăm năm hạnh phúc, sớm đón thiên thần nhỏ nhé!",
       date: "10 phút trước",
     },
   ]);
@@ -108,13 +108,17 @@ export default function RsvpSection() {
   return (
     <section ref={sectionRef} id="rsvp-section" className="py-12 px-4 text-center">
       <div className="max-w-[440px] mx-auto">
-        <span className="text-[11px] uppercase tracking-[0.25em] text-[#812927] font-bold">
-          Xác Nhận Tham Dự & Lời Chúc
-        </span>
-        <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#812927] mt-1 mb-2">
-          Gửi Lời Chúc Mừng
+        <div className="flex items-center justify-center gap-2 mb-1.5">
+          <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-[#812927]/90 font-cinzel font-semibold">
+            RSVP
+          </span>
+          <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
+        </div>
+        <h3 className="text-3xl sm:text-4xl font-script text-[#812927] mb-2 drop-shadow-xs">
+          Xác Nhận Tham Dự
         </h3>
-        <p className="text-xs text-[#666] font-light mb-6">
+        <p className="text-xs text-[#666] font-light mb-6 max-w-xs mx-auto">
           Sự hiện diện của bạn là niềm vinh dự cho gia đình chúng mình
         </p>
 
@@ -126,7 +130,7 @@ export default function RsvpSection() {
         >
           {isSubmitted ? (
             <div className="py-8 text-center space-y-3">
-              <CheckCircle2 className="w-12 h-12 text-[#812927] mx-auto animate-bounce" />
+              <CheckCircle2 className="w-12 h-12 text-[#812927] mx-auto" />
               <h4 className="text-lg font-serif-luxury font-bold text-[#812927]">
                 Cảm Ơn Bạn Rất Nhiều!
               </h4>
@@ -151,7 +155,7 @@ export default function RsvpSection() {
                 <input
                   type="text"
                   required
-                  placeholder="Ví dụ: Nguyễn Văn A"
+                  placeholder="Ví dụ: Hoàng Thu Thảo"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 transition-all text-[#3b3232]"
@@ -173,7 +177,7 @@ export default function RsvpSection() {
                         : "bg-[#fffcfb] text-[#555] border-[#dfbaba]"
                     }`}
                   >
-                    🎉 Sẽ Tham Dự
+                    Sẽ Tham Dự
                   </button>
                   <button
                     type="button"
@@ -184,7 +188,7 @@ export default function RsvpSection() {
                         : "bg-[#fffcfb] text-[#555] border-[#dfbaba]"
                     }`}
                   >
-                    💌 Gửi Lời Chúc Phúc
+                    Gửi Lời Chúc Phúc
                   </button>
                 </div>
               </div>
@@ -196,8 +200,8 @@ export default function RsvpSection() {
                 </label>
                 <div className="grid grid-cols-3 gap-2 text-center text-xs">
                   {[
-                    { id: "groom", label: "Nhà Trai" },
                     { id: "bride", label: "Nhà Gái" },
+                    { id: "groom", label: "Nhà Trai" },
                     { id: "both", label: "Cả Hai" },
                   ].map((item) => (
                     <button
@@ -262,11 +266,13 @@ export default function RsvpSection() {
 
         {/* Guest Book / Recent Wishes Feed */}
         <div className="mt-8 text-left">
-          <div className="flex items-center gap-2 mb-3">
-            <MessageSquare className="w-4 h-4 text-[#812927]" />
-            <h4 className="text-xs uppercase tracking-wider font-bold text-[#812927]">
+          <div className="flex items-center justify-between mb-3 border-b border-[#dfbaba]/40 pb-2">
+            <h4 className="text-[11px] font-cinzel uppercase tracking-[0.2em] font-bold text-[#812927]">
               Sổ Lưu Bút ({wishesList.length})
             </h4>
+            <span className="text-[10px] text-[#888] font-light">
+              Lời chúc từ quan khách
+            </span>
           </div>
 
           <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Copy, Check, Gift } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 
 export default function GiftBoxSection() {
@@ -43,16 +43,17 @@ export default function GiftBoxSection() {
   return (
     <section ref={sectionRef} className="py-12 px-4 text-center">
       <div className="max-w-[440px] mx-auto">
-        <div className="flex items-center justify-center gap-1.5 mb-1">
-          <Gift className="w-4 h-4 text-[#812927]" />
-          <span className="text-[11px] uppercase tracking-[0.25em] text-[#812927] font-bold">
-            Hộp Mừng Cưới
+        <div className="flex items-center justify-center gap-2 mb-1.5">
+          <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-[#812927]/90 font-cinzel font-semibold">
+            Wedding Gift
           </span>
+          <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
         </div>
-        <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#812927] mb-2">
-          Gửi Quà Mừng
+        <h3 className="text-3xl sm:text-4xl font-script text-[#812927] mb-2 drop-shadow-xs">
+          Hộp Mừng Cưới
         </h3>
-        <p className="text-xs text-[#666] font-light mb-8 leading-relaxed">
+        <p className="text-xs text-[#666] font-light mb-8 leading-relaxed max-w-xs mx-auto">
           Tình cảm và sự chúc phúc của quý khách là món quà trân quý nhất với
           chúng mình!
         </p>
@@ -196,8 +197,8 @@ export default function GiftBoxSection() {
 
           <div className="w-12 h-[1px] bg-[#dfbaba] my-4" />
 
-          <p className="text-[10px] tracking-widest uppercase text-[#999]">
-            Bùi Huỳnh Ngọc Trâm ❤️ Nguyễn Lương Huy • 2026
+          <p className="text-[10px] tracking-[0.25em] uppercase text-[#888] font-cinzel">
+            Bùi Huỳnh Ngọc Trâm &amp; Nguyễn Lương Huy • 2026
           </p>
         </div>
       </div>

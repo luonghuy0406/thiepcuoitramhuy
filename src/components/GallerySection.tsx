@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { X, ZoomIn, ChevronLeft, ChevronRight, Heart, Sparkles } from "lucide-react";
+import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 
 export default function GallerySection() {
@@ -110,23 +110,8 @@ export default function GallerySection() {
       }
 
       // 4. Polaroid Scrapbook Cards: Photo-drop settling animation
-      const polaroidGroom = galleryRef.current?.querySelector(".polaroid-groom");
       const polaroidBride = galleryRef.current?.querySelector(".polaroid-bride");
-      if (polaroidGroom) {
-        gsap.from(polaroidGroom, {
-          scrollTrigger: {
-            trigger: polaroidGroom,
-            start: "top 88%",
-            once: true,
-          },
-          y: 60,
-          rotate: -10,
-          scale: 0.86,
-          opacity: 0,
-          duration: 1.2,
-          ease: "back.out(1.8)",
-        });
-      }
+      const polaroidGroom = galleryRef.current?.querySelector(".polaroid-groom");
       if (polaroidBride) {
         gsap.from(polaroidBride, {
           scrollTrigger: {
@@ -135,7 +120,22 @@ export default function GallerySection() {
             once: true,
           },
           y: 60,
-          rotate: 10,
+          rotate: -8,
+          scale: 0.86,
+          opacity: 0,
+          duration: 1.2,
+          ease: "back.out(1.8)",
+        });
+      }
+      if (polaroidGroom) {
+        gsap.from(polaroidGroom, {
+          scrollTrigger: {
+            trigger: polaroidGroom,
+            start: "top 88%",
+            once: true,
+          },
+          y: 60,
+          rotate: 8,
           scale: 0.86,
           opacity: 0,
           duration: 1.2,
@@ -272,27 +272,16 @@ export default function GallerySection() {
   return (
     <section ref={sectionRef} id="gallery-section" className="py-16 px-4 text-center">
       {/* Title */}
-      <div ref={headerRef} className="mb-10">
-        <div className="flex items-center justify-center gap-1.5 mb-1 text-[#812927]">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span className="text-[11px] uppercase tracking-[0.35em] font-bold">
-            Album Ảnh Cưới
-          </span>
-          <Sparkles className="w-3.5 h-3.5" />
-        </div>
-        <h3 className="text-4xl font-script text-[#812927] mt-1 mb-2 drop-shadow-xs">
+      <div ref={headerRef} className="mb-8">
+        <span className="text-[11px] uppercase tracking-[0.35em] text-[#812927] font-semibold font-cinzel">
+          Album Ảnh Cưới
+        </span>
+        <h3 className="text-4xl sm:text-5xl font-script text-[#812927] mt-1 mb-2 drop-shadow-xs">
           Sweet Moments
         </h3>
         <p className="text-xs text-[#777] font-light max-w-xs mx-auto">
           Từng ánh mắt, nụ cười lưu giữ trọn vẹn tình yêu của chúng mình
         </p>
-
-        {/* Decorative divider */}
-        <div className="flex items-center justify-center gap-3 my-3">
-          <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#812927]" />
-          <Heart className="w-3 h-3 text-[#812927] fill-[#812927]" />
-          <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#812927]" />
-        </div>
       </div>
 
       {/* Editorial Scrapbook Gallery Layout with Smooth Transitions */}
@@ -370,12 +359,30 @@ export default function GallerySection() {
           </div>
         </div>
 
-        {/* 3. Polaroid Scrapbook Cards (Groom & Bride Duo) */}
+        {/* 3. Polaroid Scrapbook Cards (Bride & Groom Duo) */}
         <div className="grid grid-cols-2 gap-3.5 pt-2">
+          {/* Bride / Couple Polaroid */}
+          <div
+            onClick={() => openPhoto(4)}
+            className="gallery-card polaroid-bride group bg-white p-2.5 pb-4 rounded-xl shadow-lg border border-[#dfbaba]/40 cursor-pointer -rotate-1 hover:rotate-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
+          >
+            <div className="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2">
+              <Image
+                src={weddingData.gallery[4].src}
+                alt={weddingData.gallery[4].alt}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-106"
+              />
+            </div>
+            <p className="text-[11px] font-script text-[#812927] tracking-wide">
+              Ngọc Trâm &amp; Lương Huy
+            </p>
+          </div>
+
           {/* Groom Polaroid */}
           <div
             onClick={() => openPhoto(3)}
-            className="gallery-card polaroid-groom group bg-white p-2.5 pb-4 rounded-xl shadow-lg border border-[#dfbaba]/40 cursor-pointer -rotate-1 hover:rotate-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
+            className="gallery-card polaroid-groom group bg-white p-2.5 pb-4 rounded-xl shadow-lg border border-[#dfbaba]/40 cursor-pointer rotate-1 hover:rotate-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
           >
             <div className="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2">
               <Image
@@ -387,24 +394,6 @@ export default function GallerySection() {
             </div>
             <p className="text-[11px] font-script text-[#812927] tracking-wide">
               Chú rể Lương Huy
-            </p>
-          </div>
-
-          {/* Bride / Couple Polaroid */}
-          <div
-            onClick={() => openPhoto(4)}
-            className="gallery-card polaroid-bride group bg-white p-2.5 pb-4 rounded-xl shadow-lg border border-[#dfbaba]/40 cursor-pointer rotate-1 hover:rotate-0 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
-          >
-            <div className="relative aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-2">
-              <Image
-                src={weddingData.gallery[4].src}
-                alt={weddingData.gallery[4].alt}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-106"
-              />
-            </div>
-            <p className="text-[11px] font-script text-[#812927] tracking-wide">
-              Bên nhau trọn đời
             </p>
           </div>
         </div>
