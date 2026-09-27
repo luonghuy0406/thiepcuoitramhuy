@@ -26,7 +26,9 @@ export const GOOGLE_SHEETS_CONFIG = {
     process.env.NEXT_PUBLIC_GOOGLE_SHEET_ID ||
     "1JsYLeR9cgxbffi-vr560eaAxD9gchj72VBCe9nY5-r0",
   sheetName: process.env.NEXT_PUBLIC_GOOGLE_SHEET_NAME || "Sheet1",
-  scriptUrl: process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "",
+  scriptUrl:
+    process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL ||
+    "https://script.google.com/macros/s/AKfycbz4GtvYx8ozXrNK7QKl7zMdLnICVIK7VqUEQzCv3GMjBTFtVJ2tv4eN8OhMWzof8IfiAw/exec",
 };
 
 /**
