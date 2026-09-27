@@ -1,41 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Copy, Check, X, Gift, QrCode, Sparkles } from "lucide-react";
+import { Copy, Check, X, Gift, QrCode, Heart, Sparkles } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 
 export default function GiftBoxSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
 
   // Modal state: null (closed) | "bride" | "groom"
   const [activeModal, setActiveModal] = useState<"bride" | "groom" | null>(null);
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      gsap.from(cardsRef.current?.children || [], {
-        scrollTrigger: {
-          trigger: cardsRef.current,
-          start: "top 90%",
-          once: true,
-        },
-        y: 25,
-        scale: 0.98,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 1,
-        ease: "power3.out",
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   // Prevent background scroll when modal is open
   useEffect(() => {
@@ -66,11 +41,16 @@ export default function GiftBoxSection() {
     setTimeout(() => setCopiedAccount(null), 2500);
   };
 
-  const activePerson = activeModal === "bride" ? weddingData.bride : weddingData.groom;
+  const activePerson =
+    activeModal === "bride" ? weddingData.bride : weddingData.groom;
   const isBrideActive = activeModal === "bride";
 
   return (
-    <section ref={sectionRef} id="gift-section" className="py-12 px-4 text-center">
+    <section
+      ref={sectionRef}
+      id="gift-section"
+      className="py-14 px-4 text-center scroll-mt-10"
+    >
       <div className="max-w-[440px] mx-auto">
         {/* Section Header */}
         <div className="flex items-center justify-center gap-2 mb-1.5">
@@ -84,68 +64,76 @@ export default function GiftBoxSection() {
           Hộp Mừng Cưới
         </h3>
         <p className="text-xs text-[#666] font-light mb-7 leading-relaxed max-w-xs mx-auto">
-          Sự chúc phúc và hiện diện của quý khách là món quà ý nghĩa nhất. Nếu quý khách muốn gửi món quà mừng từ phương xa, có thể mở phong bao dưới đây:
+          Tình cảm và sự hiện diện của quý khách là món quà trân quý nhất với chúng mình. Nếu muốn gửi gắm món quà chúc phúc từ phương xa, quý khách có thể mở hộp quà dưới đây:
         </p>
 
-        {/* Discreet Gift Cards Grid (No exposed raw QR codes) */}
-        <div ref={cardsRef} className="grid grid-cols-2 gap-3.5 sm:gap-4">
-          {/* Bride Gift Card (Cô Dâu Ngọc Trâm prioritized first) */}
-          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-sm border border-[#dfbaba]/60 hover:border-[#812927]/40 hover:shadow-md transition-all flex flex-col items-center justify-between text-center group">
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#dfbaba] shadow-2xs mb-2.5 group-hover:scale-105 transition-transform duration-300">
-              <Image
-                src={weddingData.bride.avatar}
-                alt={weddingData.bride.fullName}
-                fill
-                className="object-cover"
-              />
+        {/* Central Luxury Wedding Gift Box Card */}
+        <div className="bg-gradient-to-b from-white/95 to-[#fff9f8]/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 shadow-md border border-[#dfbaba]/70 text-center relative overflow-hidden transition-all duration-300 hover:shadow-lg">
+          {/* Decorative Corner Ornaments */}
+          <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#dfbaba]/60 rounded-tl-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-[#dfbaba]/60 rounded-tr-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-[#dfbaba]/60 rounded-bl-3xl pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#dfbaba]/60 rounded-br-3xl pointer-events-none" />
+
+          {/* Central Gift Box Icon with Pulse Ring */}
+          <div className="relative w-18 h-18 sm:w-20 sm:h-20 mx-auto mb-4 flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full bg-[#812927]/10 animate-ping opacity-30" />
+            <div className="relative w-full h-full rounded-full bg-gradient-to-br from-[#fcf7f6] via-[#f9ecea] to-[#f2dad7] border-2 border-[#dfbaba] flex items-center justify-center shadow-inner">
+              <Gift className="w-8 h-8 sm:w-9 sm:h-9 text-[#812927]" />
             </div>
-
-            <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[#812927] font-semibold">
-              Mừng Cô Dâu
-            </span>
-            <h4 className="text-sm sm:text-base font-serif-luxury font-bold text-[#3b3232] mt-0.5">
-              {weddingData.bride.shortName}
-            </h4>
-            <p className="text-[11px] text-[#888] font-light mt-0.5 mb-3">
-              {weddingData.bride.bankName}
-            </p>
-
-            <button
-              onClick={() => setActiveModal("bride")}
-              className="w-full bg-[#812927] hover:bg-[#68201f] text-white text-[11px] font-medium py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer group-hover:shadow-xs"
-            >
-              <QrCode className="w-3.5 h-3.5" />
-              <span>Gửi Mừng</span>
-            </button>
           </div>
 
-          {/* Groom Gift Card (Chú Rể Lương Huy) */}
-          <div className="bg-white/85 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-sm border border-[#dfbaba]/60 hover:border-[#812927]/40 hover:shadow-md transition-all flex flex-col items-center justify-between text-center group">
-            <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#dfbaba] shadow-2xs mb-2.5 group-hover:scale-105 transition-transform duration-300">
-              <Image
-                src={weddingData.groom.avatar}
-                alt={weddingData.groom.fullName}
-                fill
-                className="object-cover"
-              />
-            </div>
+          <h4 className="text-lg sm:text-xl font-serif-luxury font-bold text-[#812927] mb-1">
+            Gửi Món Quà Chúc Phúc
+          </h4>
+          <p className="text-xs text-[#666] font-light leading-relaxed max-w-xs mx-auto mb-5">
+            Bấm vào nút bên dưới để mở phong bao mừng cưới và nhận thông tin tài khoản hoặc mã QR của cô dâu &amp; chú rể.
+          </p>
 
-            <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-[#812927] font-semibold">
-              Mừng Chú Rể
-            </span>
-            <h4 className="text-sm sm:text-base font-serif-luxury font-bold text-[#3b3232] mt-0.5">
-              {weddingData.groom.shortName}
-            </h4>
-            <p className="text-[11px] text-[#888] font-light mt-0.5 mb-3">
-              {weddingData.groom.bankName}
-            </p>
+          {/* Primary Action Button: Mở Hộp Quà Cưới */}
+          <button
+            type="button"
+            onClick={() => setActiveModal("bride")}
+            className="w-full bg-[#812927] hover:bg-[#68201f] active:scale-[0.99] text-white py-3.5 px-6 rounded-2xl font-medium text-xs sm:text-sm tracking-wider uppercase shadow-md hover:shadow-lg flex items-center justify-center gap-2.5 transition-all cursor-pointer group"
+          >
+            <Gift className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+            <span className="font-semibold">Mở Hộp Quà Cưới</span>
+          </button>
 
+          {/* Individual Quick Options for Bride & Groom */}
+          <div className="grid grid-cols-2 gap-2.5 pt-3">
+            {/* Bride Quick Button */}
             <button
-              onClick={() => setActiveModal("groom")}
-              className="w-full bg-[#812927] hover:bg-[#68201f] text-white text-[11px] font-medium py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-2xs transition-all cursor-pointer group-hover:shadow-xs"
+              type="button"
+              onClick={() => setActiveModal("bride")}
+              className="py-2.5 px-3 rounded-xl bg-white hover:bg-[#fbf4f2] text-[#812927] border border-[#dfbaba] text-xs font-medium flex items-center justify-center gap-1.5 shadow-2xs hover:border-[#812927]/40 transition-all cursor-pointer"
             >
-              <QrCode className="w-3.5 h-3.5" />
-              <span>Gửi Mừng</span>
+              <div className="relative w-5 h-5 rounded-full overflow-hidden border border-[#dfbaba] flex-shrink-0">
+                <Image
+                  src={weddingData.bride.avatar}
+                  alt={weddingData.bride.shortName}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <span className="truncate">Mừng Cô Dâu</span>
+            </button>
+
+            {/* Groom Quick Button */}
+            <button
+              type="button"
+              onClick={() => setActiveModal("groom")}
+              className="py-2.5 px-3 rounded-xl bg-white hover:bg-[#fbf4f2] text-[#812927] border border-[#dfbaba] text-xs font-medium flex items-center justify-center gap-1.5 shadow-2xs hover:border-[#812927]/40 transition-all cursor-pointer"
+            >
+              <div className="relative w-5 h-5 rounded-full overflow-hidden border border-[#dfbaba] flex-shrink-0">
+                <Image
+                  src={weddingData.groom.avatar}
+                  alt={weddingData.groom.shortName}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <span className="truncate">Mừng Chú Rể</span>
             </button>
           </div>
         </div>
@@ -166,8 +154,7 @@ export default function GiftBoxSection() {
             Thank you!
           </h3>
           <p className="text-xs text-[#666] font-light max-w-xs leading-relaxed">
-            Cảm ơn bạn đã luôn yêu thương và đồng hành cùng chúng mình trong chặng
-            đường hạnh phúc này!
+            Cảm ơn bạn đã luôn yêu thương và đồng hành cùng chúng mình trong chặng đường hạnh phúc này!
           </p>
 
           <div className="w-12 h-[1px] bg-[#dfbaba] my-4" />
@@ -178,7 +165,7 @@ export default function GiftBoxSection() {
         </div>
       </div>
 
-      {/* Luxury Envelope / QR Modal Dialog */}
+      {/* Luxury QR Envelope Modal Dialog (Opens when clicked) */}
       {activeModal && (
         <div
           role="dialog"
@@ -186,7 +173,7 @@ export default function GiftBoxSection() {
           onClick={(e) => {
             if (e.target === e.currentTarget) setActiveModal(null);
           }}
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/65 backdrop-blur-sm flex items-center justify-center p-4"
         >
           <div className="max-w-[360px] w-full bg-[#fffcfb] rounded-3xl p-6 shadow-2xl border border-[#dfbaba] relative text-center animate-in fade-in zoom-in-95 duration-200">
             {/* Close Button */}
@@ -199,22 +186,24 @@ export default function GiftBoxSection() {
             </button>
 
             {/* Switch Tabs between Bride & Groom inside Modal */}
-            <div className="flex justify-center p-1 bg-[#f9f1ef] rounded-xl mb-4 border border-[#dfbaba]/40">
+            <div className="flex justify-center p-1 bg-[#f9f1ef] rounded-xl mb-4 border border-[#dfbaba]/40 mt-1">
               <button
+                type="button"
                 onClick={() => setActiveModal("bride")}
                 className={`flex-1 py-1.5 text-[11px] font-medium rounded-lg transition-all cursor-pointer ${
                   isBrideActive
-                    ? "bg-[#812927] text-white shadow-2xs"
+                    ? "bg-[#812927] text-white shadow-2xs font-semibold"
                     : "text-[#666] hover:text-[#812927]"
                 }`}
               >
                 Cô Dâu Ngọc Trâm
               </button>
               <button
+                type="button"
                 onClick={() => setActiveModal("groom")}
                 className={`flex-1 py-1.5 text-[11px] font-medium rounded-lg transition-all cursor-pointer ${
                   !isBrideActive
-                    ? "bg-[#812927] text-white shadow-2xs"
+                    ? "bg-[#812927] text-white shadow-2xs font-semibold"
                     : "text-[#666] hover:text-[#812927]"
                 }`}
               >
@@ -250,7 +239,7 @@ export default function GiftBoxSection() {
             </div>
 
             {/* Account Details Box */}
-            <div className="bg-[#f9f1ef] rounded-xl p-3 border border-[#dfbaba]/40 text-xs space-y-0.5 mb-3.5">
+            <div className="bg-[#f9f1ef] rounded-xl p-3 border border-[#dfbaba]/40 text-xs space-y-0.5 mb-3.5 text-center">
               <p className="text-[11px] text-[#666]">
                 Ngân hàng:{" "}
                 <span className="font-bold text-[#812927]">
@@ -270,6 +259,7 @@ export default function GiftBoxSection() {
 
             {/* Copy Account Number Button */}
             <button
+              type="button"
               onClick={() => handleCopy(activePerson.accountNumber, activeModal)}
               className="w-full bg-[#f9f1ef] hover:bg-[#dfbaba]/30 text-[#812927] border border-[#dfbaba] text-xs font-medium py-2.5 px-4 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-2xs cursor-pointer mb-2"
             >

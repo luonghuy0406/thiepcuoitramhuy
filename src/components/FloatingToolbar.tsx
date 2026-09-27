@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import gsap from "gsap";
-import { Heart, MessageSquareHeart, ChevronUp, Play, Pause } from "lucide-react";
+import { Heart, MessageSquareHeart, ChevronUp, Play, Pause, Gift } from "lucide-react";
 
 interface FloatingToolbarProps {
   isAutoScrolling?: boolean;
@@ -64,12 +64,19 @@ export default function FloatingToolbar({
     }
   };
 
+  const scrollToGift = () => {
+    const el = document.getElementById("gift-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <div className="fixed bottom-6 right-4 sm:right-6 z-40 flex flex-col items-center gap-3">
+    <div className="fixed bottom-6 right-4 sm:right-6 z-40 flex flex-col items-center gap-2.5">
       {/* Container for GSAP Floating Heart Particles */}
       <div
         ref={heartsPoolRef}
@@ -85,7 +92,7 @@ export default function FloatingToolbar({
               ? "Tạm dừng cuộn tự động"
               : "Bật cuộn tự động (Cinematic)"
           }
-          className={`w-9 h-9 rounded-full border shadow-md flex items-center justify-center transition-all duration-300 hover:scale-105 ${
+          className={`w-9 h-9 rounded-full border shadow-md flex items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer ${
             isAutoScrolling
               ? "bg-[#812927] text-white border-[#812927] shadow-[#812927]/30"
               : "bg-white/90 hover:bg-white text-[#812927] border-[#dfbaba]/60"
@@ -103,16 +110,25 @@ export default function FloatingToolbar({
       <button
         onClick={scrollToTop}
         title="Lên đầu trang"
-        className="w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#812927] border border-[#dfbaba]/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105"
+        className="w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#812927] border border-[#dfbaba]/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 cursor-pointer"
       >
         <ChevronUp className="w-4 h-4" />
+      </button>
+
+      {/* Gift Box shortcut */}
+      <button
+        onClick={scrollToGift}
+        title="Mở Hộp Mừng Cưới"
+        className="w-10 h-10 rounded-full bg-white/95 hover:bg-white text-[#812927] border border-[#dfbaba]/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 cursor-pointer"
+      >
+        <Gift className="w-4 h-4" />
       </button>
 
       {/* Wish shortcut */}
       <button
         onClick={scrollToRsvp}
-        title="Gửi lời chúc"
-        className="w-10 h-10 rounded-full bg-white/95 hover:bg-white text-[#812927] border border-[#dfbaba]/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105"
+        title="Gửi lời chúc (RSVP)"
+        className="w-10 h-10 rounded-full bg-white/95 hover:bg-white text-[#812927] border border-[#dfbaba]/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 cursor-pointer"
       >
         <MessageSquareHeart className="w-4 h-4" />
       </button>
