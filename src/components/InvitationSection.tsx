@@ -67,37 +67,46 @@ export default function InvitationSection() {
     <section
       ref={sectionRef}
       id="invitation-section"
-      className="relative z-20 px-4 text-center pt-2 pb-12"
+      className="relative z-20 px-4 text-center pt-0 pb-12 overflow-visible"
     >
-      {/* 1. Modern Glassmorphic Invitation Card */}
+      {/* Ambient Liquid Glow Orbs in Background for Authentic Glass Refraction */}
+      <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[340px] h-[340px] bg-gradient-to-tr from-[#dfbaba]/40 via-[#f8edea]/35 to-[#e49696]/30 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-[380px] -right-10 w-64 h-64 bg-gradient-to-bl from-[#e49696]/25 via-[#dfbaba]/20 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-[720px] -left-10 w-64 h-64 bg-gradient-to-tr from-[#dfbaba]/30 via-transparent to-[#fdf0ec]/40 rounded-full blur-3xl pointer-events-none -z-10" />
+
+      {/* 1. Modern Liquid Glass Floating Invitation Card (Gracefully Overlapping Hero Photo) */}
       <div
         ref={letterRef}
-        className="relative z-20 max-w-[440px] mx-auto bg-white/85 backdrop-blur-xl p-6 sm:p-8 rounded-3xl shadow-[0_20px_50px_rgba(129,41,39,0.08),0_4px_16px_rgba(0,0,0,0.04)] border border-white/85 mb-8 transition-all duration-300 hover:shadow-2xl text-center"
+        className="relative z-20 -mt-14 sm:-mt-20 max-w-[440px] mx-auto bg-gradient-to-b from-white/80 via-white/65 to-white/80 backdrop-blur-2xl p-6 sm:p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(129,41,39,0.09),0_2px_8px_rgba(0,0,0,0.03),inset_0_1.5px_2px_rgba(255,255,255,0.95),inset_0_-1px_2px_rgba(223,186,186,0.3)] border border-white/85 text-center overflow-hidden transition-all duration-500 hover:shadow-[0_25px_60px_rgba(129,41,39,0.13)] group"
       >
+        {/* Diagonal Liquid Specular Glare */}
+        <div className="absolute -top-28 -right-28 w-60 h-60 bg-gradient-to-br from-white/60 via-white/10 to-transparent rounded-full blur-xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-52 h-52 bg-gradient-to-tr from-[#dfbaba]/30 via-transparent to-transparent rounded-full blur-lg pointer-events-none" />
+
         {/* Modern Luxury Title Header */}
-        <div className="flex flex-col items-center mb-3.5">
-          <div className="flex items-center justify-center gap-3 mb-1.5">
-            <span className="h-[1px] w-8 sm:w-14 bg-gradient-to-r from-transparent via-[#812927]/40 to-[#812927]" />
-            <span className="text-xs uppercase tracking-[0.35em] font-cinzel font-semibold text-[#812927] drop-shadow-2xs">
+        <div className="relative z-10 flex flex-col items-center mb-3.5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/80 backdrop-blur-md border border-white/95 shadow-2xs mb-2">
+            <Sparkles className="w-3 h-3 text-[#812927] animate-pulse" />
+            <span className="text-[11px] uppercase tracking-[0.3em] font-cinzel font-bold text-[#812927]">
               Invitation
             </span>
-            <span className="h-[1px] w-8 sm:w-14 bg-gradient-to-l from-transparent via-[#812927]/40 to-[#812927]" />
+            <Sparkles className="w-3 h-3 text-[#812927] animate-pulse" />
           </div>
-          <p className="text-[10px] sm:text-[11px] font-cormorant tracking-[0.2em] text-[#777] uppercase">
+          <p className="text-[10px] sm:text-[11px] font-cormorant tracking-[0.25em] text-[#777] uppercase font-semibold">
             Lễ Vu Quy
           </p>
         </div>
 
-        <h3 className="text-base sm:text-lg font-serif-luxury text-[#2b2727] font-semibold mb-2.5 leading-snug">
+        <h3 className="relative z-10 text-base sm:text-lg font-serif-luxury text-[#2b2727] font-semibold mb-2.5 leading-snug">
           Gửi đến gia đình, người thân &amp; bạn bè quý mến,
         </h3>
 
-        <p className="text-xs sm:text-sm text-[#443c3c] leading-relaxed font-sans font-normal mb-4 max-w-sm mx-auto">
+        <p className="relative z-10 text-xs sm:text-sm text-[#443c3c] leading-relaxed font-sans font-normal mb-4 max-w-sm mx-auto">
           Cảm ơn bạn đã dành tình cảm yêu thương và thời gian quý báu để cùng chúng mình chung vui trong ngày trọng đại này. Sự hiện diện và lời chúc phúc của bạn là món quà vô giá đối với chúng mình!
         </p>
 
         {/* Elegant Footer with Signature */}
-        <div className="pt-3.5 border-t border-dashed border-[#dfbaba]/75 flex items-center justify-between px-3">
+        <div className="relative z-10 pt-3.5 border-t border-dashed border-[#dfbaba]/75 flex items-center justify-between px-3">
           <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#812927] font-serif-luxury font-bold">
             Trân Trọng Kính Mời
           </span>
@@ -107,16 +116,29 @@ export default function InvitationSection() {
         </div>
       </div>
 
-      {/* 2. Formal Centerpiece Wedding Invitation Card (Exact layout from Cinelove Template) */}
+      {/* Connecting Liquid Glass Bridge Ribbon */}
+      <div className="flex flex-col items-center my-6 select-none relative z-10">
+        <div className="w-[1px] h-6 bg-gradient-to-b from-[#812927]/30 to-[#812927]/80" />
+        <div className="w-7 h-7 rounded-full bg-white/85 backdrop-blur-md border border-white/95 shadow-xs flex items-center justify-center my-1 text-[#812927] transition-transform duration-300 hover:scale-110">
+          <Heart className="w-3.5 h-3.5 fill-[#812927]" />
+        </div>
+        <div className="w-[1px] h-6 bg-gradient-to-b from-[#812927]/80 to-[#812927]/30" />
+      </div>
+
+      {/* 2. Formal Centerpiece Wedding Invitation Card (Opaline Liquid Glass Aesthetic) */}
       <div
         ref={cardRef}
-        className="relative max-w-[460px] mx-auto bg-gradient-to-b from-white via-[#fffdfb] to-[#fbf5f2] backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-[#dfbaba]/70 text-left overflow-hidden transition-all duration-500 hover:shadow-3xl"
+        className="relative max-w-[460px] mx-auto bg-gradient-to-b from-white/92 via-white/85 to-[#fdf9f7]/90 backdrop-blur-2xl rounded-[2.2rem] p-6 sm:p-8 shadow-[0_25px_60px_-10px_rgba(129,41,39,0.1),0_4px_20px_rgba(0,0,0,0.03),inset_0_1.5px_2px_rgba(255,255,255,0.95),inset_0_-1px_2px_rgba(223,186,186,0.3)] border border-white/90 text-left overflow-hidden transition-all duration-500 hover:shadow-[0_30px_70px_rgba(129,41,39,0.15)] group"
       >
+        {/* Ambient Corner Reflections */}
+        <div className="absolute -top-20 -left-20 w-48 h-48 bg-gradient-to-br from-[#dfbaba]/25 via-transparent to-transparent rounded-full blur-xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-gradient-to-tl from-[#e49696]/20 via-transparent to-transparent rounded-full blur-xl pointer-events-none" />
+
         {/* Delicate inner hairline frame */}
-        <div className="absolute inset-2 sm:inset-3 border border-[#dfbaba]/45 rounded-2xl pointer-events-none" />
+        <div className="absolute inset-2.5 sm:inset-3.5 border border-[#dfbaba]/45 rounded-[1.8rem] pointer-events-none" />
 
         {/* TOP HEADER: Vertical "Lễ Vu Quy" on left & Diagonally Staggered Names on right */}
-        <div className="relative z-10 flex items-start justify-between mb-2">
+        <div className="relative z-10 flex items-start justify-between mb-3">
           {/* Left Column: Vertical Burgundy Line + Stacked Calligraphy "Lễ Vu Quy" */}
           <div className="flex flex-col items-center select-none pt-1">
             <div className="w-[2px] h-8 sm:h-9 bg-[#8b2f30] mb-2 rounded-full shadow-xs" />
@@ -153,38 +175,38 @@ export default function InvitationSection() {
         </div>
 
         {/* MID ACCENT: Vertical stroke above Nhà Gái */}
-        <div className="relative z-10 w-[2px] h-9 sm:h-10 bg-[#8b2f30] ml-3 sm:ml-4 my-4 sm:my-5 rounded-full shadow-xs" />
+        <div className="relative z-10 w-[2px] h-8 sm:h-9 bg-[#8b2f30] ml-3 sm:ml-4 my-3 sm:my-4 rounded-full shadow-xs" />
 
-        {/* FAMILY INFORMATION: Two-column layout (Nhà Gái & Nhà Trai) */}
-        <div className="relative z-10 grid grid-cols-2 gap-4 sm:gap-6 text-center mb-6">
+        {/* FAMILY INFORMATION: Translucent Frosted Glass Pods (Nhà Gái & Nhà Trai) */}
+        <div className="relative z-10 grid grid-cols-2 gap-3 sm:gap-4 text-center mb-6">
           {/* Nhà Gái */}
-          <div className="space-y-1">
-            <h4 className="font-serif-luxury font-bold text-lg sm:text-xl text-[#2b2727] mb-2 tracking-wide">
+          <div className="bg-white/60 backdrop-blur-md rounded-2xl p-3 sm:p-3.5 border border-white/80 shadow-[0_2px_10px_rgba(129,41,39,0.03),inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-1">
+            <h4 className="font-serif-luxury font-bold text-base sm:text-lg text-[#8b2f30] mb-1.5 tracking-wide">
               Nhà Gái
             </h4>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#3b3232] leading-snug">
+            <p className="font-sans font-medium text-xs sm:text-[13px] text-[#3b3232] leading-snug">
               {weddingData.bride.fatherName}
             </p>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#3b3232] leading-snug">
+            <p className="font-sans font-medium text-xs sm:text-[13px] text-[#3b3232] leading-snug">
               {weddingData.bride.motherName}
             </p>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#666] pt-1 tracking-wide">
+            <p className="font-sans font-medium text-[11px] sm:text-xs text-[#777] pt-1 tracking-wide">
               TP. {weddingData.bride.location}
             </p>
           </div>
 
           {/* Nhà Trai */}
-          <div className="space-y-1">
-            <h4 className="font-serif-luxury font-bold text-lg sm:text-xl text-[#2b2727] mb-2 tracking-wide">
+          <div className="bg-white/60 backdrop-blur-md rounded-2xl p-3 sm:p-3.5 border border-white/80 shadow-[0_2px_10px_rgba(129,41,39,0.03),inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-1">
+            <h4 className="font-serif-luxury font-bold text-base sm:text-lg text-[#8b2f30] mb-1.5 tracking-wide">
               Nhà Trai
             </h4>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#3b3232] leading-snug">
+            <p className="font-sans font-medium text-xs sm:text-[13px] text-[#3b3232] leading-snug">
               {weddingData.groom.fatherName}
             </p>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#3b3232] leading-snug">
+            <p className="font-sans font-medium text-xs sm:text-[13px] text-[#3b3232] leading-snug">
               {weddingData.groom.motherName}
             </p>
-            <p className="font-sans font-medium text-xs sm:text-sm text-[#666] pt-1 tracking-wide">
+            <p className="font-sans font-medium text-[11px] sm:text-xs text-[#777] pt-1 tracking-wide">
               TP. {weddingData.groom.location}
             </p>
           </div>
@@ -203,7 +225,7 @@ export default function InvitationSection() {
         {/* CALENDAR BANNER: 3-column with double borders and towering 15 */}
         <div className="relative z-10 flex items-center justify-between gap-2 sm:gap-3 my-4">
           {/* Left Column: Month */}
-          <div className="flex-1 py-3 sm:py-3.5 border-t-2 border-b-2 border-double border-[#999] text-center">
+          <div className="flex-1 py-3 sm:py-3.5 border-t-2 border-b-2 border-double border-[#999] text-center bg-white/40 backdrop-blur-xs rounded-lg">
             <span className="font-serif-luxury font-bold text-base sm:text-xl text-[#2b2727] tracking-wider uppercase whitespace-nowrap">
               THÁNG {weddingData.event.month}
             </span>
@@ -217,7 +239,7 @@ export default function InvitationSection() {
           </div>
 
           {/* Right Column: Year */}
-          <div className="flex-1 py-3 sm:py-3.5 border-t-2 border-b-2 border-double border-[#999] text-center">
+          <div className="flex-1 py-3 sm:py-3.5 border-t-2 border-b-2 border-double border-[#999] text-center bg-white/40 backdrop-blur-xs rounded-lg">
             <span className="font-serif-luxury font-bold text-base sm:text-xl text-[#2b2727] tracking-wider uppercase whitespace-nowrap">
               NĂM {weddingData.event.year}
             </span>
@@ -225,7 +247,7 @@ export default function InvitationSection() {
         </div>
 
         {/* LUNAR DATE */}
-        <p className="relative z-10 font-serif-luxury italic text-xs sm:text-sm text-[#555] text-center tracking-wide mb-7">
+        <p className="relative z-10 font-serif-luxury italic text-xs sm:text-sm text-[#555] text-center tracking-wide mb-6">
           ({weddingData.event.lunarDateDisplay})
         </p>
 
@@ -237,9 +259,11 @@ export default function InvitationSection() {
           <h4 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#2b2727] tracking-wide uppercase drop-shadow-xs">
             {weddingData.event.venueName}
           </h4>
-          <p className="font-sans text-xs sm:text-sm text-[#555] font-light max-w-xs sm:max-w-sm mx-auto leading-relaxed">
-            ({weddingData.event.venueAddress})
-          </p>
+          <div className="inline-block px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-sm border border-white/80 shadow-2xs mt-1">
+            <p className="font-sans text-xs sm:text-[13px] text-[#555] font-light leading-relaxed">
+              ({weddingData.event.venueAddress})
+            </p>
+          </div>
         </div>
 
         {/* FAST ACTION BUTTONS: Google Maps & Add to Calendar */}
@@ -248,7 +272,7 @@ export default function InvitationSection() {
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#8b2f30] hover:bg-[#722627] text-white text-xs font-serif-luxury font-semibold py-2.5 px-3 rounded-xl shadow-md flex items-center justify-center gap-1.5 transition-all hover:scale-[1.02] active:scale-95"
+            className="bg-gradient-to-r from-[#8b2f30] to-[#742526] hover:from-[#742526] hover:to-[#5e1e1f] text-white text-xs font-serif-luxury font-semibold py-2.5 px-3 rounded-xl shadow-md border-t border-white/20 flex items-center justify-center gap-1.5 transition-all hover:scale-[1.02] active:scale-95"
           >
             <Navigation className="w-3.5 h-3.5" />
             Chỉ Đường
@@ -257,7 +281,7 @@ export default function InvitationSection() {
             href={googleCalendarUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white hover:bg-[#fff7f5] text-[#8b2f30] border border-[#8b2f30]/40 text-xs font-serif-luxury font-semibold py-2.5 px-3 rounded-xl shadow-xs flex items-center justify-center gap-1.5 transition-all hover:scale-[1.02] active:scale-95"
+            className="bg-white/80 hover:bg-white backdrop-blur-md text-[#8b2f30] border border-[#8b2f30]/40 text-xs font-serif-luxury font-semibold py-2.5 px-3 rounded-xl shadow-xs flex items-center justify-center gap-1.5 transition-all hover:scale-[1.02] active:scale-95"
           >
             <CalendarIcon className="w-3.5 h-3.5" />
             Thêm Vào Lịch
