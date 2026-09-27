@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 
 export default function GallerySection() {
@@ -169,9 +169,8 @@ export default function GallerySection() {
         );
       }
 
-      // 6. Editorial Diptych (Photos 6 & 7 + Quote card)
+      // 6. Editorial Diptych (Photos 6 & 7)
       const diptychLeft = galleryRef.current?.querySelector(".diptych-card-left");
-      const diptychQuote = galleryRef.current?.querySelector(".diptych-quote-card");
       const diptychRight = galleryRef.current?.querySelector(".diptych-card-right");
       const diptychLeftImg = galleryRef.current?.querySelector(".diptych-img-left");
       const diptychRightImg = galleryRef.current?.querySelector(".diptych-img-right");
@@ -183,28 +182,11 @@ export default function GallerySection() {
             start: "top 88%",
             once: true,
           },
-          x: -35,
-          y: 25,
+          x: -30,
+          y: 30,
           opacity: 0,
-          scale: 0.94,
           duration: 1.1,
           ease: "power3.out",
-        });
-      }
-
-      if (diptychQuote) {
-        gsap.from(diptychQuote, {
-          scrollTrigger: {
-            trigger: ".editorial-diptych",
-            start: "top 88%",
-            once: true,
-          },
-          y: 25,
-          opacity: 0,
-          scale: 0.92,
-          duration: 1.0,
-          delay: 0.12,
-          ease: "back.out(1.4)",
         });
       }
 
@@ -215,12 +197,11 @@ export default function GallerySection() {
             start: "top 88%",
             once: true,
           },
-          x: 35,
-          y: 25,
+          x: 30,
+          y: 40,
           opacity: 0,
-          scale: 0.94,
           duration: 1.1,
-          delay: 0.22,
+          delay: 0.15,
           ease: "power3.out",
         });
       }
@@ -431,13 +412,13 @@ export default function GallerySection() {
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-80 pointer-events-none" />
 
-          <div className="absolute bottom-4 inset-x-4 flex items-center justify-between text-white pointer-events-none">
-            <span className="text-[11px] font-serif-luxury tracking-widest uppercase text-white/95 drop-shadow">
-              Ngọc Trâm &amp; Lương Huy
+          <div className="absolute bottom-5 inset-x-6 text-center text-white pointer-events-none space-y-0.5">
+            <span className="text-[9px] font-cinzel tracking-[0.35em] uppercase text-[#f5d082] drop-shadow-sm block">
+              SWEET MOMENTS
             </span>
-            <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-md">
-              <ZoomIn className="w-4 h-4" />
-            </div>
+            <h4 className="text-2xl sm:text-3xl font-script text-white drop-shadow-md">
+              Ngọc Trâm &amp; Lương Huy
+            </h4>
           </div>
         </div>
 
@@ -446,17 +427,23 @@ export default function GallerySection() {
           {/* Left: Romantic Vertical Portrait */}
           <div
             onClick={() => openPhoto(1)}
-            className="gallery-card duo-card-left group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md border-2 border-white/90 bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl hover:rotate-1"
+            className="gallery-card duo-card-left group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md border-2 border-white/90 bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:rotate-1"
           >
             <Image
               src={weddingData.gallery[1].src}
               alt={weddingData.gallery[1].alt}
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-108"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
               sizes="(max-width: 500px) 50vw, 230px"
             />
-            <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
-              <ZoomIn className="w-5 h-5 text-white drop-shadow-md" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute bottom-3 left-3 text-left pointer-events-none">
+              <span className="text-[9px] font-cinzel tracking-[0.2em] uppercase text-[#f5d082] drop-shadow block">
+                CÔ DÂU
+              </span>
+              <p className="text-sm font-serif-luxury text-white drop-shadow font-medium">
+                Ngọc Trâm
+              </p>
             </div>
           </div>
 
@@ -464,17 +451,23 @@ export default function GallerySection() {
           <div className="space-y-3">
             <div
               onClick={() => openPhoto(2)}
-              className="gallery-card duo-card-right group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-md border-2 border-white/90 bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-xl hover:-rotate-1"
+              className="gallery-card duo-card-right group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-md border-2 border-white/90 bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:-rotate-1"
             >
               <Image
                 src={weddingData.gallery[2].src}
                 alt={weddingData.gallery[2].alt}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-108"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 500px) 50vw, 230px"
               />
-              <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
-                <ZoomIn className="w-5 h-5 text-white drop-shadow-md" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 left-3 text-left pointer-events-none">
+                <span className="text-[9px] font-cinzel tracking-[0.2em] uppercase text-[#f5d082] drop-shadow block">
+                  NỤ CƯỜI
+                </span>
+                <p className="text-xs font-serif-luxury text-white drop-shadow font-medium">
+                  Rạng rỡ ngày vui
+                </p>
               </div>
             </div>
 
@@ -551,72 +544,77 @@ export default function GallerySection() {
 
         {/* 5. Editorial Romance Diptych (Photos 6 & 7) */}
         <div className="editorial-diptych grid grid-cols-2 gap-3.5 items-start pt-2">
-          {/* Left Column: Portrait photo 6 with elegant tag & romantic quote */}
-          <div className="space-y-2.5">
-            <div
-              onClick={() => openPhoto(6)}
-              className="gallery-card diptych-card-left group relative aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer shadow-lg border-2 border-white bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
-            >
-              <div className="relative w-full h-[112%] -top-[6%]">
-                <Image
-                  src={weddingData.gallery[6].src}
-                  alt={weddingData.gallery[6].alt}
-                  fill
-                  className="diptych-img-left object-cover transition-transform duration-700 group-hover:scale-108"
-                  sizes="(max-width: 500px) 50vw, 230px"
-                />
-              </div>
-              <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
-                <ZoomIn className="w-5 h-5 text-white drop-shadow-md" />
-              </div>
-              <div className="absolute top-3 left-3 bg-black/35 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20">
-                <span className="text-[9px] font-cinzel tracking-widest text-white uppercase block">
-                  ROMANCE
-                </span>
-              </div>
+          {/* Left Column: Portrait Photo 6 with Integrated Typography */}
+          <div
+            onClick={() => openPhoto(6)}
+            className="gallery-card diptych-card-left group relative aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer shadow-lg border-2 border-white bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
+          >
+            <div className="relative w-full h-[112%] -top-[6%]">
+              <Image
+                src={weddingData.gallery[6].src}
+                alt={weddingData.gallery[6].alt}
+                fill
+                className="diptych-img-left object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 500px) 50vw, 230px"
+              />
             </div>
 
-            <p className="text-[11px] font-cormorant italic text-[#812927] text-center tracking-wide px-1">
-              “Từng nụ cười, từng ánh mắt đong đầy yêu thương...”
-            </p>
-          </div>
+            {/* Subtle photographic vignette */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent pointer-events-none" />
 
-          {/* Right Column: Romantic Quote Card + Photo 7 */}
-          <div className="space-y-3 pt-1">
-            {/* Elegant Luxury Typography Card */}
-            <div className="diptych-quote-card bg-gradient-to-br from-white/95 via-[#fff8f6] to-[#f9edea] p-4 rounded-3xl border border-[#dfbaba]/60 shadow-md text-left relative overflow-hidden">
-              <div className="absolute -right-2 -bottom-3 text-6xl font-script text-[#812927]/10 pointer-events-none select-none">
-                &amp;
-              </div>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-[#812927]/80 font-cinzel font-semibold block mb-1">
-                MEMORIES • 2026
+            {/* Integrated Typography */}
+            <div className="absolute bottom-3.5 left-3.5 right-3.5 text-left pointer-events-none">
+              <span className="text-[9px] font-cinzel tracking-[0.25em] uppercase text-[#f5d082] drop-shadow-sm block">
+                SWEET SMILE
               </span>
-              <h4 className="font-script text-2xl text-[#812927] leading-none mb-1.5">
-                Khoảnh Khắc Yêu
-              </h4>
-              <p className="text-[11px] font-serif-luxury text-[#554a4a] leading-relaxed font-light">
-                Hạnh phúc không phải đích đến, mà là hành trình chúng mình cùng nhau bước qua mọi thăng trầm.
+              <p className="text-sm sm:text-base font-serif-luxury text-white drop-shadow font-medium mt-0.5">
+                Nụ cười trọn vẹn
+              </p>
+              <p className="text-[10px] font-cormorant italic text-white/90 drop-shadow line-clamp-1 mt-0.5">
+                “Ánh dương dịu dàng của đời anh”
               </p>
             </div>
+          </div>
 
-            {/* Photo 7 */}
+          {/* Right Column: Staggered Portrait Photo 7 with Integrated Typography */}
+          <div className="pt-6 sm:pt-8">
             <div
               onClick={() => openPhoto(7)}
-              className="gallery-card diptych-card-right group relative aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-lg border-2 border-white bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+              className="gallery-card diptych-card-right group relative aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer shadow-lg border-2 border-white bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
             >
               <div className="relative w-full h-[112%] -top-[6%]">
                 <Image
                   src={weddingData.gallery[7].src}
                   alt={weddingData.gallery[7].alt}
                   fill
-                  className="diptych-img-right object-cover transition-transform duration-700 group-hover:scale-108"
+                  className="diptych-img-right object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 500px) 50vw, 230px"
                 />
               </div>
-              <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
-                <ZoomIn className="w-5 h-5 text-white drop-shadow-md" />
+
+              {/* Subtle photographic vignette */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent pointer-events-none" />
+
+              {/* Integrated Typography */}
+              <div className="absolute bottom-3.5 left-3.5 right-3.5 text-left pointer-events-none">
+                <span className="text-[9px] font-cinzel tracking-[0.25em] uppercase text-[#f5d082] drop-shadow-sm block">
+                  PURE ROMANCE
+                </span>
+                <p className="text-sm sm:text-base font-serif-luxury text-white drop-shadow font-medium mt-0.5">
+                  Tình yêu nở hoa
+                </p>
+                <p className="text-[10px] font-cormorant italic text-white/90 drop-shadow line-clamp-1 mt-0.5">
+                  “Chạm vào bình yên bên em”
+                </p>
               </div>
             </div>
+          </div>
+
+          {/* Editorial Under-Quote spanning both columns */}
+          <div className="col-span-2 pt-2 text-center">
+            <p className="text-[11px] font-serif-luxury italic text-[#812927]/90 leading-relaxed max-w-xs mx-auto">
+              “Hạnh phúc không phải đích đến, mà là hành trình chúng mình cùng nhau bước qua mọi thăng trầm.”
+            </p>
           </div>
         </div>
 
@@ -637,53 +635,49 @@ export default function GallerySection() {
           </div>
 
           {/* Luxury Multi-layer Vignette & Framing */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/15 pointer-events-none" />
-          <div className="absolute inset-3 border border-white/30 rounded-2xl pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20 pointer-events-none" />
+          <div className="absolute inset-3 border border-white/25 rounded-2xl pointer-events-none" />
 
-          {/* Top Floating Badge */}
-          <div className="absolute top-5 inset-x-5 flex items-center justify-between pointer-events-none">
-            <span className="text-[10px] font-cinzel tracking-[0.3em] uppercase text-[#f5d082] bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#f5d082]/30 shadow-md">
-              THE FINALE
+          {/* Top Integrated Editorial Signature (No pills, no buttons) */}
+          <div className="absolute top-5 inset-x-6 flex items-center justify-between text-white/90 pointer-events-none">
+            <span className="text-[10px] font-cormorant tracking-[0.25em] uppercase drop-shadow">
+              15 . 12 . 2026
             </span>
-            <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
-              <ZoomIn className="w-4 h-4" />
-            </div>
+            <span className="text-[10px] font-cinzel tracking-[0.25em] uppercase text-[#f5d082] drop-shadow">
+              TRÂM &amp; HUY
+            </span>
           </div>
 
-          {/* Bottom Editorial Content with Special Fonts */}
+          {/* Bottom Integrated Typography */}
           <div className="grand-finale-content absolute bottom-6 inset-x-6 text-center pointer-events-none space-y-1.5">
             <div className="flex items-center justify-center gap-2 mb-1">
-              <span className="h-[1px] w-8 bg-[#f5d082]/60" />
-              <p className="text-[10px] font-cinzel tracking-[0.35em] uppercase text-[#f5d082]">
+              <span className="h-[0.5px] w-8 bg-[#f5d082]/70" />
+              <p className="text-[10px] font-cinzel tracking-[0.35em] uppercase text-[#f5d082] drop-shadow-sm">
                 FOREVER &amp; ALWAYS
               </p>
-              <span className="h-[1px] w-8 bg-[#f5d082]/60" />
+              <span className="h-[0.5px] w-8 bg-[#f5d082]/70" />
             </div>
 
-            <h3 className="text-3xl sm:text-4xl font-script text-white drop-shadow-md leading-tight">
-              Bên Nhau Trọn Một Đời
+            <h3 className="text-3xl sm:text-5xl font-script text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] leading-tight">
+              Bên Nhau Trọn Đời
             </h3>
 
-            <p className="text-xs font-cormorant italic text-white/90 max-w-xs mx-auto drop-shadow leading-relaxed pt-0.5">
+            <p className="text-xs sm:text-sm font-cormorant italic text-white/95 max-w-xs mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] leading-relaxed pt-1">
               “Nguyện cùng anh đi qua ngàn mùa hoa nở, ngắm hoàng hôn buông dưới mái hiên nhà.”
             </p>
-
-            <div className="pt-2">
-              <span className="text-[9px] font-cinzel tracking-[0.25em] uppercase text-white/80 bg-white/10 px-3 py-1 rounded-full border border-white/20 inline-block">
-                CHẠM ĐỂ PHÓNG TO ẢNH
-              </span>
-            </div>
           </div>
         </div>
 
         {/* 7. Artistic Footnote Coda (Transitions seamlessly into RSVP, eliminating residual gap) */}
-        <div className="album-coda pt-6 pb-2 text-center flex flex-col items-center">
-          <div className="flex items-center justify-center gap-3 w-full max-w-xs mb-2">
-            <span className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#dfbaba]" />
-            <span className="font-script text-2xl text-[#812927]">Trâm &amp; Huy</span>
-            <span className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#dfbaba]" />
+        <div className="album-coda pt-8 pb-2 text-center flex flex-col items-center">
+          <div className="flex items-center justify-center gap-4 w-full max-w-[280px] mb-2">
+            <span className="h-[0.5px] flex-1 bg-[#dfbaba]" />
+            <span className="font-cormorant italic text-sm text-[#812927] tracking-widest uppercase">
+              fin
+            </span>
+            <span className="h-[0.5px] flex-1 bg-[#dfbaba]" />
           </div>
-          <p className="text-[10px] font-cinzel tracking-[0.3em] uppercase text-[#812927]/70 font-semibold">
+          <p className="text-[10px] font-cinzel tracking-[0.3em] uppercase text-[#812927]/60 font-semibold">
             SWEET WEDDING MOMENTS
           </p>
         </div>
