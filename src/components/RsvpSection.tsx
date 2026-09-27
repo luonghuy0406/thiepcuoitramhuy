@@ -23,6 +23,7 @@ export default function RsvpSection() {
   const [guestCount, setGuestCount] = useState("1");
   const [message, setMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [wishesList, setWishesList] = useState<Wish[]>([
     {
@@ -57,7 +58,7 @@ export default function RsvpSection() {
       });
     }, sectionRef);
 
-    // Load stored wishes if available
+    // 1. Load stored wishes from localStorage first
     try {
       const stored = localStorage.getItem("wedding_wishes");
       if (stored) {
@@ -65,12 +66,27 @@ export default function RsvpSection() {
       }
     } catch {}
 
+    // 2. Fetch live wishes from Google Sheet via /api/rsvp
+    fetch("/api/rsvp")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          setWishesList(json.data);
+          try {
+            localStorage.setItem("wedding_wishes", JSON.stringify(json.data));
+          } catch {}
+        }
+      })
+      .catch((err) => console.log("Google Sheets sync:", err));
+
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!name.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
 
     // Trigger celebratory confetti
     confetti({
@@ -83,10 +99,10 @@ export default function RsvpSection() {
     const newWish: Wish = {
       name: name.trim(),
       side:
-        guestSide === "groom"
-          ? "Nhà Trai"
-          : guestSide === "bride"
+        guestSide === "bride"
           ? "Nhà Gái"
+          : guestSide === "groom"
+          ? "Nhà Trai"
           : "Bạn Cả Hai",
       wishes:
         message.trim() ||
@@ -102,7 +118,25 @@ export default function RsvpSection() {
       localStorage.setItem("wedding_wishes", JSON.stringify(updated));
     } catch {}
 
-    setIsSubmitted(true);
+    // Save to Google Sheet via API
+    try {
+      await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          attending,
+          guestSide,
+          guestCount,
+          message: message.trim(),
+        }),
+      });
+    } catch (err) {
+      console.warn("Failed to save to Google Sheets:", err);
+    } finally {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }
   };
 
   return (
@@ -255,10 +289,17 @@ export default function RsvpSection() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-[#812927] hover:bg-[#6b2220] text-white py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer"
+                disabled={isSubmitting}
+                className="w-full bg-[#812927] hover:bg-[#6b2220] disabled:bg-[#812927]/70 text-white py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer disabled:cursor-not-allowed"
               >
-                <Send className="w-3.5 h-3.5" />
-                Gửi Xác Nhận & Lời Chúc
+                {isSubmitting ? (
+                  <span>Đang gửi xác nhận...</span>
+                ) : (
+                  <>
+                    <Send className="w-3.5 h-3.5" />
+                    <span>Gửi Xác Nhận &amp; Lời Chúc</span>
+                  </>
+                )}
               </button>
             </>
           )}
