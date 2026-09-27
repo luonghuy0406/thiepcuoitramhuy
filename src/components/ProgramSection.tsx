@@ -10,7 +10,6 @@ import {
   Wine,
   Gift,
   Music,
-  Sparkles,
 } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 
@@ -18,7 +17,6 @@ export default function ProgramSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const scheduleRef = useRef<HTMLDivElement>(null);
-  const thankYouRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -70,23 +68,6 @@ export default function ProgramSection() {
           clearProps: "transform,opacity",
         });
       }
-
-      // 3. Thank You Card Reveal
-      if (thankYouRef.current) {
-        gsap.from(thankYouRef.current, {
-          scrollTrigger: {
-            trigger: thankYouRef.current,
-            start: "top 90%",
-            once: true,
-          },
-          y: 30,
-          scale: 0.97,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          clearProps: "transform,opacity",
-        });
-      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -135,7 +116,7 @@ export default function ProgramSection() {
         </div>
       </div>
 
-      <div className="max-w-[460px] mx-auto space-y-10">
+      <div className="max-w-[460px] mx-auto">
         {/* Schedule List Card */}
         <div
           ref={scheduleRef}
@@ -167,54 +148,6 @@ export default function ProgramSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Heartfelt Thank You Card */}
-        <div
-          ref={thankYouRef}
-          className="relative bg-gradient-to-b from-white via-[#fffdfa] to-[#fcf3f0] rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-[#dfbaba]/60 overflow-hidden"
-        >
-          {/* Decorative Corner Flairs */}
-          <div className="absolute top-2 left-2 text-[#dfbaba]/60">
-            <Sparkles className="w-4 h-4" />
-          </div>
-          <div className="absolute top-2 right-2 text-[#dfbaba]/60">
-            <Sparkles className="w-4 h-4" />
-          </div>
-
-          <span className="text-[10px] uppercase tracking-[0.35em] text-[#812927] font-semibold block mb-2">
-            {weddingData.thankYou.subtitle}
-          </span>
-          <h3 className="text-3xl font-script text-[#812927] mb-4">
-            {weddingData.thankYou.title}
-          </h3>
-
-          <p className="text-xs sm:text-sm text-[#444] font-sans font-light leading-relaxed mb-6 italic">
-            “{weddingData.thankYou.message}”
-          </p>
-
-          {/* Couple Signatures */}
-          <div className="pt-4 border-t border-dashed border-[#dfbaba]/60 flex items-center justify-center gap-6">
-            <div className="text-center">
-              <span className="text-[10px] uppercase tracking-wider text-[#888] block font-sans">
-                Cô dâu
-              </span>
-              <p className="text-2xl font-script text-[#812927]">
-                {weddingData.thankYou.brideSignature}
-              </p>
-            </div>
-
-            <Heart className="w-4 h-4 text-[#812927] fill-[#812927] animate-pulse" />
-
-            <div className="text-center">
-              <span className="text-[10px] uppercase tracking-wider text-[#888] block font-sans">
-                Chú rể
-              </span>
-              <p className="text-2xl font-script text-[#812927]">
-                {weddingData.thankYou.groomSignature}
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
