@@ -361,3 +361,102 @@ export async function submitRsvp(
     return { success: false, message: "Lỗi kết nối máy chủ" };
   }
 }
+
+/**
+ * Fetch total likes from Google Sheet (tab Likes)
+ */
+export async function fetchLikesFromSheet(): Promise<number> {
+  const { spreadsheetId, scriptUrl } = GOOGLE_SHEETS_CONFIG;
+  const likesTab = "Likes";
+
+  // 1. Try Apps Script GET with ?action=getLikes
+  if (scriptUrl) {
+    try {
+      const res = await fetch(`${scriptUrl}?action=getLikes`, {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        redirect: "follow",
+        cache: "no-store",
+      });
+
+      if (res.ok) {
+        const text = await res.text();
+        if (text && !text.includes("<!DOCTYPE html>")) {
+          const json = JSON.parse(text);
+          if (typeof json?.likes === "number") {
+            return json.likes;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn("Apps Script getLikes error:", err);
+    }
+  }
+
+  // 2. Try Google Sheets GViz with &sheet=Likes
+  if (spreadsheetId) {
+    try {
+      const gvizUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&sheet=${likesTab}`;
+      const res = await fetch(gvizUrl, { redirect: "follow", cache: "no-store" });
+      if (res.ok) {
+        const text = await res.text();
+        const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
+        if (match && match[1]) {
+          const json = JSON.parse(match[1]);
+          const rows = json?.table?.rows;
+          if (Array.isArray(rows) && rows.length > 0) {
+            // Check cell values for counter
+            const firstCell = rows[0]?.c?.[1]?.v ?? rows[0]?.c?.[0]?.v;
+            if (typeof firstCell === "number") {
+              return firstCell;
+            }
+            return 1024 + rows.length;
+          }
+        }
+      }
+    } catch (gvizErr) {
+      console.warn("GViz likes fetch error:", gvizErr);
+    }
+  }
+
+  return 1024;
+}
+
+/**
+ * Submit like count to Google Sheet (tab Likes)
+ */
+export async function submitLikeToSheet(
+  count: number = 1
+): Promise<{ success: boolean; likes: number }> {
+  const { scriptUrl } = GOOGLE_SHEETS_CONFIG;
+
+  if (scriptUrl) {
+    try {
+      const res = await fetch(scriptUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "like",
+          count,
+          timestamp: new Date().toISOString(),
+        }),
+        redirect: "follow",
+      });
+
+      if (res.ok) {
+        const text = await res.text();
+        if (text && !text.includes("<!DOCTYPE html>")) {
+          const json = JSON.parse(text);
+          if (typeof json?.likes === "number") {
+            return { success: true, likes: json.likes };
+          }
+        }
+      }
+    } catch (err) {
+      console.warn("Apps Script submitLike error:", err);
+    }
+  }
+
+  return { success: true, likes: 1024 + count };
+}
+

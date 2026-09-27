@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { Heart, MessageSquareHeart, ChevronUp, Play, Pause, Gift } from "lucide-react";
 
@@ -15,46 +15,90 @@ export default function FloatingToolbar({
 }: FloatingToolbarProps) {
   const [likes, setLikes] = useState(1024);
   const heartsPoolRef = useRef<HTMLDivElement>(null);
+  const pendingLikesRef = useRef(0);
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Load initial likes count from Google Sheet via /api/likes
+  useEffect(() => {
+    fetch("/api/likes")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && typeof data.likes === "number" && data.likes >= 1024) {
+          setLikes(data.likes);
+        }
+      })
+      .catch((err) => console.warn("Lỗi tải lượt thả tim:", err));
+  }, []);
+
+  // Sync batched likes to server
+  const syncLikesToServer = useCallback((count: number) => {
+    fetch("/api/likes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ count }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && typeof data.likes === "number") {
+          setLikes((prev) => Math.max(prev, data.likes));
+        }
+      })
+      .catch((err) => console.warn("Lỗi đồng bộ thả tim:", err));
+  }, []);
 
   const handleLike = (e: React.MouseEvent) => {
+    // 1. Instant local increment & optimistic feedback
     setLikes((prev) => prev + 1);
+    pendingLikesRef.current += 1;
 
-    if (!heartsPoolRef.current) return;
+    // 2. Spawn floating heart particle
+    if (heartsPoolRef.current) {
+      const heart = document.createElement("div");
+      heart.className =
+        "absolute pointer-events-none text-[#ff4d6d] flex items-center justify-center";
+      heart.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`;
 
-    // Create a floating heart element
-    const heart = document.createElement("div");
-    heart.className =
-      "absolute pointer-events-none text-[#ff4d6d] flex items-center justify-center";
-    heart.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`;
+      const randomX = (Math.random() - 0.5) * 60;
+      const randomScale = 0.8 + Math.random() * 0.6;
+      const randomRotate = (Math.random() - 0.5) * 45;
 
-    const randomX = (Math.random() - 0.5) * 60;
-    const randomScale = 0.8 + Math.random() * 0.6;
-    const randomRotate = (Math.random() - 0.5) * 45;
+      heartsPoolRef.current.appendChild(heart);
 
-    heartsPoolRef.current.appendChild(heart);
-
-    gsap.fromTo(
-      heart,
-      {
-        x: 0,
-        y: 0,
-        scale: 0.3,
-        opacity: 1,
-        rotation: 0,
-      },
-      {
-        x: randomX,
-        y: -180 - Math.random() * 80,
-        scale: randomScale,
-        rotation: randomRotate,
-        opacity: 0,
-        duration: 1.8,
-        ease: "power2.out",
-        onComplete: () => {
-          heart.remove();
+      gsap.fromTo(
+        heart,
+        {
+          x: 0,
+          y: 0,
+          scale: 0.3,
+          opacity: 1,
+          rotation: 0,
         },
+        {
+          x: randomX,
+          y: -180 - Math.random() * 80,
+          scale: randomScale,
+          rotation: randomRotate,
+          opacity: 0,
+          duration: 1.8,
+          ease: "power2.out",
+          onComplete: () => {
+            heart.remove();
+          },
+        }
+      );
+    }
+
+    // 3. Debounced batch sync to Google Sheet (sync 800ms after last tap)
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    debounceTimerRef.current = setTimeout(() => {
+      const countToSend = pendingLikesRef.current;
+      pendingLikesRef.current = 0;
+      if (countToSend > 0) {
+        syncLikesToServer(countToSend);
       }
-    );
+    }, 800);
   };
 
   const scrollToRsvp = () => {
