@@ -169,23 +169,150 @@ export default function GallerySection() {
         );
       }
 
-      // 6. Triptych Trio: 3D Flip cards turn-in
-      const triptychItems =
-        galleryRef.current?.querySelectorAll(".triptych-item") || [];
-      if (triptychItems.length > 0) {
-        gsap.from(triptychItems, {
+      // 6. Editorial Diptych (Photos 6 & 7 + Quote card)
+      const diptychLeft = galleryRef.current?.querySelector(".diptych-card-left");
+      const diptychQuote = galleryRef.current?.querySelector(".diptych-quote-card");
+      const diptychRight = galleryRef.current?.querySelector(".diptych-card-right");
+      const diptychLeftImg = galleryRef.current?.querySelector(".diptych-img-left");
+      const diptychRightImg = galleryRef.current?.querySelector(".diptych-img-right");
+
+      if (diptychLeft) {
+        gsap.from(diptychLeft, {
           scrollTrigger: {
-            trigger: triptychItems[0],
-            start: "top 90%",
+            trigger: ".editorial-diptych",
+            start: "top 88%",
             once: true,
           },
-          rotateY: 40,
-          y: 35,
+          x: -35,
+          y: 25,
           opacity: 0,
-          scale: 0.9,
-          stagger: 0.12,
+          scale: 0.94,
           duration: 1.1,
           ease: "power3.out",
+        });
+      }
+
+      if (diptychQuote) {
+        gsap.from(diptychQuote, {
+          scrollTrigger: {
+            trigger: ".editorial-diptych",
+            start: "top 88%",
+            once: true,
+          },
+          y: 25,
+          opacity: 0,
+          scale: 0.92,
+          duration: 1.0,
+          delay: 0.12,
+          ease: "back.out(1.4)",
+        });
+      }
+
+      if (diptychRight) {
+        gsap.from(diptychRight, {
+          scrollTrigger: {
+            trigger: ".editorial-diptych",
+            start: "top 88%",
+            once: true,
+          },
+          x: 35,
+          y: 25,
+          opacity: 0,
+          scale: 0.94,
+          duration: 1.1,
+          delay: 0.22,
+          ease: "power3.out",
+        });
+      }
+
+      // Parallax scrub on diptych images
+      if (diptychLeftImg) {
+        gsap.to(diptychLeftImg, {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: diptychLeft,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+        });
+      }
+      if (diptychRightImg) {
+        gsap.to(diptychRightImg, {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: diptychRight,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.2,
+          },
+        });
+      }
+
+      // 7. Grand Finale Showcase (Photo 8)
+      const finaleCard = galleryRef.current?.querySelector(".grand-finale-card");
+      const finaleImg = galleryRef.current?.querySelector(".grand-finale-img");
+      const finaleContent = galleryRef.current?.querySelector(".grand-finale-content");
+
+      if (finaleCard) {
+        gsap.from(finaleCard, {
+          scrollTrigger: {
+            trigger: finaleCard,
+            start: "top 85%",
+            once: true,
+          },
+          y: 40,
+          scale: 0.93,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power3.out",
+        });
+
+        if (finaleImg) {
+          gsap.to(finaleImg, {
+            yPercent: -12,
+            ease: "none",
+            scrollTrigger: {
+              trigger: finaleCard,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          });
+        }
+
+        if (finaleContent) {
+          gsap.from(finaleContent.children, {
+            scrollTrigger: {
+              trigger: finaleCard,
+              start: "top 80%",
+              once: true,
+            },
+            y: 20,
+            opacity: 0,
+            stagger: 0.12,
+            duration: 0.9,
+            delay: 0.2,
+            ease: "power2.out",
+          });
+        }
+      }
+
+      // 8. Album Coda transition
+      const albumCoda = galleryRef.current?.querySelector(".album-coda");
+      if (albumCoda) {
+        gsap.from(albumCoda, {
+          scrollTrigger: {
+            trigger: albumCoda,
+            start: "top 95%",
+            once: true,
+          },
+          opacity: 0,
+          y: 15,
+          duration: 0.8,
+          ease: "power2.out",
         });
       }
     }, sectionRef);
@@ -422,30 +549,143 @@ export default function GallerySection() {
           </div>
         </div>
 
-        {/* 5. Triptych Trio (3 side-by-side joyful photos) */}
-        <div className="grid grid-cols-3 gap-2.5 pt-1">
-          {[6, 7, 8].map((idx) => {
-            const item = weddingData.gallery[idx];
-            if (!item) return null;
-            return (
-              <div
-                key={idx}
-                onClick={() => openPhoto(idx)}
-                className="gallery-card triptych-item group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md border-2 border-white bg-white transition-all duration-400 hover:-translate-y-1.5 hover:shadow-xl"
-              >
+        {/* 5. Editorial Romance Diptych (Photos 6 & 7) */}
+        <div className="editorial-diptych grid grid-cols-2 gap-3.5 items-start pt-2">
+          {/* Left Column: Portrait photo 6 with elegant tag & romantic quote */}
+          <div className="space-y-2.5">
+            <div
+              onClick={() => openPhoto(6)}
+              className="gallery-card diptych-card-left group relative aspect-[4/5] rounded-3xl overflow-hidden cursor-pointer shadow-lg border-2 border-white bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+            >
+              <div className="relative w-full h-[112%] -top-[6%]">
                 <Image
-                  src={item.src}
-                  alt={item.alt}
+                  src={weddingData.gallery[6].src}
+                  alt={weddingData.gallery[6].alt}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  sizes="(max-width: 500px) 33vw, 150px"
+                  className="diptych-img-left object-cover transition-transform duration-700 group-hover:scale-108"
+                  sizes="(max-width: 500px) 50vw, 230px"
                 />
-                <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
-                  <ZoomIn className="w-4 h-4 text-white drop-shadow" />
-                </div>
               </div>
-            );
-          })}
+              <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
+                <ZoomIn className="w-5 h-5 text-white drop-shadow-md" />
+              </div>
+              <div className="absolute top-3 left-3 bg-black/35 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20">
+                <span className="text-[9px] font-cinzel tracking-widest text-white uppercase block">
+                  ROMANCE
+                </span>
+              </div>
+            </div>
+
+            <p className="text-[11px] font-cormorant italic text-[#812927] text-center tracking-wide px-1">
+              “Từng nụ cười, từng ánh mắt đong đầy yêu thương...”
+            </p>
+          </div>
+
+          {/* Right Column: Romantic Quote Card + Photo 7 */}
+          <div className="space-y-3 pt-1">
+            {/* Elegant Luxury Typography Card */}
+            <div className="diptych-quote-card bg-gradient-to-br from-white/95 via-[#fff8f6] to-[#f9edea] p-4 rounded-3xl border border-[#dfbaba]/60 shadow-md text-left relative overflow-hidden">
+              <div className="absolute -right-2 -bottom-3 text-6xl font-script text-[#812927]/10 pointer-events-none select-none">
+                &amp;
+              </div>
+              <span className="text-[9px] uppercase tracking-[0.3em] text-[#812927]/80 font-cinzel font-semibold block mb-1">
+                MEMORIES • 2026
+              </span>
+              <h4 className="font-script text-2xl text-[#812927] leading-none mb-1.5">
+                Khoảnh Khắc Yêu
+              </h4>
+              <p className="text-[11px] font-serif-luxury text-[#554a4a] leading-relaxed font-light">
+                Hạnh phúc không phải đích đến, mà là hành trình chúng mình cùng nhau bước qua mọi thăng trầm.
+              </p>
+            </div>
+
+            {/* Photo 7 */}
+            <div
+              onClick={() => openPhoto(7)}
+              className="gallery-card diptych-card-right group relative aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-lg border-2 border-white bg-white transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+            >
+              <div className="relative w-full h-[112%] -top-[6%]">
+                <Image
+                  src={weddingData.gallery[7].src}
+                  alt={weddingData.gallery[7].alt}
+                  fill
+                  className="diptych-img-right object-cover transition-transform duration-700 group-hover:scale-108"
+                  sizes="(max-width: 500px) 50vw, 230px"
+                />
+              </div>
+              <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-xs">
+                <ZoomIn className="w-5 h-5 text-white drop-shadow-md" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 6. Grand Finale Masterpiece Showcase (Photo 8) */}
+        <div
+          onClick={() => openPhoto(8)}
+          className="gallery-card grand-finale-card group relative w-full aspect-[4/5] sm:aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer shadow-2xl border-4 border-white bg-white transition-all duration-700 hover:shadow-3xl mt-4"
+        >
+          {/* Inner image with parallax */}
+          <div className="grand-finale-img-wrapper relative w-full h-[115%] -top-[7%]">
+            <Image
+              src={weddingData.gallery[8].src}
+              alt={weddingData.gallery[8].alt}
+              fill
+              className="grand-finale-img object-cover transition-transform duration-1000 group-hover:scale-105"
+              sizes="(max-width: 500px) 100vw, 460px"
+            />
+          </div>
+
+          {/* Luxury Multi-layer Vignette & Framing */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/15 pointer-events-none" />
+          <div className="absolute inset-3 border border-white/30 rounded-2xl pointer-events-none" />
+
+          {/* Top Floating Badge */}
+          <div className="absolute top-5 inset-x-5 flex items-center justify-between pointer-events-none">
+            <span className="text-[10px] font-cinzel tracking-[0.3em] uppercase text-[#f5d082] bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#f5d082]/30 shadow-md">
+              THE FINALE
+            </span>
+            <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
+              <ZoomIn className="w-4 h-4" />
+            </div>
+          </div>
+
+          {/* Bottom Editorial Content with Special Fonts */}
+          <div className="grand-finale-content absolute bottom-6 inset-x-6 text-center pointer-events-none space-y-1.5">
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <span className="h-[1px] w-8 bg-[#f5d082]/60" />
+              <p className="text-[10px] font-cinzel tracking-[0.35em] uppercase text-[#f5d082]">
+                FOREVER &amp; ALWAYS
+              </p>
+              <span className="h-[1px] w-8 bg-[#f5d082]/60" />
+            </div>
+
+            <h3 className="text-3xl sm:text-4xl font-script text-white drop-shadow-md leading-tight">
+              Bên Nhau Trọn Một Đời
+            </h3>
+
+            <p className="text-xs font-cormorant italic text-white/90 max-w-xs mx-auto drop-shadow leading-relaxed pt-0.5">
+              “Nguyện cùng anh đi qua ngàn mùa hoa nở, ngắm hoàng hôn buông dưới mái hiên nhà.”
+            </p>
+
+            <div className="pt-2">
+              <span className="text-[9px] font-cinzel tracking-[0.25em] uppercase text-white/80 bg-white/10 px-3 py-1 rounded-full border border-white/20 inline-block">
+                CHẠM ĐỂ PHÓNG TO ẢNH
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* 7. Artistic Footnote Coda (Transitions seamlessly into RSVP, eliminating residual gap) */}
+        <div className="album-coda pt-6 pb-2 text-center flex flex-col items-center">
+          <div className="flex items-center justify-center gap-3 w-full max-w-xs mb-2">
+            <span className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#dfbaba]" />
+            <span className="font-script text-2xl text-[#812927]">Trâm &amp; Huy</span>
+            <span className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#dfbaba]" />
+          </div>
+          <p className="text-[10px] font-cinzel tracking-[0.3em] uppercase text-[#812927]/70 font-semibold">
+            SWEET WEDDING MOMENTS
+          </p>
         </div>
       </div>
 
