@@ -1,5 +1,5 @@
 // Google Sheets API Service for Wedding RSVP & Wishes
-// Supports multiple retrieval strategies:
+// Supports multiple retrieval strategies with automatic column detection:
 // 1. Google Apps Script Web App (doGet)
 // 2. Google Sheets Visualization API (GViz json - when shared as viewer)
 // 3. Google Sheets CSV Export (when shared as viewer)
@@ -36,7 +36,7 @@ export const GOOGLE_SHEETS_CONFIG = {
 };
 
 /**
- * Simple CSV parser that respects quoted fields with commas
+ * Simple CSV parser that respects quoted fields with commas and line breaks
  */
 function parseCsv(csv: string): string[][] {
   const lines = csv.split(/\r?\n/).filter((l) => l.trim().length > 0);
@@ -73,7 +73,7 @@ function formatTimestamp(raw: string | undefined): string {
   const str = raw.trim();
   if (!str) return "Gần đây";
 
-  // Check if it's already formatted (e.g. 27/09/2026 20:30)
+  // Check if it's already human-formatted (e.g. 27/09/2026 20:30)
   if (str.includes("/") || str.includes(":")) {
     return str;
   }
@@ -106,6 +106,111 @@ function normalizeSide(side: string | undefined): string {
 }
 
 /**
+ * Auto-detect columns and extract wishes array from raw table rows
+ */
+function extractWishesFromTable(tableRows: any[][]): SheetWish[] {
+  if (!tableRows || tableRows.length === 0) return [];
+
+  // Determine if first row is a header
+  const firstRow = tableRows[0].map((cell) =>
+    String(cell || "").toLowerCase().trim()
+  );
+  let startIndex = 0;
+
+  let nameCol = -1;
+  let msgCol = -1;
+  let dateCol = -1;
+  let sideCol = -1;
+
+  // Check if first row contains column headers
+  firstRow.forEach((colHeader, idx) => {
+    if (
+      colHeader.includes("tên") ||
+      colHeader.includes("name") ||
+      colHeader.includes("họ")
+    ) {
+      nameCol = idx;
+    } else if (
+      colHeader.includes("chúc") ||
+      colHeader.includes("message") ||
+      colHeader.includes("wish") ||
+      colHeader.includes("lời") ||
+      colHeader.includes("nội dung")
+    ) {
+      msgCol = idx;
+    } else if (
+      colHeader.includes("thời gian") ||
+      colHeader.includes("ngày") ||
+      colHeader.includes("time") ||
+      colHeader.includes("date") ||
+      colHeader.includes("timestamp")
+    ) {
+      dateCol = idx;
+    } else if (
+      colHeader.includes("phía") ||
+      colHeader.includes("nhà") ||
+      colHeader.includes("side")
+    ) {
+      sideCol = idx;
+    }
+  });
+
+  if (nameCol !== -1 || msgCol !== -1) {
+    // First row was recognized as a header
+    startIndex = 1;
+  }
+
+  // Fallbacks if not recognized by header text
+  if (nameCol === -1) nameCol = 1;
+  if (msgCol === -1)
+    msgCol = tableRows[0].length >= 6 ? 5 : tableRows[0].length >= 3 ? 2 : 1;
+  if (dateCol === -1) dateCol = 0;
+  if (sideCol === -1 && tableRows[0].length >= 4) sideCol = 3;
+
+  const wishes: SheetWish[] = [];
+
+  for (let i = startIndex; i < tableRows.length; i++) {
+    const row = tableRows[i];
+    if (!row || !Array.isArray(row)) continue;
+
+    const rawName = String(row[nameCol] || "").trim();
+    if (!rawName) continue;
+
+    // Skip if it looks like a header row
+    if (
+      [
+        "họ và tên",
+        "họ tên",
+        "tên",
+        "name",
+        "full name",
+        "họ và tên của bạn",
+      ].includes(rawName.toLowerCase())
+    ) {
+      continue;
+    }
+
+    const rawDate = row[dateCol] ? String(row[dateCol]).trim() : "";
+    const rawSide =
+      sideCol !== -1 && row[sideCol]
+        ? String(row[sideCol]).trim()
+        : "Bạn Cả Hai";
+    const rawMsg =
+      msgCol !== -1 && row[msgCol] ? String(row[msgCol]).trim() : "";
+
+    wishes.push({
+      date: formatTimestamp(rawDate),
+      name: rawName,
+      side: normalizeSide(rawSide),
+      wishes: rawMsg || "Chúc hai bạn trăm năm hạnh phúc, mãi mãi bên nhau!",
+      attending: "yes",
+    });
+  }
+
+  return wishes.reverse(); // Newest entries first
+}
+
+/**
  * Fetch wishes list from Google Sheet via multiple fallback strategies
  */
 export async function fetchWishesFromSheet(): Promise<SheetWish[]> {
@@ -132,13 +237,15 @@ export async function fetchWishesFromSheet(): Promise<SheetWish[]> {
             : null;
 
           if (list && list.length > 0) {
-            return list.map((item: any) => ({
-              date: formatTimestamp(item.date || item.timestamp || item.time),
-              name: String(item.name || "").trim(),
-              attending: item.attending || "yes",
-              side: normalizeSide(item.side || item.guestSide),
-              wishes: String(item.wishes || item.message || "").trim(),
-            })).filter((w: SheetWish) => w.name.length > 0);
+            return list
+              .map((item: any) => ({
+                date: formatTimestamp(item.date || item.timestamp || item.time),
+                name: String(item.name || "").trim(),
+                attending: item.attending || "yes",
+                side: normalizeSide(item.side || item.guestSide),
+                wishes: String(item.wishes || item.message || "").trim(),
+              }))
+              .filter((w: SheetWish) => w.name.length > 0);
           }
         }
       }
@@ -159,41 +266,25 @@ export async function fetchWishesFromSheet(): Promise<SheetWish[]> {
 
       if (res.ok) {
         const text = await res.text();
-        const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/);
+        const match = text.match(
+          /google\.visualization\.Query\.setResponse\(([\s\S]*)\);?/
+        );
         if (match && match[1]) {
           const json = JSON.parse(match[1]);
           const rows = json?.table?.rows;
           if (Array.isArray(rows) && rows.length > 0) {
-            const wishes: SheetWish[] = [];
-            for (const r of rows) {
-              const c = r.c;
-              if (!c || !Array.isArray(c)) continue;
-              const rawDate = c[0]?.f || c[0]?.v;
-              const rawName = c[1]?.v ? String(c[1].v).trim() : "";
-              const rawAttending = c[2]?.v ? String(c[2].v).trim() : "yes";
-              const rawSide = c[3]?.v ? String(c[3].v).trim() : "Bạn Cả Hai";
-              const rawMsg = c[5]?.v
-                ? String(c[5].v).trim()
-                : c[4]?.v
-                ? String(c[4].v).trim()
-                : "";
+            // Flatten GViz cells: cell.f (formatted) or cell.v (value)
+            const rawTable: any[][] = rows.map((r) =>
+              Array.isArray(r.c)
+                ? r.c.map((cell: any) =>
+                    cell ? cell.f !== undefined ? cell.f : cell.v : ""
+                  )
+                : []
+            );
 
-              if (
-                rawName &&
-                !["họ và tên", "họ tên", "tên", "name"].includes(rawName.toLowerCase())
-              ) {
-                wishes.push({
-                  date: formatTimestamp(rawDate ? String(rawDate) : undefined),
-                  name: rawName,
-                  attending: rawAttending,
-                  side: normalizeSide(rawSide),
-                  wishes: rawMsg,
-                });
-              }
-            }
-
+            const wishes = extractWishesFromTable(rawTable);
             if (wishes.length > 0) {
-              return wishes.reverse(); // Newest entries first
+              return wishes;
             }
           }
         }
@@ -216,27 +307,9 @@ export async function fetchWishesFromSheet(): Promise<SheetWish[]> {
         const csvText = await res.text();
         if (!csvText.includes("<!DOCTYPE html>") && !csvText.includes("<html")) {
           const rows = parseCsv(csvText);
-          if (rows.length > 1) {
-            const wishes: SheetWish[] = [];
-            for (let i = 1; i < rows.length; i++) {
-              const row = rows[i];
-              const name = (row[1] || "").trim();
-              if (
-                name &&
-                !["họ và tên", "họ tên", "tên", "name"].includes(name.toLowerCase())
-              ) {
-                wishes.push({
-                  date: formatTimestamp(row[0]),
-                  name,
-                  attending: (row[2] || "").trim() || "yes",
-                  side: normalizeSide(row[3]),
-                  wishes: (row[5] || row[4] || "").trim(),
-                });
-              }
-            }
-            if (wishes.length > 0) {
-              return wishes.reverse();
-            }
+          const wishes = extractWishesFromTable(rows);
+          if (wishes.length > 0) {
+            return wishes;
           }
         }
       }
@@ -248,23 +321,17 @@ export async function fetchWishesFromSheet(): Promise<SheetWish[]> {
   // Strategy 4: Google Sheets API v4 with API Key
   if (spreadsheetId && apiKey) {
     try {
-      const range = encodeURIComponent(`${sheetName}!A2:F`);
+      const range = encodeURIComponent(`${sheetName}!A1:F`);
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
 
       const res = await fetch(url, { cache: "no-store" });
       if (res.ok) {
         const data = await res.json();
         if (Array.isArray(data.values) && data.values.length > 0) {
-          return data.values
-            .map((row: string[]) => ({
-              date: formatTimestamp(row[0]),
-              name: (row[1] || "").trim(),
-              attending: row[2] || "yes",
-              side: normalizeSide(row[3]),
-              wishes: row[5] || row[4] || "",
-            }))
-            .filter((item: SheetWish) => item.name.length > 0)
-            .reverse();
+          const wishes = extractWishesFromTable(data.values);
+          if (wishes.length > 0) {
+            return wishes;
+          }
         }
       }
     } catch (apiErr) {
