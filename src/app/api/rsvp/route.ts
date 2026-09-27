@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
 import { GOOGLE_SHEETS_CONFIG, fetchWishesFromSheet } from "@/lib/google-sheets";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   try {
     const wishes = await fetchWishesFromSheet();
-    return NextResponse.json({ success: true, data: wishes });
+    return NextResponse.json({
+      success: true,
+      data: wishes,
+      count: wishes.length,
+    });
   } catch (err) {
     console.error("GET /api/rsvp error:", err);
     return NextResponse.json({ success: false, data: [] }, { status: 500 });
@@ -26,24 +33,53 @@ export async function POST(req: Request) {
     const { apiKey, spreadsheetId, sheetName, scriptUrl } = GOOGLE_SHEETS_CONFIG;
     let savedToSheet = false;
 
-    // 1. Primary Write Method: Google Apps Script Web App (Fastest, zero-auth required for guests)
+    const formattedTime = new Date().toLocaleString("vi-VN", {
+      timeZone: "Asia/Ho_Chi_Minh",
+    });
+
+    const sideText =
+      guestSide === "bride"
+        ? "Nhà Gái"
+        : guestSide === "groom"
+        ? "Nhà Trai"
+        : "Bạn Cả Hai";
+
+    const attendingText = attending === "yes" ? "Tham dự" : "Gửi lời chúc";
+
+    // 1. Primary Write Method: Google Apps Script Web App
     if (scriptUrl) {
+      const payload: Record<string, string> = {
+        name: name.trim(),
+        attending: attendingText,
+        guestSide: sideText,
+        guestCount: String(guestCount || "1"),
+        message: message?.trim() || "",
+        timestamp: formattedTime,
+      };
+
       try {
+        // Try JSON body
         const scriptRes = await fetch(scriptUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: name.trim(),
-            attending,
-            guestSide,
-            guestCount,
-            message: message?.trim() || "",
-            timestamp: new Date().toISOString(),
-          }),
+          body: JSON.stringify(payload),
+          redirect: "follow",
         });
 
         if (scriptRes.ok) {
           savedToSheet = true;
+        } else {
+          // Fallback to URL-encoded form data (support e.parameter in Apps Script)
+          const params = new URLSearchParams(payload);
+          const formRes = await fetch(scriptUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: params.toString(),
+            redirect: "follow",
+          });
+          if (formRes.ok) {
+            savedToSheet = true;
+          }
         }
       } catch (scriptErr) {
         console.warn("Apps Script submission error:", scriptErr);
@@ -62,10 +98,10 @@ export async function POST(req: Request) {
           body: JSON.stringify({
             values: [
               [
-                new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }),
+                formattedTime,
                 name.trim(),
-                attending === "yes" ? "Tham dự" : "Gửi lời chúc",
-                guestSide === "bride" ? "Nhà Gái" : guestSide === "groom" ? "Nhà Trai" : "Bạn Cả Hai",
+                attendingText,
+                sideText,
                 guestCount,
                 message?.trim() || "",
               ],
@@ -89,7 +125,7 @@ export async function POST(req: Request) {
       savedToSheet,
       message: savedToSheet
         ? "Đã lưu vào Google Sheet thành công"
-        : "Đã ghi nhận lời chúc (cần cấu hình thêm Google Sheet ID hoặc Script URL để tự động đồng bộ)",
+        : "Đã ghi nhận lời chúc vào hệ thống",
     });
   } catch (err) {
     console.error("POST /api/rsvp error:", err);

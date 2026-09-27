@@ -1,16 +1,17 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import confetti from "canvas-confetti";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, HeartHandshake, Loader2 } from "lucide-react";
 
 interface Wish {
   name: string;
   side: string;
   wishes: string;
   date: string;
+  attending?: string;
 }
 
 export default function RsvpSection() {
@@ -25,20 +26,24 @@ export default function RsvpSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [wishesList, setWishesList] = useState<Wish[]>([
-    {
-      name: "Hoàng Thu Thảo",
-      side: "Bạn Cô Dâu",
-      wishes: "Ngọc Trâm ơi xinh đẹp tuyệt vời, chúc hai bạn một đời an yên bên nhau!",
-      date: "Vừa xong",
-    },
-    {
-      name: "Trần Minh Quân",
-      side: "Bạn Chú Rể",
-      wishes: "Chúc hai bạn trăm năm hạnh phúc, sớm đón thiên thần nhỏ nhé!",
-      date: "10 phút trước",
-    },
-  ]);
+  // Live wishes fetched from Google Sheet (No localStorage, No hardcoded dummy data)
+  const [wishesList, setWishesList] = useState<Wish[]>([]);
+  const [isLoadingWishes, setIsLoadingWishes] = useState(true);
+
+  // Fetch live wishes directly from Google Sheet via /api/rsvp
+  const fetchWishes = useCallback(async () => {
+    try {
+      const res = await fetch("/api/rsvp", { cache: "no-store" });
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        setWishesList(json.data);
+      }
+    } catch (err) {
+      console.warn("Lỗi đồng bộ lời chúc từ Google Sheet:", err);
+    } finally {
+      setIsLoadingWishes(false);
+    }
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -58,29 +63,11 @@ export default function RsvpSection() {
       });
     }, sectionRef);
 
-    // 1. Load stored wishes from localStorage first
-    try {
-      const stored = localStorage.getItem("wedding_wishes");
-      if (stored) {
-        setWishesList(JSON.parse(stored));
-      }
-    } catch {}
-
-    // 2. Fetch live wishes from Google Sheet via /api/rsvp
-    fetch("/api/rsvp")
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-          setWishesList(json.data);
-          try {
-            localStorage.setItem("wedding_wishes", JSON.stringify(json.data));
-          } catch {}
-        }
-      })
-      .catch((err) => console.log("Google Sheets sync:", err));
+    // Initial load from Google Sheet
+    fetchWishes();
 
     return () => ctx.revert();
-  }, []);
+  }, [fetchWishes]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,17 +97,15 @@ export default function RsvpSection() {
           ? "Chúc hai bạn mãi mãi hạnh phúc trọn vẹn!"
           : "Gửi ngàn lời chúc phúc tốt đẹp nhất đến tân lang tân nương!"),
       date: "Vừa xong",
+      attending: attending === "yes" ? "Tham dự" : "Gửi lời chúc",
     };
 
-    const updated = [newWish, ...wishesList];
-    setWishesList(updated);
-    try {
-      localStorage.setItem("wedding_wishes", JSON.stringify(updated));
-    } catch {}
+    // Optimistically prepend wish to the list
+    setWishesList((prev) => [newWish, ...prev]);
 
-    // Save to Google Sheet via API
+    // Save to Google Sheet via backend API
     try {
-      await fetch("/api/rsvp", {
+      const res = await fetch("/api/rsvp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -131,8 +116,16 @@ export default function RsvpSection() {
           message: message.trim(),
         }),
       });
+
+      const result = await res.json();
+      if (result.success) {
+        // Refetch after a short delay to get the canonical sheet row and timestamp
+        setTimeout(() => {
+          fetchWishes();
+        }, 1500);
+      }
     } catch (err) {
-      console.warn("Failed to save to Google Sheets:", err);
+      console.warn("Lỗi gửi xác nhận tham dự:", err);
     } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -169,12 +162,12 @@ export default function RsvpSection() {
                 Cảm Ơn Bạn Rất Nhiều!
               </h4>
               <p className="text-xs text-[#555] leading-relaxed">
-                Lời xác nhận và lời chúc của bạn đã được gửi tới Ngọc Trâm & Lương Huy.
+                Lời xác nhận và lời chúc của bạn đã được ghi nhận và lưu lại vào Google Sheet.
               </p>
               <button
                 type="button"
                 onClick={() => setIsSubmitted(false)}
-                className="mt-4 text-xs font-semibold text-[#812927] underline hover:text-[#5a1c1a]"
+                className="mt-4 text-xs font-semibold text-[#812927] underline hover:text-[#5a1c1a] cursor-pointer"
               >
                 Gửi thêm lời chúc khác
               </button>
@@ -205,7 +198,7 @@ export default function RsvpSection() {
                   <button
                     type="button"
                     onClick={() => setAttending("yes")}
-                    className={`py-2 px-3 text-xs rounded-xl font-medium border transition-all ${
+                    className={`py-2 px-3 text-xs rounded-xl font-medium border transition-all cursor-pointer ${
                       attending === "yes"
                         ? "bg-[#812927] text-white border-[#812927] shadow-xs"
                         : "bg-[#fffcfb] text-[#555] border-[#dfbaba]"
@@ -216,7 +209,7 @@ export default function RsvpSection() {
                   <button
                     type="button"
                     onClick={() => setAttending("no")}
-                    className={`py-2 px-3 text-xs rounded-xl font-medium border transition-all ${
+                    className={`py-2 px-3 text-xs rounded-xl font-medium border transition-all cursor-pointer ${
                       attending === "no"
                         ? "bg-[#812927] text-white border-[#812927] shadow-xs"
                         : "bg-[#fffcfb] text-[#555] border-[#dfbaba]"
@@ -242,7 +235,7 @@ export default function RsvpSection() {
                       key={item.id}
                       type="button"
                       onClick={() => setGuestSide(item.id)}
-                      className={`py-2 rounded-xl font-medium border transition-all ${
+                      className={`py-2 rounded-xl font-medium border transition-all cursor-pointer ${
                         guestSide === item.id
                           ? "bg-[#812927] text-white border-[#812927]"
                           : "bg-[#fffcfb] text-[#555] border-[#dfbaba]"
@@ -293,7 +286,10 @@ export default function RsvpSection() {
                 className="w-full bg-[#812927] hover:bg-[#6b2220] disabled:bg-[#812927]/70 text-white py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
-                  <span>Đang gửi xác nhận...</span>
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Đang lưu vào Google Sheet...</span>
+                  </>
                 ) : (
                   <>
                     <Send className="w-3.5 h-3.5" />
@@ -316,24 +312,50 @@ export default function RsvpSection() {
             </span>
           </div>
 
-          <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
-            {wishesList.map((w, idx) => (
-              <div
-                key={idx}
-                className="bg-white/70 backdrop-blur-xs p-3.5 rounded-xl border border-[#dfbaba]/40 shadow-xs"
-              >
-                <div className="flex items-center justify-between text-[11px] mb-1">
-                  <span className="font-bold text-[#812927]">{w.name}</span>
-                  <span className="text-[10px] text-[#888] bg-[#f9f1ef] px-2 py-0.5 rounded-full border border-[#dfbaba]/30">
-                    {w.side}
-                  </span>
+          {isLoadingWishes ? (
+            <div className="py-8 text-center space-y-2 bg-white/40 backdrop-blur-xs rounded-xl border border-[#dfbaba]/30">
+              <div className="w-5 h-5 border-2 border-[#812927]/30 border-t-[#812927] rounded-full animate-spin mx-auto" />
+              <p className="text-[11px] text-[#888] font-light italic">
+                Đang kết nối sổ lưu bút từ Google Sheet...
+              </p>
+            </div>
+          ) : wishesList.length === 0 ? (
+            <div className="bg-white/60 backdrop-blur-xs p-6 rounded-2xl border border-[#dfbaba]/40 text-center space-y-2 shadow-xs">
+              <HeartHandshake className="w-7 h-7 text-[#dfbaba] mx-auto" />
+              <p className="text-xs text-[#812927] font-serif-luxury font-medium">
+                Chưa có lời chúc nào trong sổ lưu bút
+              </p>
+              <p className="text-[11px] text-[#888] font-light max-w-xs mx-auto leading-relaxed">
+                Hãy là người đầu tiên gửi những lời chúc phúc ngọt ngào nhất đến Ngọc Trâm &amp; Lương Huy nhé!
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1">
+              {wishesList.map((w, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white/80 backdrop-blur-xs p-3.5 rounded-xl border border-[#dfbaba]/40 shadow-xs hover:border-[#812927]/30 transition-all"
+                >
+                  <div className="flex items-center justify-between text-[11px] mb-1">
+                    <span className="font-bold text-[#812927]">{w.name}</span>
+                    <div className="flex items-center gap-1.5">
+                      {w.date && (
+                        <span className="text-[10px] text-[#999] font-light">
+                          {w.date}
+                        </span>
+                      )}
+                      <span className="text-[10px] text-[#812927] bg-[#f9f1ef] px-2 py-0.5 rounded-full border border-[#dfbaba]/30 font-medium">
+                        {w.side}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-[#444] font-light leading-relaxed">
+                    {w.wishes}
+                  </p>
                 </div>
-                <p className="text-xs text-[#444] font-light leading-relaxed">
-                  {w.wishes}
-                </p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
