@@ -22,7 +22,9 @@ export const GOOGLE_SHEETS_CONFIG = {
   apiKey:
     process.env.NEXT_PUBLIC_GOOGLE_API_KEY ||
     "AIzaSyC2bT4OYJ0u5yVeKIfoeQKgBe5kd1Fu6fE",
-  spreadsheetId: process.env.NEXT_PUBLIC_GOOGLE_SHEET_ID || "",
+  spreadsheetId:
+    process.env.NEXT_PUBLIC_GOOGLE_SHEET_ID ||
+    "1JsYLeR9cgxbffi-vr560eaAxD9gchj72VBCe9nY5-r0",
   sheetName: process.env.NEXT_PUBLIC_GOOGLE_SHEET_NAME || "Sheet1",
   scriptUrl: process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "",
 };
