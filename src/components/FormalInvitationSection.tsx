@@ -142,43 +142,28 @@ export default function FormalInvitationSection() {
           </div>
 
           {/* 4. BỮA TIỆC CHUNG VUI & THỜI GIAN */}
-          <div className="text-center my-6 sm:my-7 space-y-1.5">
-            <h3 className="font-serif-luxury font-bold text-sm sm:text-base text-[#812927] tracking-[0.16em] uppercase">
-              BỮA TIỆC CHUNG VUI
+          <div className="text-center my-6 sm:my-7 space-y-2.5">
+            <h3 className="font-serif-luxury font-bold text-xs sm:text-sm text-[#812927] tracking-[0.18em] uppercase">
+              BỮA TIỆC CHUNG VUI ĐƯỢC TỔ CHỨC VÀO LÚC
             </h3>
-            <p className="font-serif-luxury font-bold text-xs sm:text-sm text-[#812927] tracking-[0.14em] uppercase">
-              ĐƯỢC TỔ CHỨC VÀO LÚC {weddingData.event.time}, {weddingData.event.dayOfWeek.toUpperCase()}
+            <div className="inline-flex flex-wrap items-center justify-center gap-2 py-2 px-4 sm:px-6 rounded-2xl bg-[#f9f1ef] border border-[#dfbaba]/60 text-[#812927]">
+              <span className="font-serif-luxury font-bold text-sm sm:text-base tracking-wider">
+                {weddingData.event.time}
+              </span>
+              <span className="text-[#812927]/40 font-light">|</span>
+              <span className="font-serif-luxury font-bold text-sm sm:text-base tracking-wider uppercase">
+                {weddingData.event.dayOfWeek}
+              </span>
+              <span className="text-[#812927]/40 font-light">|</span>
+              <span className="font-serif-luxury font-bold text-sm sm:text-base tracking-wider">
+                {weddingData.event.dateDisplay}
+              </span>
+            </div>
+            {/* Ngày âm lịch */}
+            <p className="font-serif-luxury italic text-xs sm:text-sm text-[#812927]/85 text-center tracking-wide pt-0.5 mb-6">
+              ({weddingData.event.lunarDateDisplay || "Tức ngày 17 tháng 11 năm Bính Ngọ"})
             </p>
           </div>
-
-          {/* 5. KHUNG LỊCH NGÀY CƯỚI: THÁNG 12 | 15 | NĂM 2026 */}
-          <div className="flex items-center justify-center gap-3 sm:gap-4 my-5 max-w-sm mx-auto">
-            {/* Tháng với viền trên và viền dưới */}
-            <div className="flex-1 py-1 sm:py-1.5 border-t border-b border-[#812927] text-center">
-              <span className="font-serif-luxury font-bold text-xs sm:text-sm text-[#812927] tracking-[0.2em] uppercase whitespace-nowrap">
-                THÁNG {weddingData.event.month}
-              </span>
-            </div>
-
-            {/* Số ngày kích thước lớn */}
-            <div className="flex-shrink-0 px-2 sm:px-3 text-center">
-              <span className="font-serif-luxury font-bold text-6xl sm:text-7xl text-[#812927] leading-none select-none">
-                {weddingData.event.day}
-              </span>
-            </div>
-
-            {/* Năm với viền trên và viền dưới */}
-            <div className="flex-1 py-1 sm:py-1.5 border-t border-b border-[#812927] text-center">
-              <span className="font-serif-luxury font-bold text-xs sm:text-sm text-[#812927] tracking-[0.2em] uppercase whitespace-nowrap">
-                NĂM {weddingData.event.year}
-              </span>
-            </div>
-          </div>
-
-          {/* Ngày âm lịch */}
-          <p className="font-serif-luxury italic text-xs sm:text-sm text-[#812927] text-center tracking-wide mb-6">
-            ({weddingData.event.lunarDateDisplay || "Tức ngày 17 tháng 11 năm Bính Ngọ"})
-          </p>
 
           {/* 6. ĐỊA ĐIỂM TỔ CHỨC */}
           <div className="text-center space-y-1.5 mb-7">

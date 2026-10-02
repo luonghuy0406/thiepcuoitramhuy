@@ -265,9 +265,9 @@ export default function Home() {
       {/* Main Wedding Invitation Sections - Rich Story Sequence */}
       <div id="wedding-content" className="relative z-10 space-y-6">
         <HeroSection isOpeningTriggered={openingStarted || envelopeOpened} />
+        <CountdownSection />
         <FormalInvitationSection />
         {/* <LoveStorySection /> */}
-        {/* <CountdownSection /> */}
         {/* <VenueSection /> */}
         {/* <ProgramSection /> */}
         <GallerySection />

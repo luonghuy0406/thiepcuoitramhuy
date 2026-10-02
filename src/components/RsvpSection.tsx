@@ -310,17 +310,15 @@ export default function RsvpSection() {
                   )}
                 </button>
 
-                {/* Nút gửi quà cưới hiển thị khi chọn Gửi lời chúc phúc */}
-                {attending === "no" && (
-                  <button
-                    type="button"
-                    onClick={() => setIsGiftModalOpen(true)}
-                    className="w-full bg-white hover:bg-[#fff5f4] text-[#812927] border border-[#812927]/40 py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer hover:border-[#812927]"
-                  >
-                    <Gift className="w-3.5 h-3.5" />
-                    <span>Gửi Quà Cưới</span>
-                  </button>
-                )}
+                {/* Nút gửi quà mừng luôn hiển thị kèm nút gửi lời chúc */}
+                <button
+                  type="button"
+                  onClick={() => setIsGiftModalOpen(true)}
+                  className="w-full bg-white hover:bg-[#fff5f4] text-[#812927] border border-[#812927]/40 py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer hover:border-[#812927]"
+                >
+                  <Gift className="w-3.5 h-3.5" />
+                  <span>Gửi Quà Mừng</span>
+                </button>
               </div>
             </>
           )}
