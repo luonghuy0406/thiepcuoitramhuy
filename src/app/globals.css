@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Parisienne&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Quicksand:wght@300;400;500;600;700&family=Sacramento&family=Tangerine:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +12,7 @@
 }
 
 body {
-  background-color: #2b2727;
+  background-color: #dbc8c1;
   color: #3b3232;
   font-family: 'Quicksand', sans-serif;
   overflow-x: hidden;
@@ -21,6 +21,14 @@ body {
 
 .font-script {
   font-family: 'Great Vibes', 'Alex Brush', cursive;
+}
+
+.font-allura {
+  font-family: 'Allura', 'Great Vibes', 'Alex Brush', 'Dancing Script', cursive;
+}
+
+.font-great-vibes {
+  font-family: 'Great Vibes', 'Allura', 'Alex Brush', 'Dancing Script', cursive;
 }
 
 .font-calligraphy {
@@ -48,12 +56,21 @@ body {
   perspective: 1000px;
 }
 
+.perspective-1400 {
+  perspective: 1400px;
+}
+
 .transform-style-3d {
   transform-style: preserve-3d;
 }
 
 .backface-hidden {
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
 }
 
 /* Infinite vinyl rotation */

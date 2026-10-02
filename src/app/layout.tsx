@@ -27,8 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className="scroll-smooth">
-      <body className="min-h-screen bg-[#241f1f] text-[#3b3232] flex justify-center selection:bg-[#e49696] selection:text-white">
-        <div className="w-full max-w-[500px] min-h-screen bg-[#f9f1ef] relative shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-x-hidden">
+      <body className="min-h-screen bg-[#dbc8c1] text-[#3b3232] flex justify-center selection:bg-[#e49696] selection:text-white">
+        <div className="w-full max-w-[500px] min-h-screen bg-[#f9f1ef] relative overflow-x-hidden">
           {children}
         </div>
       </body>

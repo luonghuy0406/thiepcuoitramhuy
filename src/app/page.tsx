@@ -146,8 +146,31 @@ export default function Home() {
     }
   };
 
+  const handleStartOpening = () => {
+    setMusicTriggered(true);
+    // Thiệp cưới bên trong dần phóng to vừa khít khung hình khi 2 cánh cửa mở ra
+    const content = document.getElementById("wedding-content");
+    if (content) {
+      gsap.fromTo(
+        content,
+        { scale: 0.88, opacity: 0.65, transformOrigin: "top center" },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 2.3,
+          delay: 0.35,
+          ease: "power2.out",
+        }
+      );
+    }
+  };
+
   const handleOpened = () => {
     setEnvelopeOpened(true);
+    const content = document.getElementById("wedding-content");
+    if (content) {
+      gsap.set(content, { scale: 1, opacity: 1, clearProps: "transform" });
+    }
     // Reset to top cleanly
     window.scrollTo({ top: 0, behavior: "instant" });
 
@@ -188,7 +211,7 @@ export default function Home() {
       {/* 3D Envelope Opening Screen */}
       {!envelopeOpened && (
         <EnvelopeModal
-          onStart={() => setMusicTriggered(true)}
+          onStart={handleStartOpening}
           onOpened={handleOpened}
         />
       )}
