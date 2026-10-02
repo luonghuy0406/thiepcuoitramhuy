@@ -192,7 +192,7 @@ export default function RsvpSection() {
                   placeholder="Ví dụ: Sơn Tùng M-TP"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 transition-all text-[#3b3232]"
+                  className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 transition-all text-[#3b3232]"
                 />
               </div>
 
@@ -263,7 +263,7 @@ export default function RsvpSection() {
                   <select
                     value={guestCount}
                     onChange={(e) => setGuestCount(e.target.value)}
-                    className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 text-[#3b3232]"
+                    className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 text-[#3b3232]"
                   >
                     <option value="1">Đi một mình (1 người)</option>
                     <option value="2">Đi cùng người thương (2 người)</option>
@@ -282,7 +282,7 @@ export default function RsvpSection() {
                   placeholder="Gửi gắm lời chúc tốt đẹp nhất..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 transition-all text-[#3b3232] resize-none"
+                  className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 transition-all text-[#3b3232] resize-none"
                 />
               </div>
 
