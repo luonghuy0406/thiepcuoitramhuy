@@ -68,7 +68,15 @@ export default function GiftBoxSection() {
         </p>
 
         {/* Central Luxury Wedding Gift Box Card */}
-        <div className="bg-gradient-to-b from-white/95 to-[#fff9f8]/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 shadow-md border border-[#dfbaba]/70 text-center relative overflow-hidden transition-all duration-300 hover:shadow-lg">
+        <div
+          className="rounded-3xl shadow-xl border border-[#dfbaba]/70 text-center relative overflow-hidden transition-all duration-300 hover:shadow-2xl"
+          style={{
+            backgroundImage: "url('/assets/bg-marble-gold.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="bg-[#fffdfa]/88 backdrop-blur-[1.5px] p-6 sm:p-7 rounded-3xl">
           {/* Decorative Corner Ornaments */}
           <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#dfbaba]/60 rounded-tl-3xl pointer-events-none" />
           <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-[#dfbaba]/60 rounded-tr-3xl pointer-events-none" />
@@ -135,6 +143,7 @@ export default function GiftBoxSection() {
               </div>
               <span className="truncate">Mừng Chú Rể</span>
             </button>
+          </div>
           </div>
         </div>
 

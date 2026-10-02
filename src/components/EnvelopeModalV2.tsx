@@ -5,6 +5,7 @@ import gsap from "gsap";
 
 interface EnvelopeModalProps {
   onStart?: () => void;
+  onReveal?: () => void;
   onOpened: () => void;
 }
 
@@ -48,7 +49,7 @@ function createShader(gl: WebGLRenderingContext, type: number, source: string) {
   return shader;
 }
 
-export default function EnvelopeModalV2({ onStart, onOpened }: EnvelopeModalProps) {
+export default function EnvelopeModalV2({ onStart, onReveal, onOpened }: EnvelopeModalProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRemoved, setIsRemoved] = useState(false);
 
@@ -59,6 +60,7 @@ export default function EnvelopeModalV2({ onStart, onOpened }: EnvelopeModalProp
   const videoRef = useRef<HTMLVideoElement>(null);
   const captionRef = useRef<HTMLDivElement>(null);
   const isSkippedRef = useRef(false);
+  const hasRevealedRef = useRef(false);
   const animationFrameIdRef = useRef<number>(0);
 
   const triggerFadeOut = () => {
@@ -66,6 +68,10 @@ export default function EnvelopeModalV2({ onStart, onOpened }: EnvelopeModalProp
     isSkippedRef.current = true;
 
     cancelAnimationFrame(animationFrameIdRef.current);
+    if (!hasRevealedRef.current) {
+      hasRevealedRef.current = true;
+      onReveal?.();
+    }
 
     if (containerRef.current) {
       gsap.to(containerRef.current, {
@@ -112,13 +118,13 @@ export default function EnvelopeModalV2({ onStart, onOpened }: EnvelopeModalProp
       });
     }
 
-    // 3. Fade out dark backdrop as the 2 doors swing open to reveal the actual wedding invitation
+    // 3. Fade out dark backdrop smoothly as the doors begin to swing open
     if (backdropRef.current) {
       gsap.to(backdropRef.current, {
         opacity: 0,
-        duration: 1.2,
-        delay: 0.6,
-        ease: "power2.inOut",
+        duration: 0.8,
+        delay: 0.45,
+        ease: "power2.out",
       });
     }
 
@@ -256,9 +262,15 @@ export default function EnvelopeModalV2({ onStart, onOpened }: EnvelopeModalProp
     video.addEventListener("loadeddata", handleLoadedData);
     video.addEventListener("canplay", handleLoadedData);
 
-    // When video doors fully open (around 2.7s) or video ends
+    // When video doors open to wide view (around 1.45s) & when fully open (around 2.5s)
     const handleTimeUpdate = () => {
-      if (video.currentTime >= 2.7 || video.ended) {
+      // Khi 2 cánh cửa đã mở rộng rõ ràng (1.45s), kích hoạt hiệu ứng chữ xuất hiện khoan thai
+      if (video.currentTime >= 1.45 && !hasRevealedRef.current) {
+        hasRevealedRef.current = true;
+        onReveal?.();
+      }
+
+      if (video.currentTime >= 2.5 || video.ended) {
         triggerFadeOut();
       }
     };

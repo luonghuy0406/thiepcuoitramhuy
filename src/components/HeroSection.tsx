@@ -6,45 +6,110 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { weddingData } from "@/data/wedding-data";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  isOpeningTriggered?: boolean;
+}
+
+export default function HeroSection({ isOpeningTriggered = true }: HeroSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const songHyRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const namesRef = useRef<HTMLDivElement>(null);
+  const ampersandRef = useRef<HTMLSpanElement>(null);
+  const dateRef = useRef<HTMLDivElement>(null);
+  const dateLineLeftRef = useRef<HTMLSpanElement>(null);
+  const dateLineRightRef = useRef<HTMLSpanElement>(null);
   const photoContainerRef = useRef<HTMLDivElement>(null);
   const photoImageRef = useRef<HTMLDivElement>(null);
+
+  const hasAnimatedRef = useRef(false);
+
+  // Initial hidden state if envelope is not yet opened
+  useEffect(() => {
+    if (!isOpeningTriggered && !hasAnimatedRef.current) {
+      if (songHyRef.current) gsap.set(songHyRef.current, { opacity: 0, y: -18 });
+      if (titleRef.current) gsap.set(titleRef.current, { opacity: 0, y: 32 });
+      if (namesRef.current) gsap.set(namesRef.current, { opacity: 0, y: 20 });
+      if (dateRef.current) gsap.set(dateRef.current, { opacity: 0 });
+      if (photoContainerRef.current) gsap.set(photoContainerRef.current, { opacity: 0, y: 35 });
+    }
+  }, [isOpeningTriggered]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    if (!isOpeningTriggered || hasAnimatedRef.current) return;
+    hasAnimatedRef.current = true;
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.from(titleRef.current, {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        delay: 0.2,
-      })
-        .from(
-          namesRef.current,
-          {
-            y: 35,
-            opacity: 0,
-            scale: 0.95,
-            duration: 1.1,
-          },
-          "-=0.6"
-        )
-        .from(
-          photoContainerRef.current,
-          {
-            scale: 0.9,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power2.out",
-          },
+      // 1. Traditional Song Hỷ Emblem: Gentle scale & fall
+      if (songHyRef.current) {
+        tl.fromTo(
+          songHyRef.current,
+          { opacity: 0, scale: 0.75, y: -16 },
+          { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "back.out(1.2)" }
+        );
+      }
+
+      // 2. "Wedding Invitation": Floating Bloom with blur-to-sharp rise
+      if (titleRef.current) {
+        tl.fromTo(
+          titleRef.current,
+          { opacity: 0, y: 28, filter: "blur(6px)" },
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.5, ease: "power2.out" },
           "-=0.7"
         );
+      }
+
+      // 3. Couple Names: Floating Bloom without letter-spacing
+      if (namesRef.current) {
+        tl.fromTo(
+          namesRef.current,
+          { opacity: 0, y: 18, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 1.4, ease: "power2.out" },
+          "-=0.9"
+        );
+      }
+
+      if (ampersandRef.current) {
+        tl.fromTo(
+          ampersandRef.current,
+          { opacity: 0, scale: 0.5, rotate: -10 },
+          { opacity: 1, scale: 1, rotate: 0, duration: 1.1, ease: "back.out(1.5)" },
+          "-=1.1"
+        );
+      }
+
+      // 4. Date Display & Decorative Gold Lines
+      if (dateRef.current) {
+        tl.fromTo(
+          dateRef.current,
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 1.1, ease: "power2.out" },
+          "-=0.8"
+        );
+      }
+
+      if (dateLineLeftRef.current && dateLineRightRef.current) {
+        tl.fromTo(
+          [dateLineLeftRef.current, dateLineRightRef.current],
+          { scaleX: 0, opacity: 0 },
+          { scaleX: 1, opacity: 1, duration: 0.95, ease: "power2.out" },
+          "<"
+        );
+      }
+
+      // 5. Wedding Portrait Card
+      if (photoContainerRef.current) {
+        tl.fromTo(
+          photoContainerRef.current,
+          { opacity: 0, y: 30, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
+          "-=0.8"
+        );
+      }
 
       // Parallax scroll on photo
       if (photoImageRef.current) {
@@ -62,7 +127,7 @@ export default function HeroSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isOpeningTriggered]);
 
   return (
     <section
@@ -70,53 +135,55 @@ export default function HeroSection() {
       id="hero-section"
       className="relative pt-10 pb-0 px-4 flex flex-col items-center text-center overflow-visible z-10"
     >
-      {/* Traditional Song Hỷ Emblem */}
-      <div className="relative mb-3 flex items-center justify-center">
-        <div className="w-13 h-13 relative transition-transform duration-500 hover:scale-105 cursor-pointer">
+      {/* Romantic Soft Floral Pastel Pink Background Motif */}
+      <div className="absolute top-0 left-0 right-0 h-[520px] pointer-events-none overflow-hidden z-0 opacity-75">
+        <Image
+          src="/assets/anh3-opt.jpg"
+          alt="Floral background"
+          fill
+          priority
+          className="object-cover object-top filter brightness-[1.08] contrast-[0.96] blur-[0.2px]"
+        />
+        {/* Pastel pink luminous veil & soft gradient fade */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#fff5f6]/40 via-[#fdeef0]/30 to-[#f9f1ef]" />
+      </div>
+
+      {/* Traditional Song Hỷ Emblem: Romantic Peony Floral Wreath Motif */}
+      <div ref={songHyRef} className="relative z-10 mb-1 flex items-center justify-center">
+        <div className="w-12 h-12 sm:w-14 sm:h-14 relative transition-transform duration-500 hover:scale-105 cursor-pointer opacity-95">
           <Image
-            src="/assets/1egmxjgt9lqs1ro04evek.png"
+            src="/assets/songhy-square.png"
             alt="Song Hỷ"
-            width={48}
-            height={48}
-            className="object-contain"
+            width={70}
+            height={70}
+            className="object-contain w-full h-full"
             priority
           />
         </div>
       </div>
 
-      {/* Header title */}
-      <div ref={titleRef} className="space-y-1 flex flex-col items-center">
-        <p className="text-[11px] tracking-[0.35em] uppercase text-[#812927]/90 font-cinzel font-semibold">
-          {weddingData.event.subtitle}
-        </p>
-        <h2 className="text-xs sm:text-sm text-[#777] font-serif-luxury tracking-[0.25em] uppercase font-medium">
-          Lễ Vu Quy
+      {/* Header title: Large romantic script "Wedding Invitation" */}
+      <div ref={titleRef} className="relative z-10 flex flex-col items-center mb-1">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-script text-[#812927] tracking-wide py-1 drop-shadow-xs select-none">
+          Wedding Invitation
         </h2>
       </div>
 
-      {/* Couple Names & Date */}
-      <div ref={namesRef} className="my-3">
-        <div className="flex flex-col items-center">
-          <h1 className="text-5xl sm:text-6xl font-script text-[#812927] tracking-wide py-1 drop-shadow-xs select-none">
-            {weddingData.bride.shortName}
-          </h1>
-          <div className="flex items-center justify-center gap-3 my-[-6px]">
-            <span className="h-[1px] w-10 sm:w-14 bg-[#dfbaba]" />
-            <span className="text-2xl font-serif text-[#a33f3d] select-none font-light">&amp;</span>
-            <span className="h-[1px] w-10 sm:w-14 bg-[#dfbaba]" />
-          </div>
-          <h1 className="text-5xl sm:text-6xl font-script text-[#812927] tracking-wide py-1 drop-shadow-xs select-none">
-            {weddingData.groom.shortName}
-          </h1>
+      {/* Couple Names & Date: Refined Cinzel uppercase font, smaller and naturally spaced */}
+      <div ref={namesRef} className="relative z-10 my-2 flex flex-col items-center">
+        <div className="flex items-center justify-center gap-2 sm:gap-2.5 text-xs sm:text-sm md:text-base font-cinzel font-semibold text-[#812927] uppercase select-none tracking-normal">
+          <span>{weddingData.bride.shortName}</span>
+          <span ref={ampersandRef} className="text-[#a33f3d] font-serif font-light text-xs sm:text-sm italic">&amp;</span>
+          <span>{weddingData.groom.shortName}</span>
         </div>
 
         {/* Date Display */}
-        <div className="flex items-center justify-center gap-3 mt-3">
-          <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#812927]/35" />
-          <span className="text-xs font-serif-luxury tracking-[0.25em] text-[#812927] uppercase font-semibold">
+        <div ref={dateRef} className="flex items-center justify-center gap-2.5 sm:gap-3 mt-2">
+          <span ref={dateLineLeftRef} className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#812927]/30 origin-right" />
+          <span className="text-[11px] sm:text-xs font-serif-luxury tracking-wider text-[#812927]/85 uppercase font-medium">
             {weddingData.event.dateDisplay}
           </span>
-          <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#812927]/35" />
+          <span ref={dateLineRightRef} className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#812927]/30 origin-left" />
         </div>
       </div>
 

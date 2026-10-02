@@ -7,10 +7,11 @@ import { Heart } from "lucide-react";
 
 interface EnvelopeModalProps {
   onStart?: () => void;
+  onReveal?: () => void;
   onOpened: () => void;
 }
 
-export default function EnvelopeModalV1({ onStart, onOpened }: EnvelopeModalProps) {
+export default function EnvelopeModalV1({ onStart, onReveal, onOpened }: EnvelopeModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isRemoved, setIsRemoved] = useState(false);
   const [showcaseActive, setShowcaseActive] = useState(false);
@@ -28,6 +29,7 @@ export default function EnvelopeModalV1({ onStart, onOpened }: EnvelopeModalProp
   const triggerFadeOut = () => {
     if (isSkippedRef.current) return;
     isSkippedRef.current = true;
+    onReveal?.();
 
     if (containerRef.current) {
       gsap.to(containerRef.current, {

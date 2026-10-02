@@ -71,38 +71,46 @@ export default function InvitationSection() {
       {/* 1. Frosted Glass Floating Invitation Greeting Card */}
       <div
         ref={letterRef}
-        className="relative z-20 -mt-12 sm:-mt-16 max-w-[440px] mx-auto bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-3xl shadow-[0_20px_50px_rgba(129,41,39,0.08),0_2px_8px_rgba(0,0,0,0.03)] border border-white/80 text-center overflow-hidden transition-all duration-500 hover:shadow-2xl"
+        className="relative z-20 -mt-12 sm:-mt-16 max-w-[440px] mx-auto rounded-3xl shadow-[0_20px_50px_rgba(129,41,39,0.1),0_2px_8px_rgba(0,0,0,0.03)] border border-[#dfbaba]/60 text-center overflow-hidden transition-all duration-500 hover:shadow-2xl"
+        style={{
+          backgroundImage: "url('/assets/anh1-opt.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        {/* Editorial Title Header */}
-        <div className="flex flex-col items-center mb-3.5">
-          <div className="flex items-center justify-center gap-3 mb-1.5">
-            <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
-            <span className="text-xs uppercase tracking-[0.35em] font-cinzel font-semibold text-[#812927]">
-              Invitation
-            </span>
-            <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
+        {/* Soft veil overlay for optimal typography legibility */}
+        <div className="bg-[#fffdfa]/82 backdrop-blur-[1px] p-6 sm:p-8 rounded-3xl">
+          {/* Editorial Title Header */}
+          <div className="flex flex-col items-center mb-3.5">
+            <div className="flex items-center justify-center gap-3 mb-1.5">
+              <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
+              <span className="text-xs uppercase tracking-[0.35em] font-cinzel font-semibold text-[#812927]">
+                Invitation
+              </span>
+              <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
+            </div>
+            <p className="text-[10px] sm:text-[11px] font-cormorant tracking-[0.2em] text-[#777] uppercase font-semibold">
+              Lễ Vu Quy
+            </p>
           </div>
-          <p className="text-[10px] sm:text-[11px] font-cormorant tracking-[0.2em] text-[#777] uppercase font-semibold">
-            Lễ Vu Quy
+
+          <h3 className="text-base sm:text-lg font-serif-luxury text-[#2b2727] font-semibold mb-2.5 leading-snug">
+            Gửi đến gia đình, người thân &amp; bạn bè quý mến,
+          </h3>
+
+          <p className="text-xs sm:text-sm text-[#443c3c] leading-relaxed font-sans font-light mb-4 max-w-sm mx-auto">
+            Cảm ơn bạn đã dành tình cảm yêu thương và thời gian quý báu để cùng chúng mình chung vui trong ngày trọng đại này. Sự hiện diện và lời chúc phúc của bạn là món quà vô giá đối với chúng mình!
           </p>
-        </div>
 
-        <h3 className="text-base sm:text-lg font-serif-luxury text-[#2b2727] font-semibold mb-2.5 leading-snug">
-          Gửi đến gia đình, người thân &amp; bạn bè quý mến,
-        </h3>
-
-        <p className="text-xs sm:text-sm text-[#443c3c] leading-relaxed font-sans font-light mb-4 max-w-sm mx-auto">
-          Cảm ơn bạn đã dành tình cảm yêu thương và thời gian quý báu để cùng chúng mình chung vui trong ngày trọng đại này. Sự hiện diện và lời chúc phúc của bạn là món quà vô giá đối với chúng mình!
-        </p>
-
-        {/* Elegant Footer with Signature */}
-        <div className="pt-3.5 border-t border-dashed border-[#dfbaba]/75 flex items-center justify-between px-3">
-          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#812927] font-serif-luxury font-bold">
-            Trân Trọng Kính Mời
-          </span>
-          <span className="font-script text-2xl sm:text-3xl text-[#812927] leading-none pt-1">
-            Trâm &amp; Huy
-          </span>
+          {/* Elegant Footer with Signature */}
+          <div className="pt-3.5 border-t border-dashed border-[#dfbaba]/75 flex items-center justify-between px-3">
+            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#812927] font-serif-luxury font-bold">
+              Trân Trọng Kính Mời
+            </span>
+            <span className="font-script text-2xl sm:text-3xl text-[#812927] leading-none pt-1">
+              Trâm &amp; Huy
+            </span>
+          </div>
         </div>
       </div>
 
@@ -112,10 +120,20 @@ export default function InvitationSection() {
       {/* 2. Formal Centerpiece Wedding Invitation Card */}
       <div
         ref={cardRef}
-        className="relative max-w-[460px] mx-auto bg-gradient-to-b from-white via-[#fffdfb] to-[#fbf5f2] rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-[#dfbaba]/70 text-left overflow-hidden transition-all duration-500 hover:shadow-3xl"
+        className="relative max-w-[460px] mx-auto rounded-3xl shadow-2xl border-2 border-[#dfbaba]/70 text-left overflow-hidden transition-all duration-500 hover:shadow-3xl"
+        style={{
+          backgroundImage: "url('/assets/anh2-opt.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
+        {/* Soft luminous white veil to ensure flawless text legibility */}
+        <div className="absolute inset-0 bg-[#fffdfa]/82 backdrop-blur-[1px] pointer-events-none" />
+
         {/* Delicate inner hairline frame */}
-        <div className="absolute inset-2.5 sm:inset-3 border border-[#dfbaba]/45 rounded-2xl pointer-events-none" />
+        <div className="absolute inset-2.5 sm:inset-3 border border-[#dfbaba]/50 rounded-2xl pointer-events-none z-10" />
+
+        <div className="relative z-10 p-6 sm:p-8">
 
         {/* TOP HEADER: Vertical "Lễ Vu Quy" on left & Diagonally Staggered Names on right */}
         <div className="relative z-10 flex items-start justify-between mb-3">
@@ -264,6 +282,7 @@ export default function InvitationSection() {
             <CalendarIcon className="w-3.5 h-3.5" />
             Thêm Vào Lịch
           </a>
+        </div>
         </div>
       </div>
     </section>

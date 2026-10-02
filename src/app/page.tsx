@@ -20,6 +20,7 @@ import gsap from "gsap";
 
 export default function Home() {
   const [envelopeOpened, setEnvelopeOpened] = useState(false);
+  const [openingStarted, setOpeningStarted] = useState(false);
   const [musicTriggered, setMusicTriggered] = useState(false);
   const [isAutoScrolling, setIsAutoScrolling] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -34,6 +35,7 @@ export default function Home() {
       const params = new URLSearchParams(window.location.search);
       if (params.get("opened") === "1" || params.get("opened") === "true") {
         setEnvelopeOpened(true);
+        setOpeningStarted(true);
       }
 
       const timer = setTimeout(() => {
@@ -165,8 +167,14 @@ export default function Home() {
     }
   };
 
+  const handleReveal = () => {
+    // Kích hoạt hiệu ứng xuất hiện chữ đúng thời điểm cánh cửa phong bì mở ra và bắt đầu mờ đi
+    setOpeningStarted(true);
+  };
+
   const handleOpened = () => {
     setEnvelopeOpened(true);
+    setOpeningStarted(true);
     const content = document.getElementById("wedding-content");
     if (content) {
       gsap.set(content, { scale: 1, opacity: 1, clearProps: "transform" });
@@ -174,10 +182,10 @@ export default function Home() {
     // Reset to top cleanly
     window.scrollTo({ top: 0, behavior: "instant" });
 
-    // Begin slow cinematic auto-scroll after romantic pause (600ms)
+    // Begin slow cinematic auto-scroll after user enjoys the hero section (3.5s)
     setTimeout(() => {
       startAutoScroll();
-    }, 600);
+    }, 3500);
   };
 
   useEffect(() => {
@@ -212,13 +220,14 @@ export default function Home() {
       {!envelopeOpened && (
         <EnvelopeModal
           onStart={handleStartOpening}
+          onReveal={handleReveal}
           onOpened={handleOpened}
         />
       )}
 
       {/* Main Wedding Invitation Sections - Rich Story Sequence */}
       <div id="wedding-content" className="relative z-10 space-y-6">
-        <HeroSection />
+        <HeroSection isOpeningTriggered={openingStarted || envelopeOpened} />
         <InvitationSection />
         {/* <LoveStorySection /> */}
         {/* <CountdownSection /> */}

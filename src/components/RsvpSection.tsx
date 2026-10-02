@@ -153,8 +153,14 @@ export default function RsvpSection() {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-md border border-[#dfbaba]/50 text-left space-y-4"
+          className="rounded-3xl shadow-xl border border-[#dfbaba]/60 text-left overflow-hidden transition-all duration-300 hover:shadow-2xl"
+          style={{
+            backgroundImage: "url('/assets/anh3-opt.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
+          <div className="bg-[#fffdfa]/88 backdrop-blur-[1.5px] p-6 sm:p-7 rounded-3xl space-y-4">
           {isSubmitted ? (
             <div className="py-8 text-center space-y-3">
               <CheckCircle2 className="w-12 h-12 text-[#812927] mx-auto" />
@@ -299,6 +305,7 @@ export default function RsvpSection() {
               </button>
             </>
           )}
+          </div>
         </form>
 
         {/* Guest Book / Recent Wishes Feed */}

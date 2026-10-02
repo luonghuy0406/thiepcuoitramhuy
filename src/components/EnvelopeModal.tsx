@@ -6,12 +6,14 @@ import EnvelopeModalV2 from "./EnvelopeModalV2";
 
 interface EnvelopeModalProps {
   onStart?: () => void;
+  onReveal?: () => void;
   onOpened: () => void;
   version?: "v1" | "v2";
 }
 
 export default function EnvelopeModal({
   onStart,
+  onReveal,
   onOpened,
   version: propVersion,
 }: EnvelopeModalProps) {
@@ -44,8 +46,8 @@ export default function EnvelopeModal({
   }, [propVersion]);
 
   if (activeVersion === "v1") {
-    return <EnvelopeModalV1 onStart={onStart} onOpened={onOpened} />;
+    return <EnvelopeModalV1 onStart={onStart} onReveal={onReveal} onOpened={onOpened} />;
   }
 
-  return <EnvelopeModalV2 onStart={onStart} onOpened={onOpened} />;
+  return <EnvelopeModalV2 onStart={onStart} onReveal={onReveal} onOpened={onOpened} />;
 }

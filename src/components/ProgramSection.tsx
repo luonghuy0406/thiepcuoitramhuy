@@ -71,8 +71,14 @@ export default function ProgramSection() {
         {/* Schedule List Card */}
         <div
           ref={scheduleRef}
-          className="bg-white/90 backdrop-blur-xl rounded-3xl p-6 sm:p-7 shadow-xl border border-[#dfbaba]/50 divide-y divide-[#dfbaba]/30 text-left"
+          className="rounded-3xl shadow-xl border border-[#dfbaba]/60 overflow-hidden text-left transition-all duration-300 hover:shadow-2xl"
+          style={{
+            backgroundImage: "url('/assets/bg-lake-terrace-opt.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
+          <div className="bg-[#fffdfa]/88 backdrop-blur-[2px] p-6 sm:p-7 rounded-3xl divide-y divide-[#dfbaba]/30">
           {weddingData.programSchedule.map((prog, idx) => (
             <div
               key={idx}
@@ -98,6 +104,7 @@ export default function ProgramSection() {
               </div>
             </div>
           ))}
+          </div>
         </div>
       </div>
     </section>

@@ -46,8 +46,14 @@ export default function VenueSection() {
     <section ref={sectionRef} className="py-12 px-4 text-center">
       <div
         ref={cardRef}
-        className="max-w-[440px] mx-auto bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-md border border-[#dfbaba]/50"
+        className="max-w-[440px] mx-auto rounded-3xl shadow-xl border border-[#dfbaba]/60 overflow-hidden text-center transition-all duration-300 hover:shadow-2xl"
+        style={{
+          backgroundImage: "url('/assets/bg-silk-rose.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
+        <div className="bg-[#fffdfa]/88 backdrop-blur-[1.5px] p-6 sm:p-7 rounded-3xl">
         <span className="text-[11px] uppercase tracking-[0.25em] text-[#812927] font-bold">
           Địa Điểm Tổ Chức
         </span>
@@ -119,6 +125,7 @@ export default function VenueSection() {
             <CalendarIcon className="w-3.5 h-3.5" />
             Thêm Vào Lịch
           </a>
+        </div>
         </div>
       </div>
     </section>
