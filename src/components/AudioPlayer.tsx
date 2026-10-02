@@ -46,7 +46,7 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
     <div className="fixed top-4 right-4 z-50 flex items-center gap-2 pointer-events-auto">
       <audio
         ref={audioRef}
-        src="/audio/0e470330-e4d4-4fdc-8d99-830aab66916c.mp3"
+        src="/audio/wedding-music.mp3"
         loop
         preload="auto"
       />

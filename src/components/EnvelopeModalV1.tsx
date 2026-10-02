@@ -252,13 +252,13 @@ export default function EnvelopeModalV1({ onStart, onReveal, onOpened }: Envelop
               />
             </svg>
 
-            {/* Realistic Wax Seal Image from public/assets/wax_seal.png */}
+            {/* Realistic Wax Seal Image from public/assets/envelope-wax-seal.png */}
             <div
               ref={sealRef}
               className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[76px] h-[76px] sm:w-[88px] sm:h-[88px] z-[30] pointer-events-auto filter drop-shadow-[0_8px_20px_rgba(0,0,0,0.55)] transition-transform duration-300 hover:scale-108 active:scale-95 cursor-pointer"
             >
               <Image
-                src="/assets/wax_seal.png"
+                src="/assets/envelope-wax-seal.png"
                 alt="Wax Seal T & H"
                 fill
                 sizes="(max-width: 640px) 76px, 88px"
@@ -277,7 +277,7 @@ export default function EnvelopeModalV1({ onStart, onReveal, onOpened }: Envelop
             {/* Photo Framed Area */}
             <div className="relative w-full h-[148px] sm:h-[165px] rounded-xl overflow-hidden shadow-inner bg-[#f5e6e6]">
               <Image
-                src="/assets/c4d45265-947c-414c-b53f-f291586faeea.jpg"
+                src="/assets/envelope-card-photo.jpg"
                 alt="Ngọc Trâm & Lương Huy"
                 fill
                 sizes="(max-width: 640px) 340px, 380px"

@@ -318,7 +318,7 @@ export default function EnvelopeModalV2({ onStart, onReveal, onOpened }: Envelop
       {/* Hidden native video source (Alpha-packed H.264 MP4: left RGB, right Alpha mask) */}
       <video
         ref={videoRef}
-        src="/assets/video.mp4"
+        src="/assets/envelope-video.mp4"
         playsInline
         muted
         preload="auto"
@@ -334,7 +334,7 @@ export default function EnvelopeModalV2({ onStart, onReveal, onOpened }: Envelop
       >
         <div className="relative w-full h-full max-w-[calc(100vh*608/1080)] max-h-[calc(100vw*1080/608)] aspect-[608/1080] flex items-center justify-center">
           <img
-            src="/assets/avorio_rosa-poster.jpg"
+            src="/assets/envelope-poster.jpg"
             alt="Bìa thiệp cưới"
             className="w-full h-full object-contain pointer-events-none select-none"
             loading="eager"

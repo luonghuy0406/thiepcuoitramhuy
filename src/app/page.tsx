@@ -5,14 +5,13 @@ import AudioPlayer from "@/components/AudioPlayer";
 import EnvelopeModal from "@/components/EnvelopeModal";
 import PetalsCanvas from "@/components/PetalsCanvas";
 import HeroSection from "@/components/HeroSection";
-import InvitationSection from "@/components/InvitationSection";
+import FormalInvitationSection from "@/components/FormalInvitationSection";
 import LoveStorySection from "@/components/LoveStorySection";
 import CountdownSection from "@/components/CountdownSection";
 import VenueSection from "@/components/VenueSection";
 import ProgramSection from "@/components/ProgramSection";
 import GallerySection from "@/components/GallerySection";
 import RsvpSection from "@/components/RsvpSection";
-import GiftBoxSection from "@/components/GiftBoxSection";
 import FloatingToolbar from "@/components/FloatingToolbar";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -27,6 +26,44 @@ export default function Home() {
 
   const autoScrollActiveRef = useRef(false);
   const rafIdRef = useRef<number | null>(null);
+
+  // Ensure page always starts at top on refresh, avoiding browser scroll cache issues
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+
+      // Immediately reset scroll position to top
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+      // Before unload / reload, reset scroll position so browser doesn't record non-zero scroll
+      const handleBeforeUnload = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      };
+
+      // PageShow handles both initial load and restore from BFCache (Back-Forward Cache)
+      const handlePageShow = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+      window.addEventListener("pageshow", handlePageShow);
+      window.addEventListener("load", handlePageShow);
+
+      // Micro-tick safeguard in case of asynchronous layout shifts during hydration
+      const timer = setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }, 60);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+        window.removeEventListener("pageshow", handlePageShow);
+        window.removeEventListener("load", handlePageShow);
+        clearTimeout(timer);
+      };
+    }
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -228,26 +265,14 @@ export default function Home() {
       {/* Main Wedding Invitation Sections - Rich Story Sequence */}
       <div id="wedding-content" className="relative z-10 space-y-6">
         <HeroSection isOpeningTriggered={openingStarted || envelopeOpened} />
-        <InvitationSection />
+        <FormalInvitationSection />
         {/* <LoveStorySection /> */}
         {/* <CountdownSection /> */}
         {/* <VenueSection /> */}
-        <ProgramSection />
+        {/* <ProgramSection /> */}
         <GallerySection />
         <RsvpSection />
-        <GiftBoxSection />
       </div>
-
-      {/* Floating Auto-Scroll Status Pill */}
-      {isAutoScrolling && (
-        <div
-          onClick={stopAutoScroll}
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 bg-[#2b2727]/90 hover:bg-[#2b2727] backdrop-blur-md text-white/90 px-5 py-2 rounded-full border border-[#dfbaba]/40 shadow-2xl flex items-center gap-2.5 text-xs font-serif-luxury cursor-pointer transition-all duration-300 hover:scale-105"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#dfbaba]" />
-          <span className="tracking-wide">Đang cuộn tự động • Chạm để dừng</span>
-        </div>
-      )}
 
       {/* Floating Action Bar (Bottom Right) */}
       <FloatingToolbar

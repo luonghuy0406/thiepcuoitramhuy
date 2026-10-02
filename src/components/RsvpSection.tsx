@@ -4,7 +4,8 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import confetti from "canvas-confetti";
-import { Send, CheckCircle2, HeartHandshake, Loader2 } from "lucide-react";
+import { Send, CheckCircle2, HeartHandshake, Loader2, Gift } from "lucide-react";
+import GiftModal from "@/components/GiftModal";
 
 interface Wish {
   name: string;
@@ -25,6 +26,7 @@ export default function RsvpSection() {
   const [message, setMessage] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGiftModalOpen, setIsGiftModalOpen] = useState(false);
 
   // Live wishes fetched from Google Sheet (No localStorage, No hardcoded dummy data)
   const [wishesList, setWishesList] = useState<Wish[]>([]);
@@ -135,13 +137,6 @@ export default function RsvpSection() {
   return (
     <section ref={sectionRef} id="rsvp-section" className="py-12 px-4 text-center">
       <div className="max-w-[440px] mx-auto">
-        <div className="flex items-center justify-center gap-2 mb-1.5">
-          <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
-          <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] text-[#812927]/90 font-cinzel font-semibold">
-            RSVP
-          </span>
-          <span className="h-[1px] w-8 sm:w-12 bg-[#dfbaba]" />
-        </div>
         <h3 className="text-3xl sm:text-4xl font-script text-[#812927] mb-2 drop-shadow-xs">
           Xác Nhận Tham Dự
         </h3>
@@ -154,11 +149,7 @@ export default function RsvpSection() {
           ref={formRef}
           onSubmit={handleSubmit}
           className="rounded-3xl shadow-xl border border-[#dfbaba]/60 text-left overflow-hidden transition-all duration-300 hover:shadow-2xl"
-          style={{
-            backgroundImage: "url('/assets/anh3-opt.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          
         >
           <div className="bg-[#fffdfa]/88 backdrop-blur-[1.5px] p-6 sm:p-7 rounded-3xl space-y-4">
           {isSubmitted ? (
@@ -168,15 +159,25 @@ export default function RsvpSection() {
                 Cảm Ơn Bạn Rất Nhiều!
               </h4>
               <p className="text-xs text-[#555] leading-relaxed">
-                Lời xác nhận và lời chúc của bạn đã được ghi nhận và lưu lại vào Google Sheet.
+                Lời chúc của bạn đã được gửi thành công đến dâu rể.
               </p>
-              <button
-                type="button"
-                onClick={() => setIsSubmitted(false)}
-                className="mt-4 text-xs font-semibold text-[#812927] underline hover:text-[#5a1c1a] cursor-pointer"
-              >
-                Gửi thêm lời chúc khác
-              </button>
+              <div className="pt-2 flex flex-col items-center gap-2 max-w-xs mx-auto">
+                <button
+                  type="button"
+                  onClick={() => setIsGiftModalOpen(true)}
+                  className="w-full bg-[#812927] hover:bg-[#68201f] text-white py-2.5 px-4 rounded-xl text-xs font-medium tracking-wider uppercase shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                >
+                  <Gift className="w-3.5 h-3.5" />
+                  <span>Gửi Quà Cưới Đến Dâu Rể</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsSubmitted(false)}
+                  className="text-xs font-semibold text-[#812927] underline hover:text-[#5a1c1a] cursor-pointer pt-1"
+                >
+                  Gửi thêm lời chúc khác
+                </button>
+              </div>
             </div>
           ) : (
             <>
@@ -188,7 +189,7 @@ export default function RsvpSection() {
                 <input
                   type="text"
                   required
-                  placeholder="Ví dụ: Hoàng Thu Thảo"
+                  placeholder="Ví dụ: Sơn Tùng M-TP"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 transition-all text-[#3b3232]"
@@ -285,24 +286,42 @@ export default function RsvpSection() {
                 />
               </div>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-[#812927] hover:bg-[#6b2220] disabled:bg-[#812927]/70 text-white py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    <span>Đang lưu vào Google Sheet...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-3.5 h-3.5" />
-                    <span>Gửi Xác Nhận &amp; Lời Chúc</span>
-                  </>
+              {/* Submit Button & Gift Button */}
+              <div className="space-y-2 pt-1">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#812927] hover:bg-[#6b2220] disabled:bg-[#812927]/70 text-white py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <span>Đang gửi lời chúc đến dâu rể</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3.5 h-3.5" />
+                      <span>
+                        {attending === "no"
+                          ? "Gửi Lời Chúc Phúc"
+                          : "Gửi Xác Nhận & Lời Chúc"}
+                      </span>
+                    </>
+                  )}
+                </button>
+
+                {/* Nút gửi quà cưới hiển thị khi chọn Gửi lời chúc phúc */}
+                {attending === "no" && (
+                  <button
+                    type="button"
+                    onClick={() => setIsGiftModalOpen(true)}
+                    className="w-full bg-white hover:bg-[#fff5f4] text-[#812927] border border-[#812927]/40 py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer hover:border-[#812927]"
+                  >
+                    <Gift className="w-3.5 h-3.5" />
+                    <span>Gửi Quà Cưới</span>
+                  </button>
                 )}
-              </button>
+              </div>
             </>
           )}
           </div>
@@ -365,6 +384,13 @@ export default function RsvpSection() {
           )}
         </div>
       </div>
+
+      {/* Gift QR Modal */}
+      <GiftModal
+        isOpen={isGiftModalOpen}
+        onClose={() => setIsGiftModalOpen(false)}
+        defaultSide={guestSide === "groom" ? "groom" : "bride"}
+      />
     </section>
   );
 }

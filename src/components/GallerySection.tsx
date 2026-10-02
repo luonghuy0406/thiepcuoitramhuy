@@ -667,20 +667,6 @@ export default function GallerySection() {
             </p>
           </div>
         </div>
-
-        {/* 7. Artistic Footnote Coda (Transitions seamlessly into RSVP, eliminating residual gap) */}
-        <div className="album-coda pt-8 pb-2 text-center flex flex-col items-center">
-          <div className="flex items-center justify-center gap-4 w-full max-w-[280px] mb-2">
-            <span className="h-[0.5px] flex-1 bg-[#dfbaba]" />
-            <span className="font-cormorant italic text-sm text-[#812927] tracking-widest uppercase">
-              fin
-            </span>
-            <span className="h-[0.5px] flex-1 bg-[#dfbaba]" />
-          </div>
-          <p className="text-[10px] font-cinzel tracking-[0.3em] uppercase text-[#812927]/60 font-semibold">
-            SWEET WEDDING MOMENTS
-          </p>
-        </div>
       </div>
 
       {/* Fullscreen Lightbox Modal with Animated Entrance & Navigation */}

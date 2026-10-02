@@ -97,10 +97,10 @@ export const weddingData: WeddingData = {
     fatherName: "Ông: Nguyễn Ngọc Thành",
     motherName: "Bà: Võ Thị Sô",
     location: "Huế",
-    avatar: "/assets/37877611-5c5b-4643-834b-e9757c0d48d6.jpg",
-    bankName: "MB Bank",
-    accountNumber: "012345678",
-    qrCode: "/assets/87716a41-53d0-42e1-a0ba-8469b4dac41b.png",
+    avatar: "/assets/groom-avatar.jpg",
+    bankName: "Vietcombank",
+    accountNumber: "9383393232",
+    qrCode: "/assets/groom-qr.png",
   },
   bride: {
     fullName: "Bùi Huỳnh Ngọc Trâm",
@@ -108,10 +108,10 @@ export const weddingData: WeddingData = {
     fatherName: "Ông: Bùi Ngọc Hà",
     motherName: "Bà: Huỳnh Thị Phương",
     location: "Quy Nhơn",
-    avatar: "/assets/518b1a1e-e31e-4733-8d27-d3c81b90a3ce.jpg",
-    bankName: "MB Bank",
-    accountNumber: "012345678",
-    qrCode: "/assets/87716a41-53d0-42e1-a0ba-8469b4dac41b.png",
+    avatar: "/assets/bride-avatar.jpg",
+    bankName: "Vietcombank",
+    accountNumber: "0051000562062",
+    qrCode: "/assets/bride-qr.png",
   },
   event: {
     title: "Tiệc Mừng Lễ Vu Quy",
@@ -154,43 +154,43 @@ export const weddingData: WeddingData = {
   ],
   music: {
     title: "Lễ Đường - Kai Đinh",
-    url: "/audio/0e470330-e4d4-4fdc-8d99-830aab66916c.mp3",
+    url: "/audio/wedding-music.mp3",
   },
   gallery: [
     {
-      src: "/assets/9881034c-0645-4b24-9855-f600d9426515.jpg",
+      src: "/assets/gallery-01.jpg",
       alt: "Khoảnh khắc hạnh phúc của Ngọc Trâm & Lương Huy",
     },
     {
-      src: "/assets/1d098419-b484-480d-b04b-7474a34aebf0.png",
+      src: "/assets/gallery-02.png",
       alt: "Cô dâu Ngọc Trâm xinh đẹp rạng rỡ",
     },
     {
-      src: "/assets/518b1a1e-e31e-4733-8d27-d3c81b90a3ce.jpg",
+      src: "/assets/gallery-03.jpg",
       alt: "Chân dung cô dâu bên bó hoa cưới",
     },
     {
-      src: "/assets/37877611-5c5b-4643-834b-e9757c0d48d6.jpg",
+      src: "/assets/gallery-04.jpg",
       alt: "Chú rể Lương Huy lịch lãm",
     },
     {
-      src: "/assets/7e576579-ef79-493a-ae38-702d72a11170.jpg",
+      src: "/assets/gallery-05.jpg",
       alt: "Đôi uyên ương cùng chung bước",
     },
     {
-      src: "/assets/0660702c-af3c-42e6-8978-b23bf1e51c39.jpg",
+      src: "/assets/gallery-06.jpg",
       alt: "Ngọt ngào từng ánh mắt",
     },
     {
-      src: "/assets/8ae958e7-d30a-4200-b1f3-187c1f95cda2.jpg",
+      src: "/assets/gallery-07.jpg",
       alt: "Nụ cười trọn vẹn yêu thương",
     },
     {
-      src: "/assets/9d1297eb-5afd-4986-9345-b32439fa3c91.jpg",
+      src: "/assets/gallery-08.jpg",
       alt: "Khoảnh khắc tình yêu nở hoa",
     },
     {
-      src: "/assets/9a1e2fa8-7139-4191-9205-54eb6027ee1e.jpg",
+      src: "/assets/gallery-09.jpg",
       alt: "Forever and Always",
     },
   ],
@@ -201,7 +201,7 @@ export const weddingData: WeddingData = {
       title: "Lần Đầu Gặp Gỡ",
       description:
         "Khoảnh khắc hai ánh mắt vô tình giao nhau giữa một chiều thu dịu dàng. Định mệnh đã đưa chúng mình tìm thấy nhau.",
-      image: "/assets/0660702c-af3c-42e6-8978-b23bf1e51c39.jpg",
+      image: "/assets/gallery-06.jpg",
     },
     {
       year: "2022",
@@ -209,7 +209,7 @@ export const weddingData: WeddingData = {
       title: "Chạm Ngõ Trái Tim",
       description:
         "Sau những buổi chuyện trò dưới ánh đèn phố, chúng mình chính thức nắm tay nhau bắt đầu hành trình yêu thương.",
-      image: "/assets/7e576579-ef79-493a-ae38-702d72a11170.jpg",
+      image: "/assets/gallery-05.jpg",
     },
     {
       year: "2024",
@@ -217,7 +217,7 @@ export const weddingData: WeddingData = {
       title: "Hành Trình Thanh Xuân",
       description:
         "Cùng nhau ngắm hoàng hôn Quy Nhơn, lướt qua những góc phố cổ xứ Huế, sẻ chia mọi buồn vui của tuổi trẻ.",
-      image: "/assets/8ae958e7-d30a-4200-b1f3-187c1f95cda2.jpg",
+      image: "/assets/gallery-07.jpg",
     },
     {
       year: "2026",
@@ -225,7 +225,7 @@ export const weddingData: WeddingData = {
       title: "Lời Cầu Hôn Ngọt Ngào",
       description:
         "Dưới ánh hoàng hôn lãng mạn, anh trao chiếc nhẫn ước hẹn và em nghẹn ngào: 'Em đồng ý!'. Chúng mình cùng về chung một nhà.",
-      image: "/assets/9d1297eb-5afd-4986-9345-b32439fa3c91.jpg",
+      image: "/assets/gallery-08.jpg",
     },
   ],
   dressCode: {

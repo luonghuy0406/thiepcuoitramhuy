@@ -73,7 +73,7 @@ export default function ProgramSection() {
           ref={scheduleRef}
           className="rounded-3xl shadow-xl border border-[#dfbaba]/60 overflow-hidden text-left transition-all duration-300 hover:shadow-2xl"
           style={{
-            backgroundImage: "url('/assets/bg-lake-terrace-opt.jpg')",
+            backgroundImage: "url('/assets/program-bg.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

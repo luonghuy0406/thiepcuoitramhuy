@@ -101,24 +101,6 @@ export default function FloatingToolbar({
     }, 800);
   };
 
-  const scrollToRsvp = () => {
-    const el = document.getElementById("rsvp-section");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const scrollToGift = () => {
-    const el = document.getElementById("gift-section");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <div className="fixed bottom-6 right-4 sm:right-6 z-40 flex flex-col items-center gap-2.5">
       {/* Container for GSAP Floating Heart Particles */}
@@ -127,55 +109,7 @@ export default function FloatingToolbar({
         className="absolute bottom-12 right-2 pointer-events-none overflow-visible w-8 h-8"
       />
 
-      {/* Cinematic Auto-Scroll Toggle */}
-      {onToggleAutoScroll && (
-        <button
-          onClick={onToggleAutoScroll}
-          title={
-            isAutoScrolling
-              ? "Tạm dừng cuộn tự động"
-              : "Bật cuộn tự động (Cinematic)"
-          }
-          className={`w-9 h-9 rounded-full border shadow-md flex items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer ${
-            isAutoScrolling
-              ? "bg-[#812927] text-white border-[#812927] shadow-[#812927]/30"
-              : "bg-white/90 hover:bg-white text-[#812927] border-[#dfbaba]/60"
-          }`}
-        >
-          {isAutoScrolling ? (
-            <Pause className="w-4 h-4 animate-pulse" />
-          ) : (
-            <Play className="w-4 h-4 ml-0.5" />
-          )}
-        </button>
-      )}
-
-      {/* Scroll to Top */}
-      <button
-        onClick={scrollToTop}
-        title="Lên đầu trang"
-        className="w-9 h-9 rounded-full bg-white/90 hover:bg-white text-[#812927] border border-[#dfbaba]/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 cursor-pointer"
-      >
-        <ChevronUp className="w-4 h-4" />
-      </button>
-
-      {/* Gift Box shortcut */}
-      <button
-        onClick={scrollToGift}
-        title="Mở Hộp Mừng Cưới"
-        className="w-10 h-10 rounded-full bg-white/95 hover:bg-white text-[#812927] border border-[#dfbaba]/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 cursor-pointer"
-      >
-        <Gift className="w-4 h-4" />
-      </button>
-
-      {/* Wish shortcut */}
-      <button
-        onClick={scrollToRsvp}
-        title="Gửi lời chúc (RSVP)"
-        className="w-10 h-10 rounded-full bg-white/95 hover:bg-white text-[#812927] border border-[#dfbaba]/60 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-105 cursor-pointer"
-      >
-        <MessageSquareHeart className="w-4 h-4" />
-      </button>
+      
 
       {/* Heart Reaction with Badge */}
       <button

@@ -48,7 +48,7 @@ export default function VenueSection() {
         ref={cardRef}
         className="max-w-[440px] mx-auto rounded-3xl shadow-xl border border-[#dfbaba]/60 overflow-hidden text-center transition-all duration-300 hover:shadow-2xl"
         style={{
-          backgroundImage: "url('/assets/bg-silk-rose.png')",
+          backgroundImage: "url('/assets/venue-bg.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

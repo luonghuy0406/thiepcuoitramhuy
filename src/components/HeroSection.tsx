@@ -133,12 +133,12 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
     <section
       ref={sectionRef}
       id="hero-section"
-      className="relative pt-10 pb-0 px-4 flex flex-col items-center text-center overflow-visible z-10"
+      className="relative pt-10 pb-6 sm:pb-8 px-4 flex flex-col items-center text-center overflow-visible z-10"
     >
       {/* Romantic Soft Floral Pastel Pink Background Motif */}
       <div className="absolute top-0 left-0 right-0 h-[520px] pointer-events-none overflow-hidden z-0 opacity-75">
         <Image
-          src="/assets/anh3-opt.jpg"
+          src="/assets/hero-floral-bg.jpg"
           alt="Floral background"
           fill
           priority
@@ -152,7 +152,7 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
       <div ref={songHyRef} className="relative z-10 mb-1 flex items-center justify-center">
         <div className="w-12 h-12 sm:w-14 sm:h-14 relative transition-transform duration-500 hover:scale-105 cursor-pointer opacity-95">
           <Image
-            src="/assets/songhy-square.png"
+            src="/assets/song-hy-emblem.png"
             alt="Song Hỷ"
             width={70}
             height={70}
@@ -195,7 +195,7 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
         >
           <div ref={photoImageRef} className="relative w-full h-[115%] -top-[7%]">
             <Image
-              src="/assets/f9a1916a-869c-4bc2-b2c1-f01b95c3729a.png"
+              src="/assets/hero-couple.png"
               alt="Ngọc Trâm & Lương Huy"
               fill
               priority
