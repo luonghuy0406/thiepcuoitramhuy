@@ -141,10 +141,10 @@ export default function RsvpSection() {
     <section
       ref={sectionRef}
       id="rsvp-section"
-      className="min-h-[100dvh] w-full flex flex-col justify-center items-center px-3.5 py-4 snap-start relative z-10 text-center overflow-visible"
+      className="min-h-[100dvh] w-full flex flex-col justify-evenly items-center px-3.5 py-2 sm:py-3 snap-start relative z-10 text-center overflow-visible"
     >
       {/* Top Section Divider */}
-      <SectionDivider variant={2} className="my-1 sm:my-1.5" />
+      <SectionDivider variant={2} className="w-full my-0 px-0 flex-shrink-0" />
 
       <div className="w-full max-w-[420px] mx-auto">
         <h3 className="text-2xl sm:text-3xl font-script text-[#b16964] mb-0.5 drop-shadow-xs">

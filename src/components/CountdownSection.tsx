@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CalendarHeart } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 import SectionDivider from "@/components/SectionDivider";
+import AddToCalendarModal from "@/components/AddToCalendarModal";
 
 // Helper to calculate exact time remaining
 const calculateTimeLeft = () => {
@@ -28,7 +29,9 @@ const calculateTimeLeft = () => {
 export default function CountdownSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const countdownBoxesRef = useRef<HTMLDivElement>(null);
+
+  // State mở popup/bottom sheet Lưu Ngày Cưới
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
   // Initialize countdown state immediately to avoid 00:00:00 flash
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
@@ -60,6 +63,7 @@ export default function CountdownSection() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
+      // Animate container as a single unit - avoids child ScrollTrigger opacity bugs
       if (containerRef.current) {
         gsap.from(containerRef.current, {
           scrollTrigger: {
@@ -67,24 +71,9 @@ export default function CountdownSection() {
             start: "top 88%",
             once: true,
           },
-          y: 30,
+          y: 20,
           opacity: 0,
-          duration: 1.1,
-          ease: "power3.out",
-        });
-      }
-
-      if (countdownBoxesRef.current) {
-        gsap.from(countdownBoxesRef.current.children, {
-          scrollTrigger: {
-            trigger: countdownBoxesRef.current,
-            start: "top 92%",
-            once: true,
-          },
-          y: 16,
-          opacity: 0,
-          stagger: 0.08,
-          duration: 0.8,
+          duration: 0.9,
           ease: "power2.out",
         });
       }
@@ -101,48 +90,67 @@ export default function CountdownSection() {
     };
   }, []);
 
-  const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-    `Lễ Vu Quy: ${weddingData.bride.shortName} & ${weddingData.groom.shortName}`
-  )}&dates=20261215T033000Z/20261215T060000Z&details=${encodeURIComponent(
-    `Trân trọng kính mời quý khách tham dự Tiệc mừng Lễ Vu Quy tại ${weddingData.event.venueName} (${weddingData.event.venueAddress})`
-  )}&location=${encodeURIComponent(weddingData.event.venueAddress)}`;
-
   return (
     <section
       ref={sectionRef}
       id="countdown-section"
-      className="min-h-[100dvh] w-full flex flex-col justify-center items-center px-3.5 py-4 snap-start relative z-10 text-center overflow-visible"
+      className="min-h-[100dvh] w-full flex flex-col justify-evenly items-center px-3 sm:px-4 py-2 sm:py-3 snap-start relative z-10 text-center"
     >
-      {/* Top Section Divider */}
-      <SectionDivider variant={2} className="my-1 sm:my-2" />
+      {/* 1. Top Section Divider - Trải dài sát hai mép viền */}
+      <SectionDivider variant={2} className="w-full my-0 px-0 flex-shrink-0" />
 
-      <div ref={containerRef} className="w-full max-w-[440px] mx-auto text-center">
+      <div ref={containerRef} className="w-full max-w-[440px] sm:max-w-[460px] mx-auto text-center">
         {/* Save The Date Crest Badge */}
         <div className="flex items-center justify-center gap-2 mb-1 text-[#b16964]">
-          <span className="h-[1px] w-6 sm:w-8 bg-[#b16964]/30" />
+          <span className="h-[1px] w-6 sm:w-10 bg-[#b16964]/30" />
           <span className="font-cinzel text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em]">
             Save The Date
           </span>
-          <span className="h-[1px] w-6 sm:w-8 bg-[#b16964]/30" />
+          <span className="h-[1px] w-6 sm:w-10 bg-[#b16964]/30" />
         </div>
 
         {/* Section Heading */}
-        <h3 className="font-serif-luxury font-bold text-lg sm:text-xl text-[#b16964] tracking-wider uppercase mb-0.5">
+        <h3 className="font-serif-luxury font-bold text-xl sm:text-2xl text-[#b16964] tracking-wider uppercase mb-0.5">
           Đếm Ngược Ngày Chung Đôi
         </h3>
 
-        <p className="font-serif-luxury italic text-[11px] sm:text-xs text-[#b16964]/80 mb-2.5">
+        <p className="font-serif-luxury italic text-xs sm:text-[13px] text-[#b16964]/80 mb-2.5 sm:mb-3">
           Tháng {weddingData.event.month} · Năm {weddingData.event.year}
         </p>
 
-        {/* Calendar Card - Modern, refined, not overly rounded (rounded-xl) */}
-        <div className="bg-white/60 backdrop-blur-xs rounded-xl border border-[#b16964]/20 p-3 sm:p-4 mb-2.5 shadow-2xs">
+        {/* 2. ĐỒNG HỒ ĐẾM NGƯỢC (COUNTDOWN TIMER) - Đặt ngay dưới tiêu đề */}
+        <div className="grid grid-cols-4 gap-2 sm:gap-2.5 mb-3 sm:mb-4 max-w-sm sm:max-w-md mx-auto">
+          {[
+            { label: "Ngày", value: timeLeft.days },
+            { label: "Giờ", value: timeLeft.hours },
+            { label: "Phút", value: timeLeft.minutes },
+            { label: "Giây", value: timeLeft.seconds },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="py-1.5 sm:py-2 px-1 flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <span
+                suppressHydrationWarning
+                className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#b16964] leading-tight select-none"
+              >
+                {String(item.value).padStart(2, "0")}
+              </span>
+              <span className="text-[10px] sm:text-[11px] font-cinzel uppercase tracking-wider text-[#7a5252] font-semibold mt-0.5">
+                {item.label}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* 3. BẢNG LỊCH THÁNG 12 (Chỉ border, không background) */}
+        <div className="rounded-2xl border border-[#b16964]/30 p-3 sm:p-4 mb-3 sm:mb-4 max-w-sm sm:max-w-md mx-auto">
           {/* Calendar Month Header */}
-          <div className="flex items-center justify-between border-b border-[#b16964]/20 pb-1.5 mb-2 px-1">
+          <div className="flex items-center justify-between border-b border-[#b16964]/20 pb-1.5 mb-1.5 px-1">
             <span className="font-cinzel text-xs sm:text-sm font-bold tracking-[0.16em] text-[#b16964] uppercase">
               Tháng 12 · 2026
             </span>
-            <span className="text-[11px] font-serif-luxury italic text-[#b16964]/80">
+            <span className="text-[11px] sm:text-xs font-serif-luxury italic text-[#b16964]/80">
               Tức tháng 11 năm Bính Ngọ
             </span>
           </div>
@@ -210,44 +218,24 @@ export default function CountdownSection() {
           </div>
         </div>
 
-        {/* 4 Countdown Boxes - Modern, refined, rounded-xl */}
-        <div
-          ref={countdownBoxesRef}
-          className="grid grid-cols-4 gap-2 mb-3"
-        >
-          {[
-            { label: "Ngày", value: timeLeft.days },
-            { label: "Giờ", value: timeLeft.hours },
-            { label: "Phút", value: timeLeft.minutes },
-            { label: "Giây", value: timeLeft.seconds },
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="bg-white/70 backdrop-blur-xs rounded-xl py-2 px-1 border border-[#b16964]/20 shadow-2xs flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-0.5"
-            >
-              <span className="text-xl sm:text-2xl font-serif-luxury font-bold text-[#b16964] leading-tight select-none">
-                {String(item.value).padStart(2, "0")}
-              </span>
-              <span className="text-[9px] sm:text-[10px] font-cinzel uppercase tracking-wider text-[#7a5252] font-semibold mt-0.5">
-                {item.label}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Add to Google Calendar Action Button */}
+        {/* 4. NÚT LƯU NGÀY CƯỚI / ADD TO CALENDAR */}
         <div className="flex justify-center pt-0.5">
-          <a
-            href={googleCalendarUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto bg-[#7a1c1a] hover:bg-[#621614] text-white text-xs font-serif-luxury font-bold tracking-[0.16em] uppercase py-2.5 px-7 sm:px-8 rounded-full shadow-md flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95"
+          <button
+            type="button"
+            onClick={() => setIsCalendarModalOpen(true)}
+            className="w-full sm:w-auto bg-[#7a1c1a] hover:bg-[#621614] text-white text-xs sm:text-[13px] font-serif-luxury font-bold tracking-[0.16em] uppercase py-2.5 sm:py-3 px-8 sm:px-10 rounded-full shadow-md flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer"
           >
-            <CalendarHeart className="w-3.5 h-3.5 text-rose-200" />
-            <span>Thêm Vào Google Lịch</span>
-          </a>
+            <CalendarHeart className="w-4 h-4 text-rose-200" />
+            <span>Lưu Ngày Cưới</span>
+          </button>
         </div>
       </div>
+
+      {/* Popup / Bottom Sheet Lưu Ngày Cưới (Apple Calendar, Google Calendar, .ics) */}
+      <AddToCalendarModal
+        isOpen={isCalendarModalOpen}
+        onClose={() => setIsCalendarModalOpen(false)}
+      />
     </section>
   );
 }

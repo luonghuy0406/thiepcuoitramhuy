@@ -282,7 +282,7 @@ export default function Home() {
         <HeroSection isOpeningTriggered={openingStarted || envelopeOpened} />
         <FormalInvitationSection />
         <CountdownSection />
-        <SectionDivider variant={1} />
+        <SectionDivider variant={1} className="w-full my-4 sm:my-6 px-0" />
         <GallerySection />
         <RsvpSection />
         <ThankYouSection />

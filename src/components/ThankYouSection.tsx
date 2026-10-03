@@ -29,7 +29,7 @@ export default function ThankYouSection() {
 
         {/* Heading */}
         <h3 className="font-serif-luxury text-xl sm:text-2xl font-bold tracking-[0.25em] text-[#b16964] uppercase">
-          Cảm Ơn
+          Lời cảm Ơn
         </h3>
 
         {/* Divider flourish */}
@@ -37,7 +37,12 @@ export default function ThankYouSection() {
 
         {/* Message */}
         <p className="font-sans text-xs sm:text-[13px] text-[#4a3b3b] leading-relaxed max-w-xs mx-auto font-normal px-2">
-          Vì đã cùng chúng mình tạo nên khoảnh khắc đặc biệt và trọn vẹn nhất trong cuộc đời. Sự hiện diện và lời chúc phúc của bạn là món quà vô giá đối với hai gia đình.
+          Ngày vui của chúng mình sẽ trọn vẹn hơn khi có gia đình và những người thân yêu cùng hiện diện.
+          <br/>
+          Cảm ơn gia đình và mọi người đã luôn yêu thương, đồng hành và dành cho chúng mình những lời chúc tốt đẹp. Sự hiện diện của mọi người trong ngày đặc biệt này sẽ là niềm vui và kỷ niệm quý giá đối với chúng mình.
+          <br/>
+          Hẹn gặp mọi người trong ngày vui của chúng mình nhé! 
+
         </p>
 
         {/* Couple Cursive Signature */}

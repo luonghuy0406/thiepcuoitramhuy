@@ -76,15 +76,15 @@ export default function FormalInvitationSection() {
     <section
       ref={sectionRef}
       id="formal-invitation-section"
-      className="min-h-[100dvh] w-full flex flex-col justify-center items-center px-3.5 sm:px-4 py-3 sm:py-5 snap-start relative z-10 text-center overflow-hidden"
+      className="min-h-[100dvh] w-full flex flex-col justify-evenly items-center px-3.5 sm:px-4 py-2 sm:py-3 snap-start relative z-10 text-center"
     >
       {/* 1. Hoạ tiết ngăn cách trải dài sát viền trái phải */}
-      <SectionDivider variant={1} className="w-full my-1 sm:my-2 px-0" />
+      <SectionDivider variant={1} className="w-full my-0 px-0 flex-shrink-0" />
 
       {/* 2. Khung thiệp Formal Invitation tràn đều, cân đối không gian màn hình dọc */}
       <div
         ref={contentRef}
-        className="relative w-full max-w-[460px] mx-auto rounded-2xl border border-[#b16964]/25 p-5 sm:p-7 text-center shadow-xs bg-white/40 backdrop-blur-[2px]"
+        className="relative w-full max-w-[460px] mx-auto rounded-2xl border border-[#b16964]/25 p-4 sm:p-6 text-center shadow-xs bg-white/40 backdrop-blur-[2px]"
       >
         {/* 4 Baroque Corner Flourishes (hoatiet_goc.png) */}
         <div className="absolute -top-1.5 -left-1.5 w-8 h-8 sm:w-10 sm:h-10 pointer-events-none opacity-60">
@@ -234,14 +234,14 @@ export default function FormalInvitationSection() {
               <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors pointer-events-none" />
 
               {/* Floating Map Pin Badge */}
-              <div className="absolute top-2 right-2 bg-white/95 backdrop-blur-xs text-[#b16964] text-[10px] sm:text-[11px] font-serif-luxury font-bold px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1.5 pointer-events-none border border-[#b16964]/25">
+              {/* <div className="absolute top-2 right-2 bg-white/95 backdrop-blur-xs text-[#b16964] text-[10px] sm:text-[11px] font-serif-luxury font-bold px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1.5 pointer-events-none border border-[#b16964]/25">
                 <MapPin className="w-3 h-3 text-[#b16964]" />
                 <span>Mở Bản Đồ</span>
-              </div>
+              </div> */}
             </a>
 
             {/* Nút Xem Chỉ Đường */}
-            <div className="flex justify-center pt-0.5">
+            {/* <div className="flex justify-center pt-0.5">
               <a
                 href={googleMapsUrl}
                 target="_blank"
@@ -251,7 +251,7 @@ export default function FormalInvitationSection() {
                 <Navigation className="w-3.5 h-3.5" />
                 XEM CHỈ ĐƯỜNG
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
