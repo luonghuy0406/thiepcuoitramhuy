@@ -26,7 +26,7 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
   useEffect(() => {
     if (!isOpeningTriggered && !hasAnimatedRef.current) {
       if (titleRef.current) gsap.set(titleRef.current, { opacity: 0, y: 28 });
-      if (namesRef.current) gsap.set(namesRef.current, { opacity: 0, y: 20 });
+      if (namesRef.current) gsap.set(namesRef.current, { opacity: 0, y: 15 });
       if (dateRef.current) gsap.set(dateRef.current, { opacity: 0 });
       if (photoContainerRef.current) gsap.set(photoContainerRef.current, { opacity: 0, y: 35 });
     }
@@ -50,22 +50,32 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
         );
       }
 
-      // 2. Couple Names: Floating Bloom
-      if (namesRef.current) {
+      // 2. Wedding Portrait Card: Rises and settles into view
+      if (photoContainerRef.current) {
         tl.fromTo(
-          namesRef.current,
-          { opacity: 0, y: 16, scale: 0.96 },
-          { opacity: 1, y: 0, scale: 1, duration: 1.3, ease: "power2.out" },
+          photoContainerRef.current,
+          { opacity: 0, y: 30, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
           "-=0.9"
         );
       }
 
-      // 3. Date Display & Decorative Gold Lines
+      // 3. Couple Names inside Photo: Floating Bloom
+      if (namesRef.current) {
+        tl.fromTo(
+          namesRef.current,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" },
+          "-=0.7"
+        );
+      }
+
+      // 4. Date Display & Decorative Lines inside Photo
       if (dateRef.current) {
         tl.fromTo(
           dateRef.current,
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 1.1, ease: "power2.out" },
+          { opacity: 0, y: 8 },
+          { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" },
           "-=0.8"
         );
       }
@@ -76,16 +86,6 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
           { scaleX: 0, opacity: 0 },
           { scaleX: 1, opacity: 1, duration: 0.95, ease: "power2.out" },
           "<"
-        );
-      }
-
-      // 4. Wedding Portrait Card
-      if (photoContainerRef.current) {
-        tl.fromTo(
-          photoContainerRef.current,
-          { opacity: 0, y: 30, scale: 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power2.out" },
-          "-=0.8"
         );
       }
 
@@ -113,12 +113,11 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
       id="hero-section"
       className="relative -mt-20 sm:-mt-26 pb-0 flex flex-col items-center text-center overflow-visible z-10"
     >
-      {/* Top Header Text with subtle curved paths mirroring the arched photo frame */}
+      {/* 1. Header title: Large romantic script "Wedding Invitation" curved gracefully along the top crest */}
       <div className="w-full px-4 flex flex-col items-center">
-        {/* 1. Header title: Large romantic script "Wedding Invitation" curved gracefully along an arc */}
         <div
           ref={titleRef}
-          className="w-full max-w-[420px] sm:max-w-[460px] mx-auto flex flex-col items-center -mb-0.5"
+          className="w-full max-w-[420px] sm:max-w-[460px] mx-auto flex flex-col items-center"
         >
           <svg
             viewBox="0 0 500 82"
@@ -149,66 +148,15 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
             </text>
           </svg>
         </div>
-
-        {/* 2. Couple Names: Refined Cinzel uppercase font, curved harmoniously along a parallel arc */}
-        <div
-          ref={namesRef}
-          className="w-full max-w-[380px] sm:max-w-[420px] mx-auto flex flex-col items-center -mt-1 mb-1"
-        >
-          <svg
-            viewBox="0 0 500 46"
-            className="w-full h-auto overflow-visible select-none drop-shadow-2xs"
-          >
-            <defs>
-              <path
-                id="couple-names-curve"
-                d="M 30,42 C 130,8 370,8 470,42"
-                fill="none"
-              />
-            </defs>
-            <text
-              fill="#812927"
-              className="font-cinzel font-semibold uppercase"
-              style={{
-                fontFamily: "'Cinzel', 'Playfair Display', serif",
-                fontSize: "17px",
-                letterSpacing: "0.18em",
-              }}
-            >
-              <textPath
-                href="#couple-names-curve"
-                startOffset="50%"
-                textAnchor="middle"
-              >
-                {weddingData.bride.shortName} &amp; {weddingData.groom.shortName}
-              </textPath>
-            </text>
-          </svg>
-
-          {/* Date Display */}
-          <div ref={dateRef} className="flex items-center justify-center gap-2.5 sm:gap-3 mt-1">
-            <span
-              ref={dateLineLeftRef}
-              className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#812927]/30 origin-right"
-            />
-            <span className="text-[11px] sm:text-xs font-serif-luxury tracking-wider text-[#812927]/85 uppercase font-medium">
-              {weddingData.event.dateDisplay}
-            </span>
-            <span
-              ref={dateLineRightRef}
-              className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#812927]/30 origin-left"
-            />
-          </div>
-        </div>
       </div>
 
-      {/* Hero Wedding Portrait - Tràn đều ra viền trái phải, phần trên bo vòm 300px */}
-      <div className="w-full relative mt-3 sm:mt-4">
+      {/* 2. Hero Wedding Portrait - Dịch lên gần với Wedding Invitation, tràn viền trái phải, bo vòm 250px */}
+      <div className="w-full relative mt-1">
         <div
           ref={photoContainerRef}
           className="relative w-full aspect-[4/5] rounded-t-[250px] rounded-b-none overflow-hidden shadow-md bg-[#eee4e0]"
         >
-          <div ref={photoImageRef} className="relative w-full h-[115%] -top-[7%]">
+          <div ref={photoImageRef} className="relative w-full h-[115%] top-[6%]">
             <Image
               src="/assets/hero-couple.png"
               alt="Ngọc Trâm & Lương Huy"
@@ -218,8 +166,36 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
             />
           </div>
 
-          {/* Gentle bottom shade to ground the photo */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
+          {/* Bottom vignette / shade to ground the photo and provide text contrast */}
+          <div className="absolute inset-x-0 bottom-0 h-32 sm:h-36 bg-gradient-to-t from-black/65 via-black/25 to-transparent pointer-events-none z-10" />
+
+          {/* Tên cô dâu chú rể và Ngày nằm bên trong ảnh (thẳng, không cong chữ) */}
+          <div className="absolute bottom-5 sm:bottom-6 inset-x-4 flex flex-col items-center text-center pointer-events-none z-20 space-y-1">
+            {/* Couple Names - Không cong chữ, sang trọng, thanh lịch */}
+            <div
+              ref={namesRef}
+              className="flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] select-none"
+            >
+              <span>{weddingData.bride.shortName}</span>
+              <span className="text-[#fcd5ce] font-serif font-light text-xs sm:text-sm italic">&amp;</span>
+              <span>{weddingData.groom.shortName}</span>
+            </div>
+
+            {/* Date Display */}
+            <div ref={dateRef} className="flex items-center justify-center gap-2.5 sm:gap-3 mt-0.5">
+              {/* <span
+                ref={dateLineLeftRef}
+                className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-white/70 origin-right"
+              /> */}
+              <span className="text-[11px] sm:text-xs tracking-widest text-white/95 uppercase font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">
+                {weddingData.event.dateDisplay}
+              </span>
+              {/* <span
+                ref={dateLineRightRef}
+                className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-white/70 origin-left"
+              /> */}
+            </div>
+          </div>
         </div>
       </div>
     </section>
