@@ -125,7 +125,7 @@ export const weddingData: WeddingData = {
     year: 2026,
     time: "10:30",
     lunarDate: "Ngày 17 Tháng 11 Năm Bính Ngọ",
-    lunarDateDisplay: "Tức ngày 17 tháng 11 âm Bính Ngọ",
+    lunarDateDisplay: "Tức ngày 17 tháng 11 năm Bính Ngọ",
     venueName: "TRỐNG ĐỒNG PALACE",
     venueAddress: "18A Lý Văn Phúc, P. Ô Chợ Dừa, TP. Hà Nội",
     mapQuery: "Trống Đồng Palace, 18A Lý Văn Phúc, Đống Đa, Hà Nội",

@@ -25,7 +25,7 @@ export default function SectionDivider({
   return (
     <div
       className={twMerge(
-        "relative w-full max-w-[320px] sm:max-w-[380px] mx-auto my-2.5 sm:my-4 px-4 flex items-center justify-center pointer-events-none select-none",
+        "relative w-full max-w-[500px] mx-auto my-2 sm:my-3 px-0 flex items-center justify-center pointer-events-none select-none",
         className
       )}
     >

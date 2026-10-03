@@ -143,7 +143,7 @@ export default function CountdownSection() {
               Tháng 12 · 2026
             </span>
             <span className="text-[11px] font-serif-luxury italic text-[#b16964]/80">
-              Tức tháng 11 âm Bính Ngọ
+              Tức tháng 11 năm Bính Ngọ
             </span>
           </div>
 
@@ -208,30 +208,6 @@ export default function CountdownSection() {
               );
             })}
           </div>
-
-          {/* Event note below calendar */}
-          <div className="mt-2 pt-1.5 border-t border-[#b16964]/20 flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] font-serif-luxury italic text-[#b16964]">
-            <div className="w-3 h-3 relative flex-shrink-0">
-              <Image
-                src="/assets/hoatiet/tim.png"
-                alt=""
-                fill
-                className="object-contain"
-              />
-            </div>
-            <span>
-              15.12.2026 · {weddingData.event.title} ({weddingData.bride.shortName} &amp; {weddingData.groom.shortName})
-            </span>
-          </div>
-        </div>
-
-        {/* Subtle Countdown Section Label */}
-        <div className="flex items-center justify-center gap-2.5 my-2">
-          <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b16964]/40" />
-          <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.2em] text-[#b16964] uppercase font-bold">
-            Thời Gian Còn Lại
-          </span>
-          <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b16964]/40" />
         </div>
 
         {/* 4 Countdown Boxes - Modern, refined, rounded-xl */}
