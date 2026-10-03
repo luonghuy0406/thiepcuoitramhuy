@@ -3,11 +3,18 @@
 import React from "react";
 import Image from "next/image";
 import { weddingData } from "@/data/wedding-data";
+import SectionDivider from "@/components/SectionDivider";
 
 export default function ThankYouSection() {
   return (
-    <section id="thank-you-section" className="relative w-full overflow-hidden text-center select-none pt-8 pb-2">
-      <div className="relative w-full max-w-[440px] mx-auto px-4 flex flex-col items-center">
+    <section
+      id="thank-you-section"
+      className="min-h-[calc(100dvh-190px)] sm:min-h-[calc(100dvh-210px)] w-full flex flex-col justify-between items-center text-center px-4 pt-4 pb-0 snap-start relative z-10 select-none overflow-hidden"
+    >
+      {/* Top Section Divider */}
+      <SectionDivider variant={1} className="my-1 sm:my-2" />
+
+      <div className="relative w-full max-w-[440px] mx-auto px-4 flex flex-col items-center my-auto py-4">
         {/* Silk Heart Icon */}
         <div className="flex justify-center mb-2">
           <div className="w-8 h-8 relative animate-pulse">
@@ -34,7 +41,7 @@ export default function ThankYouSection() {
         </p>
 
         {/* Couple Cursive Signature */}
-        <div className="pt-4 sm:pt-6 pb-2">
+        <div className="pt-4 sm:pt-5 pb-2">
           <p className="font-serif-luxury italic text-[11px] text-[#b16964]/70 mb-1">
             With Love,
           </p>
@@ -43,6 +50,9 @@ export default function ThankYouSection() {
           </div>
         </div>
       </div>
+
+      {/* Empty bottom spacer to allow layout-end-flourish to meet section seamlessly */}
+      <div className="h-2 flex-shrink-0" />
     </section>
   );
 }

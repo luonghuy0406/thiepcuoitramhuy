@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CalendarHeart } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
+import SectionDivider from "@/components/SectionDivider";
 
 // Helper to calculate exact time remaining
 const calculateTimeLeft = () => {
@@ -110,31 +111,34 @@ export default function CountdownSection() {
     <section
       ref={sectionRef}
       id="countdown-section"
-      className="relative z-10 px-4 py-4 sm:py-6 text-center overflow-visible"
+      className="min-h-[100dvh] w-full flex flex-col justify-center items-center px-3.5 py-4 snap-start relative z-10 text-center overflow-visible"
     >
-      <div ref={containerRef} className="max-w-[440px] mx-auto text-center">
+      {/* Top Section Divider */}
+      <SectionDivider variant={2} className="my-1 sm:my-2" />
+
+      <div ref={containerRef} className="w-full max-w-[440px] mx-auto text-center">
         {/* Save The Date Crest Badge */}
-        <div className="flex items-center justify-center gap-2 mb-1.5 text-[#b16964]">
+        <div className="flex items-center justify-center gap-2 mb-1 text-[#b16964]">
           <span className="h-[1px] w-6 sm:w-8 bg-[#b16964]/30" />
-          <span className="font-cinzel text-xs font-bold uppercase tracking-[0.25em]">
+          <span className="font-cinzel text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em]">
             Save The Date
           </span>
           <span className="h-[1px] w-6 sm:w-8 bg-[#b16964]/30" />
         </div>
 
         {/* Section Heading */}
-        <h3 className="font-serif-luxury font-bold text-xl sm:text-2xl text-[#b16964] tracking-wider uppercase mb-1">
+        <h3 className="font-serif-luxury font-bold text-lg sm:text-xl text-[#b16964] tracking-wider uppercase mb-0.5">
           Đếm Ngược Ngày Chung Đôi
         </h3>
 
-        <p className="font-serif-luxury italic text-xs text-[#b16964]/80 mb-5">
+        <p className="font-serif-luxury italic text-[11px] sm:text-xs text-[#b16964]/80 mb-2.5">
           Tháng {weddingData.event.month} · Năm {weddingData.event.year}
         </p>
 
         {/* Calendar Card - Modern, refined, not overly rounded (rounded-xl) */}
-        <div className="bg-white/60 backdrop-blur-xs rounded-xl border border-[#b16964]/20 p-4 sm:p-5 mb-5 shadow-2xs">
+        <div className="bg-white/60 backdrop-blur-xs rounded-xl border border-[#b16964]/20 p-3 sm:p-4 mb-2.5 shadow-2xs">
           {/* Calendar Month Header */}
-          <div className="flex items-center justify-between border-b border-[#b16964]/20 pb-2.5 mb-3 px-1">
+          <div className="flex items-center justify-between border-b border-[#b16964]/20 pb-1.5 mb-2 px-1">
             <span className="font-cinzel text-xs sm:text-sm font-bold tracking-[0.16em] text-[#b16964] uppercase">
               Tháng 12 · 2026
             </span>
@@ -144,11 +148,11 @@ export default function CountdownSection() {
           </div>
 
           {/* Weekday Columns (T2 -> CN) */}
-          <div className="grid grid-cols-7 gap-1 text-center mb-2">
+          <div className="grid grid-cols-7 gap-1 text-center mb-1">
             {["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((day, idx) => (
               <div
                 key={idx}
-                className={`font-cinzel text-[11px] font-bold py-1 ${
+                className={`font-cinzel text-[10px] sm:text-[11px] font-bold py-0.5 ${
                   idx === 6 ? "text-[#a33f3d]" : "text-[#b16964]"
                 }`}
               >
@@ -158,13 +162,13 @@ export default function CountdownSection() {
           </div>
 
           {/* Calendar Days Grid */}
-          <div className="grid grid-cols-7 gap-1 sm:gap-1.5 text-center">
+          <div className="grid grid-cols-7 gap-1 text-center">
             {calendarCells.map((day, idx) => {
               if (day === null) {
                 return (
                   <div
                     key={`empty-${idx}`}
-                    className="w-8 h-8 sm:w-9 sm:h-9"
+                    className="w-7 h-7 sm:w-8 sm:h-8"
                   />
                 );
               }
@@ -178,7 +182,7 @@ export default function CountdownSection() {
                 >
                   {isWeddingDay ? (
                     /* Day 15 marked with the 3D silk cushion heart (tim.png) */
-                    <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center font-serif-luxury font-bold text-sm text-white select-none animate-pulse">
+                    <div className="relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center font-serif-luxury font-bold text-xs sm:text-sm text-white select-none animate-pulse">
                       <Image
                         src="/assets/hoatiet/tim.png"
                         alt="Wedding Day"
@@ -191,7 +195,7 @@ export default function CountdownSection() {
                     </div>
                   ) : (
                     <div
-                      className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center text-xs sm:text-[13px] font-sans transition-colors ${
+                      className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs font-sans transition-colors ${
                         idx % 7 === 6
                           ? "text-[#a33f3d] font-semibold"
                           : "text-[#4a3f3f]"
@@ -206,8 +210,8 @@ export default function CountdownSection() {
           </div>
 
           {/* Event note below calendar */}
-          <div className="mt-3.5 pt-2.5 border-t border-[#b16964]/20 flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-serif-luxury italic text-[#b16964]">
-            <div className="w-3.5 h-3.5 relative flex-shrink-0">
+          <div className="mt-2 pt-1.5 border-t border-[#b16964]/20 flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] font-serif-luxury italic text-[#b16964]">
+            <div className="w-3 h-3 relative flex-shrink-0">
               <Image
                 src="/assets/hoatiet/tim.png"
                 alt=""
@@ -222,18 +226,18 @@ export default function CountdownSection() {
         </div>
 
         {/* Subtle Countdown Section Label */}
-        <div className="flex items-center justify-center gap-3 my-4">
-          <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-transparent to-[#b16964]/40" />
-          <span className="font-cinzel text-[10px] tracking-[0.2em] text-[#b16964] uppercase font-bold">
+        <div className="flex items-center justify-center gap-2.5 my-2">
+          <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-r from-transparent to-[#b16964]/40" />
+          <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.2em] text-[#b16964] uppercase font-bold">
             Thời Gian Còn Lại
           </span>
-          <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-transparent to-[#b16964]/40" />
+          <span className="h-[1px] w-6 sm:w-10 bg-gradient-to-l from-transparent to-[#b16964]/40" />
         </div>
 
         {/* 4 Countdown Boxes - Modern, refined, rounded-xl */}
         <div
           ref={countdownBoxesRef}
-          className="grid grid-cols-4 gap-2 sm:gap-3 mb-5"
+          className="grid grid-cols-4 gap-2 mb-3"
         >
           {[
             { label: "Ngày", value: timeLeft.days },
@@ -243,12 +247,12 @@ export default function CountdownSection() {
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-white/70 backdrop-blur-xs rounded-xl py-2.5 px-1 border border-[#b16964]/20 shadow-2xs flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-0.5"
+              className="bg-white/70 backdrop-blur-xs rounded-xl py-2 px-1 border border-[#b16964]/20 shadow-2xs flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-0.5"
             >
-              <span className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#b16964] leading-tight select-none">
+              <span className="text-xl sm:text-2xl font-serif-luxury font-bold text-[#b16964] leading-tight select-none">
                 {String(item.value).padStart(2, "0")}
               </span>
-              <span className="text-[10px] font-cinzel uppercase tracking-wider text-[#7a5252] font-semibold mt-0.5">
+              <span className="text-[9px] sm:text-[10px] font-cinzel uppercase tracking-wider text-[#7a5252] font-semibold mt-0.5">
                 {item.label}
               </span>
             </div>
@@ -256,14 +260,14 @@ export default function CountdownSection() {
         </div>
 
         {/* Add to Google Calendar Action Button */}
-        <div className="flex justify-center pt-1">
+        <div className="flex justify-center pt-0.5">
           <a
             href={googleCalendarUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto bg-[#7a1c1a] hover:bg-[#621614] text-white text-xs sm:text-[13px] font-serif-luxury font-bold tracking-[0.16em] uppercase py-3 px-8 rounded-full shadow-md flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95"
+            className="w-full sm:w-auto bg-[#7a1c1a] hover:bg-[#621614] text-white text-xs font-serif-luxury font-bold tracking-[0.16em] uppercase py-2.5 px-7 sm:px-8 rounded-full shadow-md flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95"
           >
-            <CalendarHeart className="w-4 h-4 text-rose-200" />
+            <CalendarHeart className="w-3.5 h-3.5 text-rose-200" />
             <span>Thêm Vào Google Lịch</span>
           </a>
         </div>

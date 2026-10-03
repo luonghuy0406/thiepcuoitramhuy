@@ -95,6 +95,22 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Optimize mobile screen snap: enable gentle snap during manual browsing, disable during auto-scroll
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      if (isAutoScrolling) {
+        document.documentElement.style.scrollSnapType = "none";
+      } else {
+        document.documentElement.style.scrollSnapType = "y proximity";
+      }
+    }
+    return () => {
+      if (typeof document !== "undefined") {
+        document.documentElement.style.scrollSnapType = "";
+      }
+    };
+  }, [isAutoScrolling]);
+
   // Stop auto-scroll and remove user interaction listeners
   const stopAutoScroll = useCallback(() => {
     if (!autoScrollActiveRef.current) return;
@@ -261,16 +277,13 @@ export default function Home() {
         />
       )}
 
-      {/* Main Wedding Invitation Sections - Seamless Flow */}
-      <div id="wedding-content" className="relative z-10">
+      {/* Main Wedding Invitation Sections - 1 Screen Per Section */}
+      <div id="wedding-content" className="relative z-10 w-full">
         <HeroSection isOpeningTriggered={openingStarted || envelopeOpened} />
-        <SectionDivider variant={1} />
         <FormalInvitationSection />
-        <SectionDivider variant={2} />
         <CountdownSection />
         <SectionDivider variant={1} />
         <GallerySection />
-        <SectionDivider variant={2} />
         <RsvpSection />
         <ThankYouSection />
       </div>

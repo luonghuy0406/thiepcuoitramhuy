@@ -111,10 +111,10 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
     <section
       ref={sectionRef}
       id="hero-section"
-      className="relative -mt-20 sm:-mt-26 pb-0 flex flex-col items-center text-center overflow-visible z-10"
+      className="relative -mt-10 sm:-mt-14 pb-0 flex flex-col justify-between items-center text-center overflow-visible z-10 h-[calc(100dvh-140px)] sm:h-[calc(100dvh-150px)] min-h-[500px] snap-start"
     >
       {/* 1. Header title: Large romantic script "Wedding Invitation" curved gracefully along the top crest */}
-      <div className="w-full px-4 flex flex-col items-center">
+      <div className="w-full px-4 flex flex-col items-center flex-shrink-0">
         <div
           ref={titleRef}
           className="w-full max-w-[420px] sm:max-w-[460px] mx-auto flex flex-col items-center"
@@ -150,11 +150,11 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
         </div>
       </div>
 
-      {/* 2. Hero Wedding Portrait - Dịch lên gần với Wedding Invitation, tràn viền trái phải, bo vòm 250px */}
-      <div className="w-full relative mt-1">
+      {/* 2. Hero Wedding Portrait - Tràn viền trái phải, sát viền dưới, bo vòm 250px ở trên */}
+      <div className="w-full flex-1 min-h-0 relative mt-1.5 sm:mt-2">
         <div
           ref={photoContainerRef}
-          className="relative w-full aspect-[4/5] rounded-t-[250px] rounded-b-none overflow-hidden shadow-md bg-[#eee4e0]"
+          className="relative w-full h-full rounded-t-[250px] rounded-b-none overflow-hidden shadow-md bg-[#eee4e0]"
         >
           <div ref={photoImageRef} className="relative w-full h-[115%] top-[6%]">
             <Image
@@ -167,10 +167,10 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
           </div>
 
           {/* Bottom vignette / shade to ground the photo and provide text contrast */}
-          <div className="absolute inset-x-0 bottom-0 h-32 sm:h-36 bg-gradient-to-t from-black/65 via-black/25 to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-40 sm:h-48 bg-gradient-to-t from-black/75 via-black/35 to-transparent pointer-events-none z-10" />
 
-          {/* Tên cô dâu chú rể và Ngày nằm bên trong ảnh (thẳng, không cong chữ) */}
-          <div className="absolute bottom-5 sm:bottom-6 inset-x-4 flex flex-col items-center text-center pointer-events-none z-20 space-y-1">
+          {/* Tên cô dâu chú rể và Ngày nằm bên trong ảnh (thẳng, không cong chữ, nâng cao vừa tầm nhìn) */}
+          <div className="absolute bottom-11 sm:bottom-14 inset-x-4 flex flex-col items-center text-center pointer-events-none z-20 space-y-1">
             {/* Couple Names - Không cong chữ, sang trọng, thanh lịch */}
             <div
               ref={namesRef}
