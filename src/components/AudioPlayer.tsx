@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Music, Volume2, VolumeX } from "lucide-react";
+import { weddingData } from "@/data/wedding-data";
 
 interface AudioPlayerProps {
   autoPlayTrigger?: boolean;
@@ -53,7 +54,7 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
 
       <button
         onClick={togglePlay}
-        title={isPlaying ? "Tạm dừng nhạc" : "Bật nhạc (Lễ Đường - Kai Đinh)"}
+        title={isPlaying ? "Tạm dừng nhạc" : `Bật nhạc (${weddingData.music.title})`}
         className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg border border-white/60 backdrop-blur-md ${
           isPlaying
             ? "bg-[#e49696] text-white shadow-[#e49696]/40 scale-105"

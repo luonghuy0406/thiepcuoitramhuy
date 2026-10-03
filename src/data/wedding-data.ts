@@ -153,45 +153,45 @@ export const weddingData: WeddingData = {
     },
   ],
   music: {
-    title: "Lễ Đường - Kai Đinh",
+    title: "Beautiful in White (Saxophone Cover) - Minh Tấn Saxophonist",
     url: "/audio/wedding-music.mp3",
   },
   gallery: [
     {
       src: "/assets/gallery-01.jpg",
-      alt: "Khoảnh khắc hạnh phúc của Ngọc Trâm & Lương Huy",
+      alt: "Ngọc Trâm & Lương Huy sánh bước tại Cung đình Huế",
     },
     {
-      src: "/assets/gallery-02.png",
-      alt: "Cô dâu Ngọc Trâm xinh đẹp rạng rỡ",
+      src: "/assets/gallery-02.jpg",
+      alt: "Cô dâu Ngọc Trâm duyên dáng dưới vòm gạch cổ kính",
     },
     {
       src: "/assets/gallery-03.jpg",
-      alt: "Chân dung cô dâu bên bó hoa cưới",
+      alt: "Cô dâu Ngọc Trâm bên chiếc ô giấy truyền thống",
     },
     {
       src: "/assets/gallery-04.jpg",
-      alt: "Chú rể Lương Huy lịch lãm",
+      alt: "Chú rể Lương Huy khôi ngô, tuấn tú",
     },
     {
       src: "/assets/gallery-05.jpg",
-      alt: "Đôi uyên ương cùng chung bước",
+      alt: "Khoảnh khắc ngọt ngào của Ngọc Trâm & Lương Huy",
     },
     {
       src: "/assets/gallery-06.jpg",
-      alt: "Ngọt ngào từng ánh mắt",
+      alt: "Đôi uyên ương cùng đoàn nghi trượng Cung đình",
     },
     {
       src: "/assets/gallery-07.jpg",
-      alt: "Nụ cười trọn vẹn yêu thương",
+      alt: "Nụ cười rạng rỡ của cô dâu Ngọc Trâm",
     },
     {
       src: "/assets/gallery-08.jpg",
-      alt: "Khoảnh khắc tình yêu nở hoa",
+      alt: "Ánh mắt trao nhau ngập tràn yêu thương",
     },
     {
       src: "/assets/gallery-09.jpg",
-      alt: "Forever and Always",
+      alt: "Nụ hôn sắt son trước cổng thành Ngọ Môn",
     },
   ],
   loveStory: [
@@ -201,7 +201,7 @@ export const weddingData: WeddingData = {
       title: "Lần Đầu Gặp Gỡ",
       description:
         "Khoảnh khắc hai ánh mắt vô tình giao nhau giữa một chiều thu dịu dàng. Định mệnh đã đưa chúng mình tìm thấy nhau.",
-      image: "/assets/gallery-06.jpg",
+      image: "/assets/love-story-01.jpg",
     },
     {
       year: "2022",
@@ -209,7 +209,7 @@ export const weddingData: WeddingData = {
       title: "Chạm Ngõ Trái Tim",
       description:
         "Sau những buổi chuyện trò dưới ánh đèn phố, chúng mình chính thức nắm tay nhau bắt đầu hành trình yêu thương.",
-      image: "/assets/gallery-05.jpg",
+      image: "/assets/love-story-02.jpg",
     },
     {
       year: "2024",
@@ -217,7 +217,7 @@ export const weddingData: WeddingData = {
       title: "Hành Trình Thanh Xuân",
       description:
         "Cùng nhau ngắm hoàng hôn Quy Nhơn, lướt qua những góc phố cổ xứ Huế, sẻ chia mọi buồn vui của tuổi trẻ.",
-      image: "/assets/gallery-07.jpg",
+      image: "/assets/love-story-03.jpg",
     },
     {
       year: "2026",
@@ -225,7 +225,7 @@ export const weddingData: WeddingData = {
       title: "Lời Cầu Hôn Ngọt Ngào",
       description:
         "Dưới ánh hoàng hôn lãng mạn, anh trao chiếc nhẫn ước hẹn và em nghẹn ngào: 'Em đồng ý!'. Chúng mình cùng về chung một nhà.",
-      image: "/assets/gallery-08.jpg",
+      image: "/assets/love-story-04.jpg",
     },
   ],
   dressCode: {

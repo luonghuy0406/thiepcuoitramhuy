@@ -158,7 +158,7 @@ export default function HeroSection({ isOpeningTriggered = true }: HeroSectionPr
         >
           <div ref={photoImageRef} className="relative w-full h-[115%] top-[6%]">
             <Image
-              src="/assets/hero-couple.png"
+              src="/assets/hero-couple.jpg"
               alt="Ngọc Trâm & Lương Huy"
               fill
               priority

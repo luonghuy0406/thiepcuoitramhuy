@@ -34,6 +34,7 @@ export default function AddToCalendarModal({
 }: AddToCalendarModalProps) {
   const [device, setDevice] = useState<DeviceType>("other");
   const [actionFeedback, setActionFeedback] = useState<string | null>(null);
+  const [showAllOptions, setShowAllOptions] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -51,6 +52,7 @@ export default function AddToCalendarModal({
     } else {
       document.body.style.overflow = "";
       setActionFeedback(null);
+      setShowAllOptions(false);
     }
     return () => {
       document.body.style.overflow = "";
@@ -92,8 +94,19 @@ export default function AddToCalendarModal({
     setTimeout(() => setActionFeedback(null), 3000);
   };
 
-  const isAppleDevice = device === "ios" || device === "mac";
+  const isIPhone = device === "ios";
   const isAndroid = device === "android";
+  const isMac = device === "mac";
+  const isWindows = device === "windows";
+
+  // Ẩn/hiển thị tùy chọn phù hợp theo từng thiết bị:
+  // - Trên iPhone (iOS): Chỉ hiện Apple Calendar (ẩn Google & Android)
+  // - Trên Android: Chỉ hiện Google Calendar & Lịch Android (ẩn Apple Calendar)
+  // - Trên Mac: Hiện Apple Calendar & Google Calendar
+  // - Trên Windows / Other: Hiện Google Calendar & Tải file .ics
+  const showApple = showAllOptions || isIPhone || isMac;
+  const showGoogle = showAllOptions || isAndroid || isMac || isWindows || device === "other";
+  const showICS = showAllOptions || isAndroid || isWindows || device === "other";
 
   return (
     <div
@@ -142,18 +155,22 @@ export default function AddToCalendarModal({
           <div className="flex items-center gap-2 text-[#7a1c1a] font-bold mb-1">
             <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
             <span>
-              {isAppleDevice && "Nhận diện iPhone / Apple Calendar"}
+              {isIPhone && "Nhận diện iPhone · Lịch Apple"}
+              {isMac && "Nhận diện Mac · Apple Calendar"}
               {isAndroid && "Nhận diện thiết bị Android"}
-              {!isAppleDevice && !isAndroid && "Đã tạo file lịch cưới .ics"}
+              {!isIPhone && !isMac && !isAndroid && "Đã tạo file lịch cưới .ics"}
             </span>
           </div>
 
           <p className="text-[11px] text-[#6b5858] leading-relaxed">
-            {isAppleDevice &&
-              "File lịch đã được gửi tới máy. Nếu màn hình Lịch Apple chưa tự mở, bạn có thể nhấn nút Apple Calendar bên dưới để mở lại nhé!"}
+            {isIPhone &&
+              "File lịch đã được gửi tới máy. Nếu màn hình Lịch Apple chưa tự mở, bạn có thể nhấn nút Lịch Apple bên dưới để mở lại nhé!"}
+            {isMac &&
+              "File lịch đã được tải xuống để mở trên Apple Calendar hoặc Google Calendar."}
             {isAndroid &&
-              "File lịch .ics đã được tải xuống máy. Bạn hãy chạm vào thông báo tải về để thêm vào ứng dụng Lịch (hoặc bấm mở Google Calendar)."}
-            {!isAppleDevice &&
+              "File lịch .ics đã được tải xuống máy. Bạn hãy chạm vào thông báo tải về để thêm vào ứng dụng Lịch (hoặc bấm Google Calendar bên dưới)."}
+            {!isIPhone &&
+              !isMac &&
               !isAndroid &&
               "File .ics đã được tải về máy tính để mở bằng Outlook hoặc ứng dụng Lịch của bạn."}
           </p>
@@ -177,103 +194,118 @@ export default function AddToCalendarModal({
 
         {/* Options List */}
         <div className="space-y-2">
-          {/* 1. Apple Calendar (Được highlight nếu là thiết bị Apple) */}
-          <button
-            type="button"
-            onClick={handleAppleCalendar}
-            className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all shadow-2xs hover:shadow-xs active:scale-[0.99] cursor-pointer text-left ${
-              isAppleDevice
-                ? "bg-[#fff7f5] border-[#b16964] ring-1 ring-[#b16964]/20"
-                : "bg-white border-[#dfbaba]/60 hover:border-[#b16964]"
-            }`}
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#f5ebe8] flex items-center justify-center text-[#2a2222] flex-shrink-0">
-                <Apple className="w-4 h-4 fill-current" />
-              </div>
-              <div>
-                <div className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#2c2222]">
-                  Apple Calendar
+          {/* 1. Apple Calendar (Chỉ hiển thị cho iPhone / Mac) */}
+          {showApple && (
+            <button
+              type="button"
+              onClick={handleAppleCalendar}
+              className="w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all shadow-2xs hover:shadow-xs active:scale-[0.99] cursor-pointer text-left bg-[#fff7f5] border-[#b16964] ring-1 ring-[#b16964]/20"
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-[#f5ebe8] flex items-center justify-center text-[#2a2222] flex-shrink-0">
+                  <Apple className="w-4 h-4 fill-current" />
                 </div>
-                <div className="text-[10px] text-[#7a6b6b]">
-                  {isAppleDevice ? "Mở trực tiếp trên iPhone / Mac" : "Dành cho Apple"}
+                <div>
+                  <div className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#2c2222]">
+                    {isIPhone ? "Apple Calendar (Lịch iPhone)" : "Apple Calendar"}
+                  </div>
+                  <div className="text-[10px] text-[#7a6b6b]">
+                    {isIPhone ? "Chạm để mở và lưu vào Lịch iPhone" : "Dành cho macOS & iOS"}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {actionFeedback === "apple" ? (
-              <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded-md">
-                <Check className="w-3 h-3" />
-                Đang mở
-              </span>
-            ) : (
+              {actionFeedback === "apple" ? (
+                <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded-md">
+                  <Check className="w-3 h-3" />
+                  Đang mở
+                </span>
+              ) : (
+                <span className="text-[10px] font-cinzel font-semibold tracking-wider text-[#b16964] uppercase bg-white px-2 py-0.5 rounded-md border border-[#dfbaba]/40">
+                  {isIPhone ? "Mở lịch" : "Mở lại"}
+                </span>
+              )}
+            </button>
+          )}
+
+          {/* 2. Google Calendar (Chỉ hiển thị cho Android, Desktop, Mac) */}
+          {showGoogle && (
+            <button
+              type="button"
+              onClick={handleGoogleCalendar}
+              className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all shadow-2xs hover:shadow-xs active:scale-[0.99] cursor-pointer text-left ${
+                isAndroid
+                  ? "bg-[#fff7f5] border-[#b16964] ring-1 ring-[#b16964]/20"
+                  : "bg-white border-[#dfbaba]/60 hover:border-[#b16964]"
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-[#f5ebe8] flex items-center justify-center text-[#7a1c1a] flex-shrink-0">
+                  <CalendarPlus className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#2c2222]">
+                    Google Calendar
+                  </div>
+                  <div className="text-[10px] text-[#7a6b6b]">
+                    Mở app / đồng bộ tài khoản Google
+                  </div>
+                </div>
+              </div>
+
               <span className="text-[10px] font-cinzel font-semibold tracking-wider text-[#b16964] uppercase bg-white px-2 py-0.5 rounded-md border border-[#dfbaba]/40">
-                Mở lại
+                Mở link
               </span>
-            )}
-          </button>
+            </button>
+          )}
 
-          {/* 2. Google Calendar (Rất hữu ích cho Android hoặc người dùng Gmail) */}
-          <button
-            type="button"
-            onClick={handleGoogleCalendar}
-            className={`w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl border transition-all shadow-2xs hover:shadow-xs active:scale-[0.99] cursor-pointer text-left ${
-              isAndroid
-                ? "bg-[#fff7f5] border-[#b16964] ring-1 ring-[#b16964]/20"
-                : "bg-white border-[#dfbaba]/60 hover:border-[#b16964]"
-            }`}
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#f5ebe8] flex items-center justify-center text-[#7a1c1a] flex-shrink-0">
-                <CalendarPlus className="w-4 h-4" />
-              </div>
-              <div>
-                <div className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#2c2222]">
-                  Google Calendar
+          {/* 3. Tải file .ics (Chỉ hiển thị cho Android, Windows, Desktop) */}
+          {showICS && (
+            <button
+              type="button"
+              onClick={handleDownloadICS}
+              className="w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-white border border-[#dfbaba]/60 hover:border-[#b16964] transition-all shadow-2xs hover:shadow-xs active:scale-[0.99] cursor-pointer text-left"
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-[#f5ebe8] flex items-center justify-center text-[#7a1c1a] flex-shrink-0">
+                  <Download className="w-4 h-4" />
                 </div>
-                <div className="text-[10px] text-[#7a6b6b]">
-                  Mở web / app đồng bộ tài khoản Google
+                <div>
+                  <div className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#2c2222]">
+                    {isAndroid ? "Lịch hệ thống Android (.ics)" : "Tải file Lịch (.ics)"}
+                  </div>
+                  <div className="text-[10px] text-[#7a6b6b]">
+                    {isAndroid ? "Lưu vào ứng dụng Lịch máy / Samsung" : "Dành cho Outlook & Desktop"}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <span className="text-[10px] font-cinzel font-semibold tracking-wider text-[#b16964] uppercase bg-white px-2 py-0.5 rounded-md border border-[#dfbaba]/40">
-              Mở link
-            </span>
-          </button>
-
-          {/* 3. Tải lại file .ics */}
-          <button
-            type="button"
-            onClick={handleDownloadICS}
-            className="w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-white border border-[#dfbaba]/60 hover:border-[#b16964] transition-all shadow-2xs hover:shadow-xs active:scale-[0.99] cursor-pointer text-left"
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-[#f5ebe8] flex items-center justify-center text-[#7a1c1a] flex-shrink-0">
-                <Download className="w-4 h-4" />
-              </div>
-              <div>
-                <div className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#2c2222]">
-                  Tải lại File Lịch (.ics)
-                </div>
-                <div className="text-[10px] text-[#7a6b6b]">
-                  Dành cho Outlook, Android &amp; Desktop
-                </div>
-              </div>
-            </div>
-
-            {actionFeedback === "ics" ? (
-              <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded-md">
-                <Check className="w-3 h-3" />
-                Đã tải
-              </span>
-            ) : (
-              <span className="text-[10px] font-cinzel font-semibold tracking-wider text-[#b16964] uppercase bg-white px-2 py-0.5 rounded-md border border-[#dfbaba]/40">
-                Tải lại
-              </span>
-            )}
-          </button>
+              {actionFeedback === "ics" ? (
+                <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded-md">
+                  <Check className="w-3 h-3" />
+                  Đã tải
+                </span>
+              ) : (
+                <span className="text-[10px] font-cinzel font-semibold tracking-wider text-[#b16964] uppercase bg-white px-2 py-0.5 rounded-md border border-[#dfbaba]/40">
+                  Tải lại
+                </span>
+              )}
+            </button>
+          )}
         </div>
+
+        {/* Nút xem thêm tùy chọn lịch khác nếu muốn */}
+        {!showAllOptions && (
+          <div className="text-center pt-1">
+            <button
+              type="button"
+              onClick={() => setShowAllOptions(true)}
+              className="text-[11px] text-[#b16964]/75 hover:text-[#7a1c1a] underline transition-colors cursor-pointer"
+            >
+              Tùy chọn lịch khác
+            </button>
+          </div>
+        )}
 
         {/* Action Button: Xong */}
         <div className="mt-3.5 pt-1">

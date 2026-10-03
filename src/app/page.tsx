@@ -160,7 +160,7 @@ export default function Home() {
 
     let startTime: number | null = null;
     let lastTime: number | null = null;
-    const targetSpeed = 70; // 70 pixels per second (smooth, graceful, readable pace)
+    const targetSpeed = 50; // 50 pixels per second (thư thái, nhẹ nhàng, dễ đọc)
 
     const step = (now: number) => {
       if (!autoScrollActiveRef.current) return;

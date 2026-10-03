@@ -15,9 +15,35 @@ export default function FloatingToolbar({
 }: FloatingToolbarProps) {
   const [likes, setLikes] = useState(1024);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [canFullscreen, setCanFullscreen] = useState(false);
   const heartsPoolRef = useRef<HTMLDivElement>(null);
   const pendingLikesRef = useRef(0);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Kiểm tra thiết bị có hỗ trợ Toàn màn hình hay không (iPhone/iOS bị Apple chặn Fullscreen API cho DOM)
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof navigator === "undefined") return;
+
+    const userAgent = navigator.userAgent || "";
+    const isIPhone = /iPhone|iPod/.test(userAgent);
+    const isIOS =
+      isIPhone ||
+      /iPad/.test(userAgent) ||
+      (/Macintosh/.test(userAgent) && navigator.maxTouchPoints > 1);
+
+    const docEl = document.documentElement as any;
+    const hasFullscreenSupport = Boolean(
+      docEl.requestFullscreen ||
+        docEl.webkitRequestFullscreen ||
+        docEl.mozRequestFullScreen ||
+        docEl.msRequestFullscreen
+    );
+
+    // Ẩn nút trên iPhone / iOS vì Apple không hỗ trợ requestFullscreen trên DOM
+    if (!isIOS && hasFullscreenSupport) {
+      setCanFullscreen(true);
+    }
+  }, []);
 
   // Lắng nghe trạng thái Toàn màn hình
   useEffect(() => {
@@ -177,20 +203,22 @@ export default function FloatingToolbar({
 
       
 
-      {/* Nút bật/tắt toàn màn hình */}
-      <button
-        type="button"
-        onClick={toggleFullScreen}
-        title={isFullscreen ? "Thu nhỏ màn hình" : "Xem toàn màn hình (Ẩn thanh URL)"}
-        className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-xs text-[#7a1c1a] border border-[#dfbaba]/70 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 hover:bg-[#fff9f8] cursor-pointer"
-        aria-label="Chuyển chế độ toàn màn hình"
-      >
-        {isFullscreen ? (
-          <Minimize2 className="w-4 h-4 text-[#7a1c1a]" />
-        ) : (
-          <Maximize2 className="w-4 h-4 text-[#7a1c1a]" />
-        )}
-      </button>
+      {/* Nút bật/tắt toàn màn hình (chỉ hiển thị trên thiết bị hỗ trợ, ẩn trên iPhone/iOS) */}
+      {canFullscreen && (
+        <button
+          type="button"
+          onClick={toggleFullScreen}
+          title={isFullscreen ? "Thu nhỏ màn hình" : "Xem toàn màn hình (Ẩn thanh URL)"}
+          className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-xs text-[#7a1c1a] border border-[#dfbaba]/70 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 hover:bg-[#fff9f8] cursor-pointer"
+          aria-label="Chuyển chế độ toàn màn hình"
+        >
+          {isFullscreen ? (
+            <Minimize2 className="w-4 h-4 text-[#7a1c1a]" />
+          ) : (
+            <Maximize2 className="w-4 h-4 text-[#7a1c1a]" />
+          )}
+        </button>
+      )}
 
       {/* Heart Reaction with Badge */}
       <button
