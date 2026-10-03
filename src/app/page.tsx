@@ -200,8 +200,29 @@ export default function Home() {
     }
   };
 
+  const requestFullScreen = () => {
+    if (typeof document === "undefined") return;
+    try {
+      const docEl = document.documentElement as any;
+      if (docEl.requestFullscreen) {
+        docEl.requestFullscreen().catch(() => {});
+      } else if (docEl.webkitRequestFullscreen) {
+        docEl.webkitRequestFullscreen();
+      } else if (docEl.mozRequestFullScreen) {
+        docEl.mozRequestFullScreen();
+      } else if (docEl.msRequestFullscreen) {
+        docEl.msRequestFullscreen();
+      }
+    } catch {
+      // Bỏ qua nếu chính sách bảo mật của trình duyệt chặn fullscreen
+    }
+  };
+
   const handleStartOpening = () => {
     setMusicTriggered(true);
+    // Kích hoạt toàn màn hình khi người dùng chạm mở thiệp (hỗ trợ Android Chrome, Samsung Internet, Desktop)
+    requestFullScreen();
+
     // Thiệp cưới bên trong dần phóng to vừa khít khung hình khi 2 cánh cửa mở ra
     const content = document.getElementById("wedding-content");
     if (content) {

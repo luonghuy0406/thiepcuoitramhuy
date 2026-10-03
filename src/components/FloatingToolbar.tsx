@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
-import { Heart, MessageSquareHeart, ChevronUp, Play, Pause, Gift } from "lucide-react";
+import { Heart, Maximize2, Minimize2 } from "lucide-react";
 
 interface FloatingToolbarProps {
   isAutoScrolling?: boolean;
@@ -14,9 +14,75 @@ export default function FloatingToolbar({
   onToggleAutoScroll,
 }: FloatingToolbarProps) {
   const [likes, setLikes] = useState(1024);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const heartsPoolRef = useRef<HTMLDivElement>(null);
   const pendingLikesRef = useRef(0);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Lắng nghe trạng thái Toàn màn hình
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (typeof document === "undefined") return;
+      const isDocFullscreen = Boolean(
+        document.fullscreenElement ||
+          (document as any).webkitFullscreenElement ||
+          (document as any).mozFullScreenElement ||
+          (document as any).msFullscreenElement
+      );
+      setIsFullscreen(isDocFullscreen);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("mozfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("MSFullscreenChange", handleFullscreenChange);
+    };
+  }, []);
+
+  // Bật/tắt chế độ toàn màn hình
+  const toggleFullScreen = () => {
+    if (typeof document === "undefined") return;
+
+    const doc = document as any;
+    const docEl = document.documentElement as any;
+
+    try {
+      if (
+        !doc.fullscreenElement &&
+        !doc.webkitFullscreenElement &&
+        !doc.mozFullScreenElement &&
+        !doc.msFullscreenElement
+      ) {
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen().catch(() => {});
+        } else if (docEl.webkitRequestFullscreen) {
+          docEl.webkitRequestFullscreen();
+        } else if (docEl.mozRequestFullScreen) {
+          docEl.mozRequestFullScreen();
+        } else if (docEl.msRequestFullscreen) {
+          docEl.msRequestFullscreen();
+        }
+      } else {
+        if (doc.exitFullscreen) {
+          doc.exitFullscreen().catch(() => {});
+        } else if (doc.webkitExitFullscreen) {
+          doc.webkitExitFullscreen();
+        } else if (doc.mozCancelFullScreen) {
+          doc.mozCancelFullScreen();
+        } else if (doc.msExitFullscreen) {
+          doc.msExitFullscreen();
+        }
+      }
+    } catch {
+      // Ignored
+    }
+  };
 
   // Load initial likes count from Google Sheet via /api/likes
   useEffect(() => {
@@ -110,6 +176,21 @@ export default function FloatingToolbar({
       />
 
       
+
+      {/* Nút bật/tắt toàn màn hình */}
+      <button
+        type="button"
+        onClick={toggleFullScreen}
+        title={isFullscreen ? "Thu nhỏ màn hình" : "Xem toàn màn hình (Ẩn thanh URL)"}
+        className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-xs text-[#7a1c1a] border border-[#dfbaba]/70 shadow-md flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 hover:bg-[#fff9f8] cursor-pointer"
+        aria-label="Chuyển chế độ toàn màn hình"
+      >
+        {isFullscreen ? (
+          <Minimize2 className="w-4 h-4 text-[#7a1c1a]" />
+        ) : (
+          <Maximize2 className="w-4 h-4 text-[#7a1c1a]" />
+        )}
+      </button>
 
       {/* Heart Reaction with Badge */}
       <button

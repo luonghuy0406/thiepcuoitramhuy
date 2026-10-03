@@ -8,6 +8,10 @@ import { CalendarHeart } from "lucide-react";
 import { weddingData } from "@/data/wedding-data";
 import SectionDivider from "@/components/SectionDivider";
 import AddToCalendarModal from "@/components/AddToCalendarModal";
+import {
+  addToCalendarByDevice,
+  weddingCalendarEvent,
+} from "@/data/calendar-event";
 
 // Helper to calculate exact time remaining
 const calculateTimeLeft = () => {
@@ -32,6 +36,12 @@ export default function CountdownSection() {
 
   // State mở popup/bottom sheet Lưu Ngày Cưới
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+
+  // Xử lý khi nhấn nút Lưu Ngày Cưới: tự động nhận biết thiết bị và tải .ics / mở lịch ngay lập tức
+  const handleAddToCalendar = () => {
+    addToCalendarByDevice(weddingCalendarEvent);
+    setIsCalendarModalOpen(true);
+  };
 
   // Initialize countdown state immediately to avoid 00:00:00 flash
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
@@ -222,7 +232,7 @@ export default function CountdownSection() {
         <div className="flex justify-center pt-0.5">
           <button
             type="button"
-            onClick={() => setIsCalendarModalOpen(true)}
+            onClick={handleAddToCalendar}
             className="w-full sm:w-auto bg-[#7a1c1a] hover:bg-[#621614] text-white text-xs sm:text-[13px] font-serif-luxury font-bold tracking-[0.16em] uppercase py-2.5 sm:py-3 px-8 sm:px-10 rounded-full shadow-md flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95 cursor-pointer"
           >
             <CalendarHeart className="w-4 h-4 text-rose-200" />

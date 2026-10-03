@@ -135,6 +135,55 @@ export const generateICSContent = (
 };
 
 /**
+ * Nhận diện loại thiết bị / hệ điều hành của người dùng
+ */
+export type DeviceType = "ios" | "android" | "mac" | "windows" | "other";
+
+export const detectDevice = (): DeviceType => {
+  if (typeof window === "undefined" || typeof navigator === "undefined") {
+    return "other";
+  }
+
+  const userAgent =
+    navigator.userAgent || navigator.vendor || (window as any).opera || "";
+
+  // iOS detection (iPhone, iPad, iPod) - hỗ trợ cả iPadOS trên Safari (báo là Macintosh nhưng có cảm ứng)
+  const isIOS =
+    /iPad|iPhone|iPod/.test(userAgent) ||
+    (/Macintosh/.test(userAgent) && navigator.maxTouchPoints > 1);
+
+  if (isIOS) return "ios";
+  if (/android/i.test(userAgent)) return "android";
+  if (/Macintosh|Mac OS X/i.test(userAgent)) return "mac";
+  if (/Windows/i.test(userAgent)) return "windows";
+
+  return "other";
+};
+
+/**
+ * Tự động thêm sự kiện vào lịch theo thiết bị người dùng (1 chạm):
+ * - iPhone / iPad (iOS): Điều hướng đến /api/calendar với Content-Type text/calendar để Safari mở trực tiếp giao diện "Thêm vào Lịch" của Apple.
+ * - Android: Tải file .ics chuẩn để Android mở trực tiếp vào ứng dụng Lịch hệ thống (Google Calendar / Samsung Calendar).
+ * - Mac / Windows / Desktop: Tải file .ics chuẩn để mở bằng Apple Calendar hoặc Outlook.
+ */
+export const addToCalendarByDevice = (
+  config: WeddingCalendarEventConfig = weddingCalendarEvent
+): { device: DeviceType; success: boolean } => {
+  if (typeof window === "undefined") {
+    return { device: "other", success: false };
+  }
+
+  const device = detectDevice();
+
+  // Tải file .ics chuẩn trực tiếp trên trình duyệt (100% Client-side, không cần backend)
+  // - Trên iOS: Safari nhận diện file .ics và mở ứng dụng Apple Calendar
+  // - Trên Android: Trình duyệt tải file .ics để lưu vào Google/Samsung Calendar
+  // - Trên Desktop: Mở bằng Outlook hoặc Apple Calendar
+  downloadICSFile(config);
+  return { device, success: true };
+};
+
+/**
  * Kích hoạt tải file .ics xuống thiết bị (hỗ trợ Apple Calendar, Outlook, Android, Desktop)
  */
 export const downloadICSFile = (
@@ -157,3 +206,4 @@ export const downloadICSFile = (
     window.URL.revokeObjectURL(url);
   }, 1000);
 };
+

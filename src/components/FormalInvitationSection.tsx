@@ -76,15 +76,15 @@ export default function FormalInvitationSection() {
     <section
       ref={sectionRef}
       id="formal-invitation-section"
-      className="min-h-[100dvh] w-full flex flex-col justify-evenly items-center px-3.5 sm:px-4 py-2 sm:py-3 snap-start relative z-10 text-center"
+      className="min-h-[100dvh] w-full flex flex-col justify-center items-center px-3.5 sm:px-4 py-3 sm:py-5 snap-start relative z-10 text-center"
     >
       {/* 1. Hoạ tiết ngăn cách trải dài sát viền trái phải */}
-      <SectionDivider variant={1} className="w-full my-0 px-0 flex-shrink-0" />
+      <SectionDivider variant={1} className="w-full mb-3 sm:mb-4 px-0 flex-shrink-0" />
 
       {/* 2. Khung thiệp Formal Invitation tràn đều, cân đối không gian màn hình dọc */}
       <div
         ref={contentRef}
-        className="relative w-full max-w-[460px] mx-auto rounded-2xl border border-[#b16964]/25 p-4 sm:p-6 text-center shadow-xs bg-white/40 backdrop-blur-[2px]"
+        className="relative w-full max-w-[460px] mx-auto rounded-2xl p-5 sm:p-7 py-6 sm:py-8 text-center"
       >
         {/* 4 Baroque Corner Flourishes (hoatiet_goc.png) */}
         <div className="absolute -top-1.5 -left-1.5 w-8 h-8 sm:w-10 sm:h-10 pointer-events-none opacity-60">
@@ -125,8 +125,8 @@ export default function FormalInvitationSection() {
 
         <div className="relative z-10">
           {/* 1. TOP HEADING: TRÂN TRỌNG KÍNH MỜI [TÊN / QUÝ KHÁCH] ĐẾN CHUNG VUI CÙNG GIA ĐÌNH CHÚNG TÔI */}
-          <div className="text-center pt-0.5 mb-3.5 sm:mb-4">
-            <h3 className="font-serif-luxury font-bold text-xs sm:text-sm text-[#b16964] tracking-[0.08em] uppercase leading-relaxed max-w-sm mx-auto">
+          <div className="text-center pt-1 mb-4 sm:mb-5">
+            <h3 className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#b16964] tracking-[0.08em] uppercase leading-relaxed max-w-sm mx-auto">
               TRÂN TRỌNG KÍNH MỜI {guestDisplayName} ĐẾN
               <br />
               CHUNG VUI CÙNG GIA ĐÌNH CHÚNG TÔI
@@ -134,7 +134,7 @@ export default function FormalInvitationSection() {
           </div>
 
           {/* 2. NHÀ GÁI & NHÀ TRAI VỚI VẠCH NGĂN ĐỨNG Ở GIỮA */}
-          <div className="flex items-center justify-center my-3 sm:my-3.5 max-w-sm mx-auto">
+          <div className="flex items-center justify-center my-4 sm:my-5 max-w-sm mx-auto">
             {/* Nhà Gái (Bên trái - lên trước) */}
             <div className="flex-1 text-center pr-3 sm:pr-4">
               <h4 className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#b16964] tracking-[0.16em] uppercase mb-1">
@@ -149,7 +149,7 @@ export default function FormalInvitationSection() {
             </div>
 
             {/* Vạch ngăn đứng */}
-            <div className="w-[1px] h-11 sm:h-12 bg-[#b16964]/30 flex-shrink-0" />
+            <div className="w-[1px] h-12 sm:h-14 bg-[#b16964]/30 flex-shrink-0" />
 
             {/* Nhà Trai (Bên phải) */}
             <div className="flex-1 text-center pl-3 sm:pr-4">
@@ -166,11 +166,11 @@ export default function FormalInvitationSection() {
           </div>
 
           {/* 3. TÊN CÔ DÂU CHÚ RỂ - Cursive Calligraphy, chỉ hiển thị tên (Cô dâu trước) */}
-          <div className="my-3 sm:my-3.5 text-center space-y-0.5 select-none">
+          <div className="my-4 sm:my-5 text-center space-y-1 sm:space-y-1.5 select-none">
             <h2 className="font-calligraphy text-3xl sm:text-4xl text-[#b16964] font-normal tracking-wide drop-shadow-2xs leading-tight">
               {weddingData.bride.shortName}
             </h2>
-            <div className="font-calligraphy text-xl sm:text-2xl text-[#b16964] font-normal my-0 leading-none">
+            <div className="font-calligraphy text-xl sm:text-2xl text-[#b16964] font-normal my-0.5 leading-none">
               &amp;
             </div>
             <h2 className="font-calligraphy text-3xl sm:text-4xl text-[#b16964] font-normal tracking-wide drop-shadow-2xs leading-tight">
@@ -179,31 +179,31 @@ export default function FormalInvitationSection() {
           </div>
 
           {/* 4. BỮA TIỆC CHUNG VUI & THỜI GIAN */}
-          <div className="text-center my-3 sm:my-3.5 space-y-1.5">
+          <div className="text-center my-4 sm:my-5 space-y-2">
             <h3 className="font-serif-luxury font-bold text-xs sm:text-[13px] text-[#b16964] tracking-[0.16em] uppercase">
               BỮA TIỆC CHUNG VUI ĐƯỢC TỔ CHỨC VÀO LÚC
             </h3>
-            <div className="inline-flex flex-wrap items-center justify-center gap-2 py-1.5 px-4 sm:px-6 rounded-xl bg-white/60 border border-[#b16964]/25 text-[#b16964] shadow-2xs">
-              <span className="font-serif-luxury font-bold text-sm sm:text-base tracking-wider">
+            <div className="inline-flex flex-wrap items-center justify-center gap-2 py-2 px-4 sm:px-6 rounded-xl bg-white/40 text-[#b16964]">
+              <span className="font-serif font-bold text-sm sm:text-base tracking-wider">
                 {weddingData.event.time}
               </span>
               <span className="text-[#b16964]/40 font-light">|</span>
-              <span className="font-serif-luxury font-bold text-sm sm:text-base tracking-wider uppercase">
+              <span className="font-serif font-bold text-sm sm:text-base tracking-wider uppercase">
                 {weddingData.event.dayOfWeek}
               </span>
               <span className="text-[#b16964]/40 font-light">|</span>
-              <span className="font-serif-luxury font-bold text-sm sm:text-base tracking-wider">
+              <span className="font-serif font-bold text-sm sm:text-base tracking-wider">
                 {weddingData.event.dateDisplay}
               </span>
             </div>
             {/* Ngày âm lịch */}
-            <p className="font-serif-luxury italic text-xs sm:text-[13px] text-[#b16964]/85 text-center tracking-wide pt-0.5">
+            <p className="font-serif-luxury italic text-xs sm:text-[13px] text-[#b16964]/85 text-center tracking-wide pt-1">
               ({weddingData.event.lunarDateDisplay || "Tức ngày 17 tháng 11 năm Bính Ngọ"})
             </p>
           </div>
 
           {/* 5. ĐỊA ĐIỂM TỔ CHỨC */}
-          <div className="text-center space-y-0.5 mb-3 sm:mb-3.5">
+          <div className="text-center space-y-1 mb-4 sm:mb-5">
             <h4 className="font-serif-luxury font-bold text-xs sm:text-sm text-[#b16964] tracking-[0.14em] uppercase">
               TẠI {weddingData.event.venueName}
             </h4>
@@ -213,13 +213,13 @@ export default function FormalInvitationSection() {
           </div>
 
           {/* 6. BẢN ĐỒ GOOGLE MAPS TƯƠNG TÁC RỘNG RÃI & NÚT XEM CHỈ ĐƯỜNG */}
-          <div className="w-full mt-2.5 space-y-2.5">
+          <div className="w-full mt-3 space-y-2.5">
             {/* Live Interactive Map Frame - Rộng rãi, chi tiết, nổi bật trên màn hình dọc */}
             <a
               href={googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block w-full h-32 sm:h-36 rounded-xl overflow-hidden border border-[#b16964]/30 shadow-xs transition-all hover:border-[#b16964]/60 cursor-pointer"
+              className="group relative block w-full h-36 sm:h-44 rounded-xl overflow-hidden border border-[#b16964]/30 shadow-xs transition-all hover:border-[#b16964]/60 cursor-pointer"
               title="Nhấn để mở chỉ đường trên Google Maps"
             >
               <iframe

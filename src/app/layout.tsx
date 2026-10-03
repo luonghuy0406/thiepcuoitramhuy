@@ -7,6 +7,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
+  viewportFit: "cover",
+  themeColor: "#7a1c1a",
 };
 
 export const metadata: Metadata = {
@@ -14,6 +16,11 @@ export const metadata: Metadata = {
   title: "Lễ Vu Quy - Ngọc Trâm & Lương Huy | Thiệp cưới online",
   description: "Thiệp cưới Lễ Vu Quy của Bùi Huỳnh Ngọc Trâm & Nguyễn Lương Huy. Trân trọng kính mời quý khách tới chung vui!",
   keywords: ["thiệp cưới online", "Lễ Vu Quy", "Ngọc Trâm Lương Huy", "thiệp cưới 42", "Cinelove"],
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Lễ Vu Quy - Huy & Trâm",
+  },
   openGraph: {
     title: "Lễ Vu Quy - Ngọc Trâm & Lương Huy",
     description: "Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi!",
@@ -38,8 +45,13 @@ export default function RootLayout({
       <head>
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
         />
+        {/* Fullscreen Mobile Web App Standalone Meta Tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#7a1c1a" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
