@@ -121,17 +121,6 @@ export default function FormalInvitationSection() {
         <div className="absolute inset-1.5 sm:inset-2 border border-[#b16964]/10 rounded-xl pointer-events-none" />
 
         <div className="relative z-10">
-          {/* Decorative Bow (no.png) */}
-          <div className="flex justify-center mb-3">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 relative drop-shadow-2xs pointer-events-none">
-              <Image
-                src="/assets/hoatiet/no.png"
-                alt="Ribbon Bow"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
 
           {/* 1. TOP HEADING: TRÂN TRỌNG KÍNH MỜI [TÊN / QUÝ KHÁCH] ĐẾN CHUNG VUI CÙNG GIA ĐÌNH CHÚNG TÔI */}
           <div className="text-center pt-1 mb-5 sm:mb-6">

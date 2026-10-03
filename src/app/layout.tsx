@@ -62,17 +62,18 @@ export default function RootLayout({
             backgroundSize: "500px auto",
           }}
         >
-          {/* 1. HOẠ TIẾT ĐỈNH THIỆP (Hero Crest) - Đưa ra ngoài layout tổng, z-index dưới welcome */}
+          {/* 1. HOẠ TIẾT ĐỈNH THIỆP (Hero Crest) - Tràn đều ra viền trái và phải, top -40px */}
           <div
             id="layout-hero-crest"
-            className="w-full relative aspect-[770/324] pointer-events-none select-none z-0 drop-shadow-xs flex-shrink-0"
+            className="w-full relative -top-[40px] -mb-[40px] aspect-[660/378] pointer-events-none select-none z-0 drop-shadow-xs flex-shrink-0"
+            style={{ top: "-40px" }}
           >
             <Image
               src="/assets/hoatiet/hero-removebg-preview.png"
               alt="Wedding Header Crest"
               fill
               priority
-              className="object-contain object-top"
+              className="object-cover object-top"
             />
           </div>
 
