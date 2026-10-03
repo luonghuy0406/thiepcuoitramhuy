@@ -54,28 +54,28 @@ export default function VenueSection() {
         }}
       >
         <div className="bg-[#fffdfa]/88 backdrop-blur-[1.5px] p-6 sm:p-7 rounded-3xl">
-        <span className="text-[11px] uppercase tracking-[0.25em] text-[#812927] font-bold">
+        <span className="text-[11px] uppercase tracking-[0.25em] text-[#b16964] font-bold">
           Địa Điểm Tổ Chức
         </span>
 
-        <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#812927] mt-2 mb-1">
+        <h3 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-[#b16964] mt-2 mb-1">
           {weddingData.event.venueName}
         </h3>
 
         <div className="flex items-center justify-center gap-2 text-xs text-[#555] mb-4">
-          <MapPin className="w-3.5 h-3.5 text-[#812927]" />
+          <MapPin className="w-3.5 h-3.5 text-[#b16964]" />
           <span>{weddingData.event.venueAddress}</span>
         </div>
 
         {/* Time Badge */}
         <div className="bg-[#f9f1ef] py-3 px-4 rounded-xl border border-[#dfbaba]/40 flex items-center justify-around text-xs text-[#444] mb-6">
           <div className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4 text-[#812927]" />
+            <Clock className="w-4 h-4 text-[#b16964]" />
             <span className="font-semibold">{weddingData.event.time}</span>
           </div>
           <div className="w-[1px] h-4 bg-[#dfbaba]" />
           <div className="flex items-center gap-1.5">
-            <CalendarIcon className="w-4 h-4 text-[#812927]" />
+            <CalendarIcon className="w-4 h-4 text-[#b16964]" />
             <span>Thứ Năm, 15.12.2026</span>
           </div>
         </div>
@@ -97,9 +97,9 @@ export default function VenueSection() {
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-[#812927] text-[11px] font-medium px-3 py-1.5 rounded-full shadow-md flex items-center gap-1 transition-all"
+            className="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-[#b16964] text-[11px] font-medium px-3 py-1.5 rounded-full shadow-md flex items-center gap-1 transition-all"
           >
-            <Navigation className="w-3 h-3 text-[#812927]" />
+            <Navigation className="w-3 h-3 text-[#b16964]" />
             Mở Google Maps
           </a>
         </div>
@@ -110,7 +110,7 @@ export default function VenueSection() {
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#812927] hover:bg-[#6b2220] text-white text-xs font-medium py-2.5 px-3 rounded-xl shadow-sm flex items-center justify-center gap-1.5 transition-all"
+            className="bg-[#b16964] hover:bg-[#6b2220] text-white text-xs font-medium py-2.5 px-3 rounded-xl shadow-sm flex items-center justify-center gap-1.5 transition-all"
           >
             <Navigation className="w-3.5 h-3.5" />
             Chỉ Đường
@@ -120,7 +120,7 @@ export default function VenueSection() {
             href={googleCalendarUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white hover:bg-[#f9f1ef] text-[#812927] border border-[#812927]/40 text-xs font-medium py-2.5 px-3 rounded-xl shadow-sm flex items-center justify-center gap-1.5 transition-all"
+            className="bg-white hover:bg-[#f9f1ef] text-[#b16964] border border-[#b16964]/40 text-xs font-medium py-2.5 px-3 rounded-xl shadow-sm flex items-center justify-center gap-1.5 transition-all"
           >
             <CalendarIcon className="w-3.5 h-3.5" />
             Thêm Vào Lịch

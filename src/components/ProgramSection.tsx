@@ -56,10 +56,10 @@ export default function ProgramSection() {
     <section ref={sectionRef} id="program-section" className="py-14 px-4 text-center">
       {/* Header */}
       <div ref={headerRef} className="mb-8">
-        <span className="text-[11px] uppercase tracking-[0.35em] text-[#812927] font-semibold font-cinzel">
+        <span className="text-[11px] uppercase tracking-[0.35em] text-[#b16964] font-semibold font-cinzel">
           Chương Trình Tiệc Cưới
         </span>
-        <h3 className="text-4xl sm:text-5xl font-script text-[#812927] mt-1 mb-2">
+        <h3 className="text-4xl sm:text-5xl font-script text-[#b16964] mt-1 mb-2">
           Wedding Schedule
         </h3>
         <p className="text-xs text-[#777] font-light max-w-xs mx-auto">
@@ -88,7 +88,7 @@ export default function ProgramSection() {
             >
               {/* Time Column */}
               <div className="flex-shrink-0 w-14 sm:w-16">
-                <span className="font-serif-luxury font-bold text-base sm:text-lg text-[#812927] tracking-wide">
+                <span className="font-serif-luxury font-bold text-base sm:text-lg text-[#b16964] tracking-wide">
                   {prog.time}
                 </span>
               </div>

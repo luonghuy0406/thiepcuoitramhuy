@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #812927;
+  --color-primary: #b16964;
   --color-primary-dark: #8b2f30;
   --color-accent: #e49696;
   --color-bg: #f9f1ef;
@@ -129,7 +129,7 @@ body {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #812927;
+  background: #b16964;
 }
 
 /* Prevent iOS Safari from zooming in on input/select/textarea focus */

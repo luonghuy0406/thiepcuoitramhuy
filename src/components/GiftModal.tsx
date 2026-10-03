@@ -73,7 +73,7 @@ export default function GiftModal({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-full text-[#888] hover:text-[#812927] hover:bg-[#f9f1ef] transition-colors cursor-pointer"
+          className="absolute top-4 right-4 p-1.5 rounded-full text-[#888] hover:text-[#b16964] hover:bg-[#f9f1ef] transition-colors cursor-pointer"
           aria-label="Đóng"
         >
           <X className="w-4 h-4" />
@@ -86,8 +86,8 @@ export default function GiftModal({
             onClick={() => setActiveSide("bride")}
             className={`flex-1 py-1.5 text-[11px] font-medium rounded-lg transition-all cursor-pointer ${
               isBride
-                ? "bg-[#812927] text-white shadow-2xs font-semibold"
-                : "text-[#666] hover:text-[#812927]"
+                ? "bg-[#b16964] text-white shadow-2xs font-semibold"
+                : "text-[#666] hover:text-[#b16964]"
             }`}
           >
             Cô Dâu {weddingData.bride.shortName}
@@ -97,8 +97,8 @@ export default function GiftModal({
             onClick={() => setActiveSide("groom")}
             className={`flex-1 py-1.5 text-[11px] font-medium rounded-lg transition-all cursor-pointer ${
               !isBride
-                ? "bg-[#812927] text-white shadow-2xs font-semibold"
-                : "text-[#666] hover:text-[#812927]"
+                ? "bg-[#b16964] text-white shadow-2xs font-semibold"
+                : "text-[#666] hover:text-[#b16964]"
             }`}
           >
             Chú Rể {weddingData.groom.shortName}
@@ -107,7 +107,7 @@ export default function GiftModal({
 
         {/* Title */}
         <div className="mt-2 mb-1">
-          <span className="text-[10px] uppercase tracking-widest text-[#812927] font-semibold">
+          <span className="text-[10px] uppercase tracking-widest text-[#b16964] font-semibold">
             {isBride ? "Mừng Cưới Cô Dâu" : "Mừng Cưới Chú Rể"}
           </span>
           <h4 className="text-lg font-serif-luxury font-bold text-[#3b3232] mt-0.5">
@@ -130,7 +130,7 @@ export default function GiftModal({
         <button
           type="button"
           onClick={() => handleCopy(person.accountNumber, activeSide)}
-          className="w-full bg-[#812927] hover:bg-[#6b2220] active:scale-[0.99] text-white text-xs font-medium py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-2xs cursor-pointer mb-2.5"
+          className="w-full bg-[#b16964] hover:bg-[#6b2220] active:scale-[0.99] text-white text-xs font-medium py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-2xs cursor-pointer mb-2.5"
         >
           {copiedAccount === activeSide ? (
             <>

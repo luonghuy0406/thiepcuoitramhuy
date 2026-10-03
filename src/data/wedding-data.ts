@@ -235,7 +235,7 @@ export const weddingData: WeddingData = {
     colors: [
       {
         name: "Đỏ Rượu",
-        hex: "#812927",
+        hex: "#b16964",
         textColor: "#ffffff",
         tag: "Burgundy",
       },
@@ -248,7 +248,7 @@ export const weddingData: WeddingData = {
       {
         name: "Be Nhạt",
         hex: "#f0dfce",
-        textColor: "#812927",
+        textColor: "#b16964",
         tag: "Champagne",
       },
       {

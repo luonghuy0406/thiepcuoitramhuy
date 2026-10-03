@@ -82,7 +82,7 @@ export default function RsvpSection() {
       particleCount: 80,
       spread: 70,
       origin: { y: 0.7 },
-      colors: ["#812927", "#e49696", "#dfbaba", "#ffd166"],
+      colors: ["#b16964", "#e49696", "#dfbaba", "#ffd166"],
     });
 
     const newWish: Wish = {
@@ -135,27 +135,25 @@ export default function RsvpSection() {
   };
 
   return (
-    <section ref={sectionRef} id="rsvp-section" className="py-12 px-4 text-center">
+    <section ref={sectionRef} id="rsvp-section" className="py-6 sm:py-8 px-4 text-center">
       <div className="max-w-[440px] mx-auto">
-        <h3 className="text-3xl sm:text-4xl font-script text-[#812927] mb-2 drop-shadow-xs">
+        <h3 className="text-3xl sm:text-4xl font-script text-[#b16964] mb-2 drop-shadow-xs">
           Xác Nhận Tham Dự
         </h3>
         <p className="text-xs text-[#666] font-light mb-6 max-w-xs mx-auto">
           Sự hiện diện của bạn là niềm vinh dự cho gia đình chúng mình
         </p>
 
-        {/* RSVP Card Form */}
+        {/* RSVP Card Form - Seamless stationery on background_all */}
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="rounded-3xl shadow-xl border border-[#dfbaba]/60 text-left overflow-hidden transition-all duration-300 hover:shadow-2xl"
-          
+          className="rounded-2xl border border-[#b16964]/20 bg-white/65 backdrop-blur-xs p-5 sm:p-6 text-left space-y-4 shadow-2xs transition-all duration-300"
         >
-          <div className="bg-[#fffdfa]/88 backdrop-blur-[1.5px] p-6 sm:p-7 rounded-3xl space-y-4">
           {isSubmitted ? (
             <div className="py-8 text-center space-y-3">
-              <CheckCircle2 className="w-12 h-12 text-[#812927] mx-auto" />
-              <h4 className="text-lg font-serif-luxury font-bold text-[#812927]">
+              <CheckCircle2 className="w-12 h-12 text-[#b16964] mx-auto" />
+              <h4 className="text-lg font-serif-luxury font-bold text-[#b16964]">
                 Cảm Ơn Bạn Rất Nhiều!
               </h4>
               <p className="text-xs text-[#555] leading-relaxed">
@@ -165,7 +163,7 @@ export default function RsvpSection() {
                 <button
                   type="button"
                   onClick={() => setIsGiftModalOpen(true)}
-                  className="w-full bg-[#812927] hover:bg-[#68201f] text-white py-2.5 px-4 rounded-xl text-xs font-medium tracking-wider uppercase shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  className="w-full bg-[#b16964] hover:bg-[#68201f] text-white py-2.5 px-4 rounded-xl text-xs font-medium tracking-wider uppercase shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   <Gift className="w-3.5 h-3.5" />
                   <span>Gửi Quà Cưới Đến Dâu Rể</span>
@@ -173,7 +171,7 @@ export default function RsvpSection() {
                 <button
                   type="button"
                   onClick={() => setIsSubmitted(false)}
-                  className="text-xs font-semibold text-[#812927] underline hover:text-[#5a1c1a] cursor-pointer pt-1"
+                  className="text-xs font-semibold text-[#b16964] underline hover:text-[#5a1c1a] cursor-pointer pt-1"
                 >
                   Gửi thêm lời chúc khác
                 </button>
@@ -183,7 +181,7 @@ export default function RsvpSection() {
             <>
               {/* Name Input */}
               <div>
-                <label className="block text-xs font-semibold text-[#812927] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#b16964] uppercase tracking-wider mb-1">
                   Họ và tên của bạn <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -192,13 +190,13 @@ export default function RsvpSection() {
                   placeholder="Ví dụ: Sơn Tùng M-TP"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 transition-all text-[#3b3232]"
+                  className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#b16964]/30 transition-all text-[#3b3232]"
                 />
               </div>
 
               {/* Attendance Options */}
               <div>
-                <label className="block text-xs font-semibold text-[#812927] uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-[#b16964] uppercase tracking-wider mb-2">
                   Bạn sẽ tham dự chứ?
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -207,7 +205,7 @@ export default function RsvpSection() {
                     onClick={() => setAttending("yes")}
                     className={`py-2 px-3 text-xs rounded-xl font-medium border transition-all cursor-pointer ${
                       attending === "yes"
-                        ? "bg-[#812927] text-white border-[#812927] shadow-xs"
+                        ? "bg-[#b16964] text-white border-[#b16964] shadow-xs"
                         : "bg-[#fffcfb] text-[#555] border-[#dfbaba]"
                     }`}
                   >
@@ -218,7 +216,7 @@ export default function RsvpSection() {
                     onClick={() => setAttending("no")}
                     className={`py-2 px-3 text-xs rounded-xl font-medium border transition-all cursor-pointer ${
                       attending === "no"
-                        ? "bg-[#812927] text-white border-[#812927] shadow-xs"
+                        ? "bg-[#b16964] text-white border-[#b16964] shadow-xs"
                         : "bg-[#fffcfb] text-[#555] border-[#dfbaba]"
                     }`}
                   >
@@ -229,7 +227,7 @@ export default function RsvpSection() {
 
               {/* Guest Side */}
               <div>
-                <label className="block text-xs font-semibold text-[#812927] uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-[#b16964] uppercase tracking-wider mb-2">
                   Khách mời của
                 </label>
                 <div className="grid grid-cols-3 gap-2 text-center text-xs">
@@ -244,7 +242,7 @@ export default function RsvpSection() {
                       onClick={() => setGuestSide(item.id)}
                       className={`py-2 rounded-xl font-medium border transition-all cursor-pointer ${
                         guestSide === item.id
-                          ? "bg-[#812927] text-white border-[#812927]"
+                          ? "bg-[#b16964] text-white border-[#b16964]"
                           : "bg-[#fffcfb] text-[#555] border-[#dfbaba]"
                       }`}
                     >
@@ -257,13 +255,13 @@ export default function RsvpSection() {
               {/* Number of guests (if attending) */}
               {attending === "yes" && (
                 <div>
-                  <label className="block text-xs font-semibold text-[#812927] uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-semibold text-[#b16964] uppercase tracking-wider mb-1">
                     Số lượng người tham dự
                   </label>
                   <select
                     value={guestCount}
                     onChange={(e) => setGuestCount(e.target.value)}
-                    className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 text-[#3b3232]"
+                    className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#b16964]/30 text-[#3b3232]"
                   >
                     <option value="1">Đi một mình (1 người)</option>
                     <option value="2">Đi cùng người thương (2 người)</option>
@@ -274,7 +272,7 @@ export default function RsvpSection() {
 
               {/* Wishes Message */}
               <div>
-                <label className="block text-xs font-semibold text-[#812927] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#b16964] uppercase tracking-wider mb-1">
                   Lời chúc gửi đến dâu rể
                 </label>
                 <textarea
@@ -282,7 +280,7 @@ export default function RsvpSection() {
                   placeholder="Gửi gắm lời chúc tốt đẹp nhất..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#812927]/30 transition-all text-[#3b3232] resize-none"
+                  className="w-full text-base sm:text-xs px-3.5 py-2.5 rounded-xl border border-[#dfbaba] bg-[#fffcfb] focus:outline-none focus:ring-2 focus:ring-[#b16964]/30 transition-all text-[#3b3232] resize-none"
                 />
               </div>
 
@@ -291,7 +289,7 @@ export default function RsvpSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#812927] hover:bg-[#6b2220] disabled:bg-[#812927]/70 text-white py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer disabled:cursor-not-allowed"
+                  className="w-full bg-[#b16964] hover:bg-[#6b2220] disabled:bg-[#b16964]/70 text-white py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -314,7 +312,7 @@ export default function RsvpSection() {
                 <button
                   type="button"
                   onClick={() => setIsGiftModalOpen(true)}
-                  className="w-full bg-white hover:bg-[#fff5f4] text-[#812927] border border-[#812927]/40 py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer hover:border-[#812927]"
+                  className="w-full bg-white hover:bg-[#fff5f4] text-[#b16964] border border-[#b16964]/40 py-3 rounded-xl font-medium text-xs tracking-wider uppercase shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer hover:border-[#b16964]"
                 >
                   <Gift className="w-3.5 h-3.5" />
                   <span>Gửi Quà Mừng</span>
@@ -322,13 +320,12 @@ export default function RsvpSection() {
               </div>
             </>
           )}
-          </div>
         </form>
 
         {/* Guest Book / Recent Wishes Feed */}
         <div className="mt-8 text-left">
           <div className="flex items-center justify-between mb-3 border-b border-[#dfbaba]/40 pb-2">
-            <h4 className="text-[11px] font-cinzel uppercase tracking-[0.2em] font-bold text-[#812927]">
+            <h4 className="text-[11px] font-cinzel uppercase tracking-[0.2em] font-bold text-[#b16964]">
               Sổ Lưu Bút ({wishesList.length})
             </h4>
             <span className="text-[10px] text-[#888] font-light">
@@ -338,7 +335,7 @@ export default function RsvpSection() {
 
           {isLoadingWishes ? (
             <div className="py-8 text-center space-y-2 bg-white/40 backdrop-blur-xs rounded-xl border border-[#dfbaba]/30">
-              <div className="w-5 h-5 border-2 border-[#812927]/30 border-t-[#812927] rounded-full animate-spin mx-auto" />
+              <div className="w-5 h-5 border-2 border-[#b16964]/30 border-t-[#b16964] rounded-full animate-spin mx-auto" />
               <p className="text-[11px] text-[#888] font-light italic">
                 Đang kết nối sổ lưu bút từ Google Sheet...
               </p>
@@ -346,7 +343,7 @@ export default function RsvpSection() {
           ) : wishesList.length === 0 ? (
             <div className="bg-white/60 backdrop-blur-xs p-6 rounded-2xl border border-[#dfbaba]/40 text-center space-y-2 shadow-xs">
               <HeartHandshake className="w-7 h-7 text-[#dfbaba] mx-auto" />
-              <p className="text-xs text-[#812927] font-serif-luxury font-medium">
+              <p className="text-xs text-[#b16964] font-serif-luxury font-medium">
                 Chưa có lời chúc nào trong sổ lưu bút
               </p>
               <p className="text-[11px] text-[#888] font-light max-w-xs mx-auto leading-relaxed">
@@ -358,17 +355,17 @@ export default function RsvpSection() {
               {wishesList.map((w, idx) => (
                 <div
                   key={idx}
-                  className="bg-white/80 backdrop-blur-xs p-3.5 rounded-xl border border-[#dfbaba]/40 shadow-xs hover:border-[#812927]/30 transition-all"
+                  className="bg-white/80 backdrop-blur-xs p-3.5 rounded-xl border border-[#dfbaba]/40 shadow-xs hover:border-[#b16964]/30 transition-all"
                 >
                   <div className="flex items-center justify-between text-[11px] mb-1">
-                    <span className="font-bold text-[#812927]">{w.name}</span>
+                    <span className="font-bold text-[#b16964]">{w.name}</span>
                     <div className="flex items-center gap-1.5">
                       {w.date && (
                         <span className="text-[10px] text-[#999] font-light">
                           {w.date}
                         </span>
                       )}
-                      <span className="text-[10px] text-[#812927] bg-[#f9f1ef] px-2 py-0.5 rounded-full border border-[#dfbaba]/30 font-medium">
+                      <span className="text-[10px] text-[#b16964] bg-[#f9f1ef] px-2 py-0.5 rounded-full border border-[#dfbaba]/30 font-medium">
                         {w.side}
                       </span>
                     </div>

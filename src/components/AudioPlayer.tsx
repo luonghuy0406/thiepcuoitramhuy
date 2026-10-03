@@ -57,7 +57,7 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
         className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg border border-white/60 backdrop-blur-md ${
           isPlaying
             ? "bg-[#e49696] text-white shadow-[#e49696]/40 scale-105"
-            : "bg-white/80 text-[#812927] hover:bg-white"
+            : "bg-white/80 text-[#b16964] hover:bg-white"
         }`}
       >
         <div
@@ -68,7 +68,7 @@ export default function AudioPlayer({ autoPlayTrigger }: AudioPlayerProps) {
           {isPlaying ? (
             <Volume2 className="w-4 h-4 text-white" />
           ) : (
-            <VolumeX className="w-4 h-4 text-[#812927]" />
+            <VolumeX className="w-4 h-4 text-[#b16964]" />
           )}
         </div>
       </button>

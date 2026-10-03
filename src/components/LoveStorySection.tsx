@@ -78,14 +78,14 @@ export default function LoveStorySection() {
     <section ref={sectionRef} id="love-story-section" className="py-16 px-4 text-center">
       {/* Section Header */}
       <div ref={headerRef} className="mb-12">
-        <div className="flex items-center justify-center gap-1.5 mb-1 text-[#812927]">
+        <div className="flex items-center justify-center gap-1.5 mb-1 text-[#b16964]">
           <Sparkles className="w-3.5 h-3.5" />
           <span className="text-[11px] uppercase tracking-[0.35em] font-bold">
             Hành Trình Yêu Thương
           </span>
           <Sparkles className="w-3.5 h-3.5" />
         </div>
-        <h3 className="text-4xl font-script text-[#812927] mt-1 mb-2 drop-shadow-xs">
+        <h3 className="text-4xl font-script text-[#b16964] mt-1 mb-2 drop-shadow-xs">
           Our Love Story
         </h3>
         <p className="text-xs text-[#777] font-light max-w-xs mx-auto">
@@ -94,9 +94,9 @@ export default function LoveStorySection() {
 
         {/* Decorative divider */}
         <div className="flex items-center justify-center gap-3 my-3">
-          <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#812927]" />
-          <Heart className="w-3 h-3 text-[#812927] fill-[#812927]" />
-          <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#812927]" />
+          <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#b16964]" />
+          <Heart className="w-3 h-3 text-[#b16964] fill-[#b16964]" />
+          <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#b16964]" />
         </div>
       </div>
 
@@ -106,7 +106,7 @@ export default function LoveStorySection() {
         <div className="absolute left-[15px] top-4 bottom-8 w-[2px] bg-[#dfbaba]/50 pointer-events-none z-0">
           <div
             ref={lineProgressRef}
-            className="w-full bg-gradient-to-b from-[#e49696] via-[#812927] to-[#e49696] rounded-full shadow-[0_0_8px_rgba(129,41,39,0.4)]"
+            className="w-full bg-gradient-to-b from-[#e49696] via-[#b16964] to-[#e49696] rounded-full shadow-[0_0_8px_rgba(129,41,39,0.4)]"
             style={{ height: "0%" }}
           />
         </div>
@@ -118,8 +118,8 @@ export default function LoveStorySection() {
               className="story-card relative flex items-start gap-3 sm:gap-4.5 group"
             >
               {/* Timeline Heart Node (perfectly aligned with spine line) */}
-              <div className="relative z-10 flex-shrink-0 mt-3 w-8 h-8 rounded-full bg-white border-2 border-[#812927] shadow-md flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Heart className="w-3.5 h-3.5 text-[#812927] fill-[#812927]" />
+              <div className="relative z-10 flex-shrink-0 mt-3 w-8 h-8 rounded-full bg-white border-2 border-[#b16964] shadow-md flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Heart className="w-3.5 h-3.5 text-[#b16964] fill-[#b16964]" />
               </div>
 
               {/* Story Content Card */}
@@ -147,7 +147,7 @@ export default function LoveStorySection() {
 
                 {/* Text Info */}
                 <div className="px-1">
-                  <h4 className="text-xl font-serif-luxury font-bold text-[#812927] mb-1.5 flex items-center gap-2">
+                  <h4 className="text-xl font-serif-luxury font-bold text-[#b16964] mb-1.5 flex items-center gap-2">
                     <span>{item.title}</span>
                   </h4>
                   <p className="text-xs text-[#555] leading-relaxed font-sans font-light">

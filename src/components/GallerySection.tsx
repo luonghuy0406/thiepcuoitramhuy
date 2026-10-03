@@ -378,13 +378,13 @@ export default function GallerySection() {
   };
 
   return (
-    <section ref={sectionRef} id="gallery-section" className="py-16 px-4 text-center">
+    <section ref={sectionRef} id="gallery-section" className="py-6 sm:py-8 px-4 text-center">
       {/* Title */}
       <div ref={headerRef} className="mb-8">
-        <span className="text-[11px] uppercase tracking-[0.35em] text-[#812927] font-semibold font-cinzel">
+        <span className="text-[11px] uppercase tracking-[0.35em] text-[#b16964] font-semibold font-cinzel">
           Album Ảnh Cưới
         </span>
-        <h3 className="text-4xl sm:text-5xl font-script text-[#812927] mt-1 mb-2 drop-shadow-xs">
+        <h3 className="text-4xl sm:text-5xl font-script text-[#b16964] mt-1 mb-2 drop-shadow-xs">
           Sweet Moments
         </h3>
         <p className="text-xs text-[#777] font-light max-w-xs mx-auto">
@@ -472,7 +472,7 @@ export default function GallerySection() {
             </div>
 
             <div className="gallery-card bg-white/80 backdrop-blur-xs p-3.5 rounded-2xl border border-[#dfbaba]/50 text-center shadow-xs transition-shadow hover:shadow-md">
-              <p className="text-[11px] font-serif-luxury italic text-[#812927] leading-relaxed">
+              <p className="text-[11px] font-serif-luxury italic text-[#b16964] leading-relaxed">
                 “Bởi vì yêu anh, em thấy thế giới này dịu dàng hơn biết mấy...”
               </p>
             </div>
@@ -494,7 +494,7 @@ export default function GallerySection() {
                 className="object-cover transition-transform duration-700 group-hover:scale-106"
               />
             </div>
-            <p className="text-[11px] font-script text-[#812927] tracking-wide">
+            <p className="text-[11px] font-script text-[#b16964] tracking-wide">
               Ngọc Trâm &amp; Lương Huy
             </p>
           </div>
@@ -512,7 +512,7 @@ export default function GallerySection() {
                 className="object-cover transition-transform duration-700 group-hover:scale-106"
               />
             </div>
-            <p className="text-[11px] font-script text-[#812927] tracking-wide">
+            <p className="text-[11px] font-script text-[#b16964] tracking-wide">
               Chú rể Lương Huy
             </p>
           </div>
@@ -612,7 +612,7 @@ export default function GallerySection() {
 
           {/* Editorial Under-Quote spanning both columns */}
           <div className="col-span-2 pt-2 text-center">
-            <p className="text-[11px] font-serif-luxury italic text-[#812927]/90 leading-relaxed max-w-xs mx-auto">
+            <p className="text-[11px] font-serif-luxury italic text-[#b16964]/90 leading-relaxed max-w-xs mx-auto">
               “Hạnh phúc không phải đích đến, mà là hành trình chúng mình cùng nhau bước qua mọi thăng trầm.”
             </p>
           </div>

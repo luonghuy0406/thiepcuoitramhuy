@@ -120,7 +120,7 @@ export default function FloatingToolbar({
         <Heart className="w-6 h-6 fill-current group-hover:scale-110 transition-transform" />
 
         {/* Counter Pill */}
-        <span className="absolute -top-1.5 -left-1.5 bg-[#812927] text-[10px] text-white font-bold px-1.5 py-0.5 rounded-full shadow-sm scale-90">
+        <span className="absolute -top-1.5 -left-1.5 bg-[#b16964] text-[10px] text-white font-bold px-1.5 py-0.5 rounded-full shadow-sm scale-90">
           {likes}
         </span>
       </button>

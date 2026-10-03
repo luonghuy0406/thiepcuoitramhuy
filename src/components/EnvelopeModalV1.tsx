@@ -247,7 +247,7 @@ export default function EnvelopeModalV1({ onStart, onReveal, onOpened }: Envelop
               </defs>
               <polygon
                 points="0,0 380,0 190,145"
-                fill="#812927"
+                fill="#b16964"
                 clipPath="url(#flap-top-clip)"
               />
             </svg>
@@ -300,12 +300,12 @@ export default function EnvelopeModalV1({ onStart, onReveal, onOpened }: Envelop
             <div className="pt-1.5 pb-0.5 text-center flex flex-col items-center justify-center">
               <div className="flex items-center justify-center gap-2">
                 <span className="h-[1px] w-6 bg-[#dfbaba]" />
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#812927]/85 font-sans font-medium">
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#b16964]/85 font-sans font-medium">
                   Trân Trọng Kính Mời
                 </p>
                 <span className="h-[1px] w-6 bg-[#dfbaba]" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-script text-[#812927] mt-0.5 leading-tight">
+              <h3 className="text-xl sm:text-2xl font-script text-[#b16964] mt-0.5 leading-tight">
                 Ngọc Trâm &amp; Lương Huy
               </h3>
             </div>
@@ -385,7 +385,7 @@ export default function EnvelopeModalV1({ onStart, onReveal, onOpened }: Envelop
           onClick={handleOpen}
           className="mt-8 flex flex-col items-center cursor-pointer"
         >
-          <span className="text-xs uppercase tracking-[0.25em] font-cinzel font-medium text-white/95 bg-[#812927]/90 hover:bg-[#812927] px-7 py-3 rounded-full border border-white/25 shadow-xl transition-all hover:scale-105 active:scale-95">
+          <span className="text-xs uppercase tracking-[0.25em] font-cinzel font-medium text-white/95 bg-[#b16964]/90 hover:bg-[#b16964] px-7 py-3 rounded-full border border-white/25 shadow-xl transition-all hover:scale-105 active:scale-95">
             Chạm để mở thiệp
           </span>
         </div>

@@ -6,12 +6,11 @@ import EnvelopeModal from "@/components/EnvelopeModal";
 import PetalsCanvas from "@/components/PetalsCanvas";
 import HeroSection from "@/components/HeroSection";
 import FormalInvitationSection from "@/components/FormalInvitationSection";
-import LoveStorySection from "@/components/LoveStorySection";
 import CountdownSection from "@/components/CountdownSection";
-import VenueSection from "@/components/VenueSection";
-import ProgramSection from "@/components/ProgramSection";
 import GallerySection from "@/components/GallerySection";
 import RsvpSection from "@/components/RsvpSection";
+import ThankYouSection from "@/components/ThankYouSection";
+import SectionDivider from "@/components/SectionDivider";
 import FloatingToolbar from "@/components/FloatingToolbar";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -238,11 +237,11 @@ export default function Home() {
   }, [stopAutoScroll, handleKeyCancel]);
 
   return (
-    <main className="relative min-h-screen pb-20">
+    <main className="relative w-full pb-0">
       {/* Rose-Gold Scroll Progress Indicator at Top */}
       <div className="fixed top-0 left-0 right-0 h-[3px] z-50 bg-black/10 pointer-events-none">
         <div
-          className="h-full bg-gradient-to-r from-[#dfbaba] via-[#e49696] to-[#812927] transition-all duration-100 ease-out shadow-xs"
+          className="h-full bg-gradient-to-r from-[#dfbaba] via-[#e49696] to-[#b16964] transition-all duration-100 ease-out shadow-xs"
           style={{ width: `${scrollProgress * 100}%` }}
         />
       </div>
@@ -262,16 +261,18 @@ export default function Home() {
         />
       )}
 
-      {/* Main Wedding Invitation Sections - Rich Story Sequence */}
-      <div id="wedding-content" className="relative z-10 space-y-6">
+      {/* Main Wedding Invitation Sections - Seamless Flow */}
+      <div id="wedding-content" className="relative z-10">
         <HeroSection isOpeningTriggered={openingStarted || envelopeOpened} />
-        <CountdownSection />
+        <SectionDivider variant={1} />
         <FormalInvitationSection />
-        {/* <LoveStorySection /> */}
-        {/* <VenueSection /> */}
-        {/* <ProgramSection /> */}
+        <SectionDivider variant={2} />
+        <CountdownSection />
+        <SectionDivider variant={1} />
         <GallerySection />
+        <SectionDivider variant={2} />
         <RsvpSection />
+        <ThankYouSection />
       </div>
 
       {/* Floating Action Bar (Bottom Right) */}

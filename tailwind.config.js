@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       colors: {
         wedding: {
-          burgundy: "#812927",
+          burgundy: "#b16964",
           darkred: "#8b2f30",
           crimson: "#a33f3d",
           rose: "#e49696",
